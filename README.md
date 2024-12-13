@@ -1,18 +1,19 @@
 ### 프로젝트 구조 기획
----
+
+```plaintext
 📁 PROJECT-PORTFOLIO
-├── 📁 node_modules         
-├── 📁 public               # 정적 파일 (이미지, 폰트 등)
+├── 📁 node_modules
+├── 📁 public
 │   ├── file.svg
 │   ├── globe.svg
 │   ├── next.svg
 │   ├── vercel.svg
 │   ├── window.svg
-│   └── fonts/              # 커스텀 폰트
+│   └── fonts/
 │       └── font.ttf
-├── 📁 src                 
-│   ├── 📁 app              
-│   │   ├── layout.tsx      # 전역 레이아웃 파일
+├── 📁 src
+│   ├── 📁 app
+│   │   ├── layout.tsx
 │   │   ├── globals.css     # 글로벌 CSS
 │   │   ├── page.tsx        # 홈 페이지
 │   │   ├── 📁 about        # About 페이지
@@ -41,12 +42,13 @@
 │       └── formatDate.ts   # 날짜 포맷 함수 등
 ├── favicon.ico             
 ├── .gitignore              
-├── eslint.config.mjs      
+├── eslint.config.mjs       
 ├── next-env.d.ts           
-├── next.config.ts          
+├── next.config.ts         
 ├── package-lock.json       
 ├── package.json            
-├── postcss.config.mjs      
-├── README.md               
-├── tailwind.config.ts      
-└── tsconfig.json           
+├── postcss.config.mjs     
+├── README.md              
+├── tailwind.config.ts     
+└── tsconfig.json          
+```
