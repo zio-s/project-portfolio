@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 프로젝트 구조 기획
+---
+📁 PROJECT-PORTFOLIO
+├── 📁 node_modules         
+├── 📁 public               # 정적 파일 (이미지, 폰트 등)
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   ├── window.svg
+│   └── fonts/              # 커스텀 폰트
+│       └── font.ttf
+├── 📁 src                 
+│   ├── 📁 app              
+│   │   ├── layout.tsx      # 전역 레이아웃 파일
+│   │   ├── globals.css     # 글로벌 CSS
+│   │   ├── page.tsx        # 홈 페이지
+│   │   ├── 📁 about        # About 페이지
+│   │   │   └── page.tsx
+│   │   ├── 📁 projects     # 프로젝트 목록 및 상세 페이지
+│   │   │   ├── page.tsx    # 프로젝트 목록 페이지
+│   │   │   └── [id]/       # 동적 라우팅: 프로젝트 상세 페이지
+│   │   │       └── page.tsx
+│   │   └── 📁 contact      # Contact 페이지
+│   │       └── page.tsx
+│   ├── 📁 components       # 재사용 가능한 컴포넌트
+│   │   ├── Header.tsx      # 헤더 컴포넌트
+│   │   ├── Footer.tsx      # 푸터 컴포넌트
+│   │   ├── Navbar.tsx      # 네비게이션 바
+│   │   └── Button.tsx      # 재사용 가능한 버튼
+│   ├── 📁 animations       # 애니메이션 관리
+│   │   ├── HeroAnimation.tsx # 홈 히어로 섹션 애니메이션
+│   │   ├── ScrollEffects.tsx # 스크롤 애니메이션
+│   │   └── Globe3D.tsx     # Three.js를 활용한 3D 지구본 (미정)
+│   ├── 📁 hooks            # 커스텀 훅
+│   │   └── useScroll.ts    # 스크롤 관련 훅
+│   ├── 📁 styles           # Tailwind 확장 및 전역 스타일
+│   │   ├── variables.css   # CSS 변수
+│   │   └── mixins.css      # 공통 스타일 믹스인
+│   └── 📁 utils            # 유틸리티 함수 모음
+│       └── formatDate.ts   # 날짜 포맷 함수 등
+├── favicon.ico             
+├── .gitignore              
+├── eslint.config.mjs      
+├── next-env.d.ts           
+├── next.config.ts          
+├── package-lock.json       
+├── package.json            
+├── postcss.config.mjs      
+├── README.md               
+├── tailwind.config.ts      
+└── tsconfig.json           
