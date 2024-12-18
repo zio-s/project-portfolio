@@ -1,0 +1,11 @@
+.d-portrait-none {
+  @media (orientation: portrait) {
+    display: none;
+  }
+}
+
+.d-landscape-none {
+  @media (orientation: landscape) {
+    display: none;
+  }
+}

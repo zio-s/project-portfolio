@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'variables';
+@import 'layout';
+@import 'components/header';
+@import 'components/projects';
+@import 'components/titles';
+@import 'animations';
+@import 'utils';
+
+// 전역 스타일
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  &.lenis {
+    height: auto;
+  }
+
+  &.lenis.lenis-smooth {
+    scroll-behavior: auto;
+
+    [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+  }
+}
+
+body {
+  font-family: 'Instrument Sans', sans-serif;
+  background: var(--color3);
+  color: var(--color2);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.fonty {
+  font-family: 'Editorial', serif;
+}

@@ -1,7 +1,7 @@
+import { MainLayout } from '@/components/layout/MainLayout';
 import type { Metadata } from 'next';
-import './globals.css';
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
+import '@/styles/globals.scss';
+// import Container from '@/components/layout/Container';
 
 export const metadata: Metadata = {
   title: 'B의 Portfolio',
@@ -32,13 +32,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
-      <body className='bg-[#8A5A4A] text-white'>
-        <div className='wrap relative min-h-screen flex flex-col'>
-          <Header />
-          <main className='flex-grow'>{children}</main>
-          <Footer />
-        </div>
+    <html lang='ko'>
+      <body>
+        <MainLayout>{children}</MainLayout>
       </body>
     </html>
   );

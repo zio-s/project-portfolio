@@ -1,0 +1,51 @@
+import { Project } from '@/types/project';
+
+export const projectsData: Project[] = [
+  {
+    id: 'creative-studio',
+    title: 'Creative Studio',
+    description: '창의적인 디자인 스튜디오 프로젝트',
+    year: '2024',
+    image: ['/images/common/placeholder.png', '/images/creative-studio/secondary.webp'],
+    secondaryImage: '/images/creative-studio/secondary.webp',
+    color: '#F5E6D3',
+  },
+  {
+    id: 'digital-experience',
+    title: 'Digital Experience',
+    description: '디지털 경험 디자인',
+    year: '2024',
+    image: ['/images/common/placeholder.png', '/images/creative-studio/secondary.webp'],
+    video: '/videos/digital-experience/showcase.mp4',
+    videoPoster: '/images/digital-experience/poster.webp',
+    color: '#E6F0ED',
+  },
+  {
+    id: 'interactive-installation',
+    title: 'Interactive Installation',
+    description: '인터랙티브 설치 미술',
+    year: '2024',
+    image: ['/images/common/placeholder.png', '/images/creative-studio/secondary.webp'],
+    secondaryImage: '/images/interactive/secondary.webp',
+    color: '#F0E5E9',
+  },
+  {
+    id: 'brand-identity',
+    title: 'Brand Identity',
+    description: '브랜드 아이덴티티 디자인',
+    year: '2024',
+    image: ['/images/common/placeholder.png', '/images/creative-studio/secondary.webp'],
+    video: '/videos/brand/showcase.mp4',
+    videoPoster: '/images/brand/poster.webp',
+    color: '#E8EFF5',
+  },
+  {
+    id: 'motion-graphics',
+    title: 'Motion Graphics',
+    description: '모션 그래픽 디자인',
+    year: '2024',
+    image: ['/images/common/placeholder.png', '/images/creative-studio/secondary.webp'],
+    secondaryImage: '/images/motion/secondary.webp',
+    color: '#F5EDE5',
+  },
+];

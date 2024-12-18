@@ -1,0 +1,14 @@
+// styles/layout.scss
+.main-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  &.state-loading {
+    #stage {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+}
