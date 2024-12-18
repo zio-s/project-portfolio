@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
     "@types/gsap": "^3.0.0",
     "gsap": "^3.12.5",
     "next": "15.1.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "sass": "^1.83.0",
+    "tailwind-merge": "^2.5.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
