@@ -12,6 +12,7 @@
     "@studio-freight/lenis": "^1.0.42",
     "@types/gsap": "^3.0.0",
     "gsap": "^3.12.5",
+    "lodash": "^4.17.21",
     "next": "15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/lodash": "^4.17.13",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
