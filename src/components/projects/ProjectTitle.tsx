@@ -7,23 +7,19 @@ interface ProjectTitleProps {
   isActive: boolean;
 }
 
-export const ProjectTitle = memo(({ project, isActive }: ProjectTitleProps) => {
+export const ProjectTitle = memo(({ project }: ProjectTitleProps) => {
   return (
-    <div className={`title words_holder ${isActive ? 'active' : ''}`} data-id={project.id}>
+    <div className={`title words_holder `} data-id={project.id}>
       <div className='title_holder'>
         <div className='client fw-bold mask'>
           <span>
-            <span>
-              <span>
-                {project.year} &mdash; {project.client}
-              </span>
-            </span>
+            {project.year} &mdash; {project.title}
           </span>
         </div>
 
         <Link
           href={`/project/${project.id}`}
-          className='more title_in fonty words'
+          className='more title_in words'
           data-id={project.id}
           data-title={`${project.title} — Portfolio`}
         >
