@@ -22,47 +22,85 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
   const [isVertical, setIsVertical] = useState(false);
   // useProjectAnimation 훅에 추가할 디테일 페이지 관련 로직
 
-  const openProjectDetail = useCallback((holder: HTMLElement) => {
-    if (!holder || !lenisRef.current) return;
+  const openProjectDetail = useCallback(
+    (holder: HTMLElement) => {
+      if (!holder || !lenisRef.current) return;
 
-    lenisRef.current.stop();
-    document.body.classList.add('details');
-    document.body.classList.remove('home');
+      lenisRef.current.stop();
+      document.body.classList.add('details');
+      document.body.classList.remove('home');
 
-    // 카드 컨테이너 애니메이션 추가
-    const cardsContainer = document.querySelector('#cards') as HTMLElement;
-    const cardsTitle = document.querySelector('#titles') as HTMLElement;
-    if (cardsContainer && window.innerWidth >= window.innerHeight) {
-      gsap.to(cardsContainer, {
-        xPercent: -75, // translate(-50% - 25vw)의 효과를 위해 추가 -25% 적용
-        duration: 1.2,
-        scale: 0.8,
-        ease: 'expo.out',
+      const projectId = holder.getAttribute('data-project-id');
+      if (projectId) {
+        setActiveProject(projectId);
+      }
+
+      // 카드 컨테이너 애니메이션 추가
+      const cardsContainer = document.querySelector('#cards') as HTMLElement;
+      const cardsTitle = document.querySelector('#titles') as HTMLElement;
+      if (cardsContainer && window.innerWidth >= window.innerHeight) {
+        gsap.to(cardsContainer, {
+          xPercent: -75, // translate(-50% - 25vw)의 효과를 위해 추가 -25% 적용
+          duration: 1.2,
+          scale: 0.8,
+          ease: 'expo.out',
+        });
+        gsap.to(cardsTitle, {
+          xPercent: -25,
+          duration: 1.2,
+          scale: 0.8,
+          ease: 'expo.out',
+        });
+      } else {
+        const cards = holder.querySelectorAll('.card');
+        const huh = Math.random() > 0.5 ? 1 : -1;
+        const huh2 = Math.random() > 0.5 ? 1 : -1;
+
+        // 카드 이동 애니메이션
+        gsap.to(cards[0], {
+          xPercent: (window.innerWidth / parseInt(getComputedStyle(cards[0]).width)) * 40 * huh * -1,
+          yPercent: (window.innerHeight / parseInt(getComputedStyle(cards[0]).height)) * 35 * huh2 * -1,
+          rotation: gsap.utils.random(6, 18) * huh * -1,
+          opacity: 0.5,
+          duration: 1.2,
+          scale: 0.7,
+          ease: 'expo.out',
+        });
+
+        gsap.to(cards[1], {
+          xPercent: (window.innerWidth / parseInt(getComputedStyle(cards[1]).width)) * 40 * huh,
+          yPercent: (window.innerHeight / parseInt(getComputedStyle(cards[1]).height)) * 35 * huh2,
+          rotation: gsap.utils.random(6, 18) * huh,
+          opacity: 0.5,
+          duration: 1.2,
+          scale: 0.7,
+          ease: 'expo.out',
+        });
+      }
+      // 나머지 카드들 페이드 아웃
+      const otherCards = gsap.utils.toArray<HTMLElement>('.card-holder:not(.active)');
+      gsap.to(otherCards, {
+        opacity: 0,
+        duration: 0.4,
       });
-      gsap.to(cardsTitle, {
-        xPercent: -25,
-        duration: 1.2,
-        scale: 0.8,
-        ease: 'expo.out',
-      });
-    }
-    // 나머지 카드들 페이드 아웃
-    const otherCards = gsap.utils.toArray<HTMLElement>('.card-holder:not(.active)');
-    gsap.to(otherCards, {
-      opacity: 0,
-      duration: 0.4,
-    });
-  }, []);
+    },
+    [lenisRef, setActiveProject]
+  );
 
   const closeProjectDetail = useCallback(() => {
     if (!lenisRef.current) return;
 
     lenisRef.current.start();
     document.body.classList.remove('details');
+    document.body.classList.add('home');
 
+    setActiveProject('');
+    // 카드 컨테이너 애니메이션 추가
     const cardsContainer = document.querySelector('#cards') as HTMLElement;
     const cardsTitle = document.querySelector('#titles') as HTMLElement;
-    if (cardsContainer) {
+    const activeHolder = document.querySelector('.card-holder.active') as HTMLElement; // 현재 활성화된 카드 홀더 찾기
+
+    if (cardsContainer && window.innerWidth >= window.innerHeight) {
       gsap.to(cardsContainer, {
         xPercent: -50,
         duration: 1.2,
@@ -75,6 +113,30 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
         scale: 1,
         ease: 'expo.out',
       });
+    } else {
+      const activeCards = activeHolder?.querySelectorAll('.card');
+
+      // 첫 번째 카드 원위치
+      gsap.to(activeCards[0], {
+        xPercent: 0,
+        yPercent: 0,
+        rotation: 0,
+        opacity: 1,
+        duration: 1.2,
+        scale: 1,
+        ease: 'expo.out',
+      });
+
+      // 두 번째 카드 원위치
+      gsap.to(activeCards[1], {
+        xPercent: 0,
+        yPercent: 0,
+        rotation: 0,
+        opacity: 1,
+        duration: 1.2,
+        scale: 1,
+        ease: 'expo.out',
+      });
     }
 
     // 나머지 카드들 페이드 인
@@ -83,8 +145,12 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       opacity: 1,
       duration: 0.4,
       delay: 0.6,
+      onComplete: () => {
+        // 애니메이션 완료 후 active 클래스 제거
+        activeHolder?.classList.remove('active');
+      },
     });
-  }, []);
+  }, [setActiveProject]);
   // 활성 카드 애니메이션
   const animateActiveCard = useCallback((holder: HTMLElement) => {
     if (!holder || isScrollingRef.current) return;
