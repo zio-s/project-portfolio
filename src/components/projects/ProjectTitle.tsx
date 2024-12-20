@@ -5,9 +5,17 @@ import { Project } from '@/types/project';
 interface ProjectTitleProps {
   project: Project;
   isActive: boolean;
+  openProjectDetail: (holder: HTMLElement) => void;
 }
 
-export const ProjectTitle = memo(({ project }: ProjectTitleProps) => {
+export const ProjectTitle = memo(({ project, openProjectDetail }: ProjectTitleProps) => {
+  const handleDetailClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const cardHolder = document.querySelector(`.card-holder[data-id="${project.id}"]`);
+    if (cardHolder instanceof HTMLElement) {
+      openProjectDetail(cardHolder);
+    }
+  };
   return (
     <div className={`title words_holder `} data-id={project.id}>
       <div className='title_holder'>
@@ -22,6 +30,7 @@ export const ProjectTitle = memo(({ project }: ProjectTitleProps) => {
           className='more title_in words'
           data-id={project.id}
           data-title={`${project.title} — Portfolio`}
+          onClick={handleDetailClick}
         >
           <span className='d-flex'>
             <span className='word'>
@@ -40,7 +49,7 @@ export const ProjectTitle = memo(({ project }: ProjectTitleProps) => {
 
         <div className='meta'>
           <div className='links'>
-            <Link className='more' href={`/project/${project.id}`} data-id={project.id}>
+            <Link className='more' href={`/project/${project.id}`} data-id={project.id} onClick={handleDetailClick}>
               Details &nbsp;&nbsp;<i className='bi bi-plus-circle'></i>
             </Link>
             {project?.links?.live && (
