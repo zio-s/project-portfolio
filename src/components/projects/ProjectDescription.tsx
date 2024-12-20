@@ -14,21 +14,34 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
 
   useEffect(() => {
     if (isActive && contentRef.current) {
-      // 초기 상태 설정
-      gsap.set(contentRef.current.children, {
-        y: 30,
-        opacity: 0,
-      });
-
-      // 등장 애니메이션
-      gsap.to(contentRef.current.children, {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power3.out',
-        delay: 0.3, // 패널이 슬라이드 된 후 시작
-      });
+      gsap.fromTo(
+        // HTMLElement[]로 타입 단언
+        Array.from(contentRef.current.children) as HTMLElement[],
+        {
+          y: 30,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'power3.out',
+          delay: 0.6,
+        }
+      );
+    } else if (contentRef.current) {
+      gsap.to(
+        // HTMLElement[]로 타입 단언
+        Array.from(contentRef.current.children) as HTMLElement[],
+        {
+          y: 30,
+          opacity: 0,
+          duration: 0.3,
+          stagger: 0.05,
+          ease: 'power2.in',
+        }
+      );
     }
   }, [isActive]);
 
@@ -62,7 +75,7 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
             </p>
           </div>
 
-          <div className='meta'>
+          <div className='detail'>
             <div className='links'>
               {project?.links?.live && (
                 <a className='go' target='_blank' href={project.links.live} rel='noopener noreferrer'>
