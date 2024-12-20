@@ -1,0 +1,135 @@
+.description {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100vh;
+  background: var(--background-color);
+  z-index: 100;
+  transform: translateX(100%);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+
+  .inner_container {
+    position: relative;
+    height: 100%;
+    padding: 10vh max(2rem, 4vw);
+    min-height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .inner {
+    position: relative;
+    padding-inline-start: 50%;
+    max-width: 90rem;
+    width: 100%;
+  }
+
+  .description_in {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    line-height: 1.5;
+    margin: 2rem 0;
+  }
+
+  .meta {
+    margin-top: 3rem;
+
+    .links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    button,
+    a {
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      transition: opacity 0.3s ease;
+      border: 1px solid #000;
+      border-radius: 10px;
+      padding: 0 2rem;
+      scale: 1;
+      transition: 0.2s;
+
+      &:hover {
+        border: 1px solid #fff;
+        scale: 1.1;
+      }
+    }
+  }
+}
+
+.details .description.active {
+  transform: translateX(0);
+}
+
+// 세로 모드 (모바일) 대응
+@media (orientation: portrait), (max-width: 768px) {
+  .description {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    transform: translateY(100%);
+
+    .inner_container {
+      padding: 2rem;
+    }
+
+    .inner {
+      padding-inline-start: 0;
+    }
+
+    .description_in {
+      font-size: 1rem;
+    }
+
+    .meta {
+      margin-top: 2rem;
+
+      .links {
+        gap: 1rem;
+      }
+    }
+  }
+
+  .details .description.active {
+    transform: translateY(0);
+  }
+
+  .d-portrait-none {
+    display: none;
+  }
+}
+
+// 가로 모드에서 작은 높이 대응
+@media (max-height: 700px) and (orientation: landscape) {
+  .description {
+    .inner_container {
+      padding: 5vh max(2rem, 4vw);
+    }
+
+    .description_in {
+      font-size: 1rem;
+      margin: 1rem 0;
+    }
+
+    .meta {
+      margin-top: 1.5rem;
+    }
+  }
+}
+
+// 매우 큰 화면 대응
+@media (min-width: 1920px) {
+  .description {
+    .inner {
+      padding-inline-start: 40%;
+    }
+  }
+}
