@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import Lenis from '@studio-freight/lenis';
 import type { Project } from '@/types/project';
+import { debounce } from 'lodash';
 
 interface UseProjectAnimationProps {
   projects: Project[];
@@ -347,16 +348,92 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
     };
   }, [projects, setActiveProject, snapToNearestCard, resetAllCards]);
   useEffect(() => {
-    const checkOrientation = () => {
+    const handleResize = () => {
+      // 방향 체크
       setIsVertical(window.innerWidth < window.innerHeight);
+
+      if (cardsRef.current) {
+        const cardHolders = gsap.utils.toArray<HTMLElement>('.card-holder');
+        const totalCards = cardHolders.length;
+
+        // ScrollTrigger 업데이트
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+        // 카드 위치 재설정
+        cardHolders.forEach((holder, index) => {
+          gsap.set(holder, {
+            rotation: index > 0 ? 20 * index : 0,
+            transformOrigin: '50% 100%',
+            zIndex: totalCards - index,
+          });
+        });
+
+        // ScrollTrigger 재생성
+        ScrollTrigger.create({
+          trigger: wrapperRef.current,
+          start: 'top top',
+          end: `+=${window.innerHeight * (totalCards - 1)}`,
+          scrub: 1,
+          onUpdate: (self) => {
+            const currentIndex = Math.floor(self.progress * (totalCards - 1));
+            if (currentIndex !== previousIndexRef.current) {
+              setActiveProject(projects[Math.min(currentIndex, totalCards - 1)].id);
+              previousIndexRef.current = currentIndex;
+              if (isScrollingRef.current) {
+                resetAllCards();
+              }
+            }
+          },
+        });
+
+        // 전체 회전 애니메이션 재설정
+        if (totalCards > 1) {
+          gsap.to(cardsRef.current, {
+            rotation: -((totalCards - 1) * 20),
+            ease: 'none',
+            scrollTrigger: {
+              trigger: wrapperRef.current,
+              start: 'top top',
+              end: `+=${window.innerHeight * (totalCards - 1)}`,
+              scrub: 1,
+            },
+          });
+        }
+      }
+
+      // Lenis 업데이트
+      if (lenisRef.current) {
+        lenisRef.current.resize();
+      }
     };
 
-    checkOrientation();
-    window.addEventListener('resize', checkOrientation);
+    // 리사이즈 이벤트 추가
+    window.addEventListener('resize', handleResize);
+
+    // 초기 실행
+    handleResize();
 
     return () => {
-      window.removeEventListener('resize', checkOrientation);
+      window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [projects, setActiveProject, resetAllCards]);
+
+  // 디바운스된 리사이즈 핸들러도 추가
+  const debouncedResize = useCallback(
+    debounce(() => {
+      if (lenisRef.current) {
+        lenisRef.current.resize();
+      }
+      ScrollTrigger.refresh();
+    }, 200),
+    []
+  );
+
+  useEffect(() => {
+    window.addEventListener('resize', debouncedResize);
+    return () => {
+      window.removeEventListener('resize', debouncedResize);
+    };
+  }, [debouncedResize]);
   return { wrapperRef, cardsRef, isVertical, openProjectDetail, closeProjectDetail };
 };
