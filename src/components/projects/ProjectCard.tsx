@@ -1,15 +1,14 @@
 import { memo } from 'react';
 import Image from 'next/image';
 import { ProjectCardProps } from '@/types/project';
+import { useMouseMove } from '@/hooks/useMouseMove';
 
 export const ProjectCard = memo(({ project, index, isActive }: ProjectCardProps) => {
+  const cardRef = useMouseMove();
   return (
     <div
+      ref={cardRef}
       className={`card-holder ${isActive ? 'active' : ''}`}
-      style={{
-        zIndex: 20 - index,
-        rotate: `${index * 20}deg`,
-      }}
       data-index={index + 1}
       data-id={project.id}
     >
