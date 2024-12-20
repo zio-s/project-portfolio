@@ -2,19 +2,19 @@ import { Project } from '@/types/project';
 
 export const projectsData: Project[] = [
   {
-    id: 'creative-studio',
-    title: 'Creative Studio',
-    description: '창의적인 디자인 스튜디오 프로젝트',
-    year: '2024',
+    id: 'genie-music',
+    title: 'Genie Music',
+    description: '창의적인 디자인 지니 프로젝트',
+    year: '2024년 10월',
     image: ['/images/common/placeholder.png', '/images/creative-studio/secondary.webp'],
     secondaryImage: '/images/creative-studio/secondary.webp',
     color: '#F5E6D3',
   },
   {
-    id: 'digital-experience',
-    title: 'Digital Experience',
-    description: '디지털 경험 디자인',
-    year: '2024',
+    id: 'gamer-s-nest',
+    title: 'Gamers-Nest',
+    description: '게임 커뮤니티 플랫폼 프로젝트',
+    year: '2024년 12월',
     image: ['/images/common/placeholder.png', '/images/creative-studio/secondary.webp'],
     video: '/videos/digital-experience/showcase.mp4',
     videoPoster: '/images/digital-experience/poster.webp',
