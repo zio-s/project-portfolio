@@ -1,41 +1,70 @@
 'use client';
-
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 
 export function useMouseMove() {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [isActive, setIsActive] = useState(false);
+  const isVertical = window.innerWidth < window.innerHeight;
 
   useEffect(() => {
-    if (!cardRef.current) return;
+    const card = cardRef.current;
+    if (!card) return;
 
-    // quickTo 함수 생성
-    const xTo = gsap.quickTo(cardRef.current, 'x', {
-      duration: 0.8,
-      ease: 'power3',
+    // active 클래스 감지를 위한 observer 설정
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          setIsActive(card.classList.contains('active'));
+        }
+      });
     });
 
-    const yTo = gsap.quickTo(cardRef.current, 'y', {
-      duration: 0.8,
-      ease: 'power3',
+    observer.observe(card, {
+      attributes: true,
+      attributeFilter: ['class'],
     });
 
     // 마우스 이벤트 핸들러
     const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
+      if (!isActive || isVertical) return;
 
-      // 마우스 위치에 따라 카드 이동
-      // 움직임을 작게 하기 위해 계수를 0.02로 설정
-      xTo(clientX * 0.02);
-      yTo(clientY * 0.02);
+      const cards = card.querySelectorAll('.card');
+      const { clientX, clientY } = e;
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      // 중앙으로부터의 거리 계산
+      const distX = (clientX - centerX) * 0.02;
+      const distY = (clientY - centerY) * 0.02;
+
+      // 각 카드에 애니메이션 적용
+      gsap.to(cards[0], {
+        x: distX,
+        y: distY,
+        duration: 0.8,
+        ease: 'power3',
+      });
+
+      gsap.to(cards[1], {
+        x: -distX,
+        y: -distY,
+        duration: 0.8,
+        ease: 'power3',
+      });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
 
     return () => {
+      observer.disconnect();
       window.removeEventListener('mousemove', handleMouseMove);
+      gsap.set(card.querySelectorAll('.card'), {
+        x: 0,
+        y: 0,
+      });
     };
-  }, []);
+  }, [isActive]);
 
   return cardRef;
 }
