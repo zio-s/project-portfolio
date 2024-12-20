@@ -21,7 +21,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
     // 폰트 및 이미지 로딩 체크
     const loadCheck = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(loadCheck);
   }, []);
@@ -42,7 +42,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
 
       <Header />
 
-      <div id='stage' className={isScrolling ? 'is-scrolling' : ''}>
+      <div id='main' className={isScrolling ? 'is-scrolling' : ''}>
         {children}
       </div>
 
