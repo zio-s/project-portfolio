@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import Lenis from '@studio-freight/lenis';
@@ -18,7 +18,72 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
   const activeAnimationRef = useRef<GSAPTimeline | null>(null);
   const isInitializedRef = useRef(false);
   const previousIndexRef = useRef<number>(-1);
+  const [isVertical, setIsVertical] = useState(false);
+  // useProjectAnimation 훅에 추가할 디테일 페이지 관련 로직
 
+  const openProjectDetail = useCallback((holder: HTMLElement) => {
+    if (!holder || !lenisRef.current) return;
+
+    lenisRef.current.stop();
+    document.body.classList.add('details');
+    document.body.classList.remove('home');
+
+    // 카드 컨테이너 애니메이션 추가
+    const cardsContainer = document.querySelector('#cards') as HTMLElement;
+    const cardsTitle = document.querySelector('#titles') as HTMLElement;
+    if (cardsContainer && window.innerWidth >= window.innerHeight) {
+      gsap.to(cardsContainer, {
+        xPercent: -75, // translate(-50% - 25vw)의 효과를 위해 추가 -25% 적용
+        duration: 1.2,
+        scale: 0.8,
+        ease: 'expo.out',
+      });
+      gsap.to(cardsTitle, {
+        xPercent: -25,
+        duration: 1.2,
+        scale: 0.8,
+        ease: 'expo.out',
+      });
+    }
+    // 나머지 카드들 페이드 아웃
+    const otherCards = gsap.utils.toArray<HTMLElement>('.card-holder:not(.active)');
+    gsap.to(otherCards, {
+      opacity: 0,
+      duration: 0.4,
+    });
+  }, []);
+
+  const closeProjectDetail = useCallback(() => {
+    if (!lenisRef.current) return;
+
+    lenisRef.current.start();
+    document.body.classList.remove('details');
+
+    const cardsContainer = document.querySelector('#cards') as HTMLElement;
+    const cardsTitle = document.querySelector('#titles') as HTMLElement;
+    if (cardsContainer) {
+      gsap.to(cardsContainer, {
+        xPercent: -50,
+        duration: 1.2,
+        scale: 1,
+        ease: 'expo.out',
+      });
+      gsap.to(cardsTitle, {
+        xPercent: 0,
+        duration: 1.2,
+        scale: 1,
+        ease: 'expo.out',
+      });
+    }
+
+    // 나머지 카드들 페이드 인
+    const otherCards = gsap.utils.toArray<HTMLElement>('.card-holder:not(.active)');
+    gsap.to(otherCards, {
+      opacity: 1,
+      duration: 0.4,
+      delay: 0.6,
+    });
+  }, []);
   // 활성 카드 애니메이션
   const animateActiveCard = useCallback((holder: HTMLElement) => {
     if (!holder || isScrollingRef.current) return;
@@ -34,8 +99,8 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
     });
 
     const direction = Math.random() > 0.5 ? 1 : -1;
-    const xOffset = gsap.utils.random(20, 30);
-    const yOffset = gsap.utils.random(8, 12);
+    const xOffset = gsap.utils.random(25, 35);
+    const yOffset = gsap.utils.random(5, 12);
     const rotation1 = gsap.utils.random(6, 18) * direction * -1;
     const rotation2 = gsap.utils.random(6, 18) * direction;
 
@@ -79,7 +144,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
   // 스크롤 스냅
   const snapToNearestCard = useCallback(() => {
     if (!lenisRef.current || isScrollingRef.current === false) return;
-
+    const titleHolders = gsap.utils.toArray<HTMLElement>('.title');
     const cardHolders = gsap.utils.toArray<HTMLElement>('.card-holder');
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
@@ -101,22 +166,76 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
 
     if (targetHolder) {
       const targetIndex = cardHolders.indexOf(targetHolder);
-
-      // 현재 인덱스와 같으면 스냅하지 않음
-      if (targetIndex === previousIndexRef.current) {
-        isScrollingRef.current = false;
-        animateActiveCard(targetHolder);
-        return;
-      }
-
+      const targetId = targetHolder.dataset.id;
       const targetPosition = targetIndex * windowHeight;
 
       resetAllCards();
 
+      // 모든 카드에서 active 클래스 제거
+      cardHolders.forEach((holder) => {
+        holder.classList.remove('active');
+      });
+      titleHolders.forEach((title) => {
+        title.classList.remove('active');
+      });
+
       lenisRef.current.scrollTo(targetPosition, {
-        duration: 0.8,
+        duration: 0.1,
         onComplete: () => {
           isScrollingRef.current = false;
+          // 타겟 카드에 active 클래스 추가
+          targetHolder?.classList.add('active');
+          const targetTitle = titleHolders.find((title) => title.dataset.id === targetId);
+          if (targetTitle) {
+            // 타이틀 애니메이션을 위한 GSAP 타임라인
+            const tl = gsap.timeline();
+            targetTitle.classList.add('active');
+
+            // 타이틀 애니메이션
+            tl.fromTo(
+              targetTitle.querySelector('.title_in'),
+              {
+                yPercent: 100,
+                opacity: 0,
+              },
+              {
+                yPercent: 0,
+                opacity: 1,
+                duration: 0.4,
+                ease: 'power3.out',
+              }
+            )
+              .fromTo(
+                targetTitle.querySelectorAll('.client'),
+                {
+                  yPercent: -100,
+                  opacity: 0,
+                },
+                {
+                  opacity: 1,
+                  yPercent: 0,
+                  duration: 0.6,
+                  stagger: 0.05,
+                  ease: 'power3.out',
+                },
+                '-=0.4'
+              )
+              .fromTo(
+                targetTitle.querySelector('.meta'),
+                {
+                  yPercent: 50,
+                  opacity: 0,
+                },
+                {
+                  yPercent: 0,
+                  opacity: 1,
+                  duration: 0.6,
+                  ease: 'power3.out',
+                },
+                '-=0.4'
+              );
+          }
+
           animateActiveCard(targetHolder!);
           previousIndexRef.current = targetIndex;
         },
@@ -136,7 +255,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       wheelMultiplier: 1,
-      infinite: false,
+      // infinite: true,
     });
 
     // 스크롤 이벤트 핸들러
@@ -227,6 +346,17 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       gsap.ticker.remove(raf);
     };
   }, [projects, setActiveProject, snapToNearestCard, resetAllCards]);
+  useEffect(() => {
+    const checkOrientation = () => {
+      setIsVertical(window.innerWidth < window.innerHeight);
+    };
 
-  return { wrapperRef, cardsRef };
+    checkOrientation();
+    window.addEventListener('resize', checkOrientation);
+
+    return () => {
+      window.removeEventListener('resize', checkOrientation);
+    };
+  }, []);
+  return { wrapperRef, cardsRef, isVertical, openProjectDetail, closeProjectDetail };
 };
