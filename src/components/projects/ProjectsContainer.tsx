@@ -8,7 +8,7 @@ import { ProjectDescription } from './ProjectDescription';
 
 export const ProjectsContainer = () => {
   const [activeProject, setActiveProject] = useState<string>('');
-  const { wrapperRef, cardsRef } = useProjectAnimation({
+  const { wrapperRef, cardsRef, closeProjectDetail, openProjectDetail } = useProjectAnimation({
     projects: projectsData,
     setActiveProject,
   });
@@ -17,7 +17,12 @@ export const ProjectsContainer = () => {
     <div id='stage' ref={wrapperRef} className='min-h-screen h-auto overflow-visible relative'>
       <div id='titles'>
         {projectsData.map((project) => (
-          <ProjectTitle key={project.id} project={project} isActive={activeProject === project.id} />
+          <ProjectTitle
+            key={project.id}
+            project={project}
+            isActive={activeProject === project.id}
+            openProjectDetail={openProjectDetail}
+          />
         ))}
       </div>
 
@@ -35,7 +40,12 @@ export const ProjectsContainer = () => {
 
       <div id='descriptions' className='d-none'>
         {projectsData.map((project) => (
-          <ProjectDescription key={project.id} project={project} isActive={activeProject === project.id} />
+          <ProjectDescription
+            key={project.id}
+            project={project}
+            isActive={activeProject === project.id}
+            closeProjectDetail={closeProjectDetail}
+          />
         ))}
       </div>
 
@@ -46,10 +56,13 @@ export const ProjectsContainer = () => {
           id={project.id}
           className='faux_slide'
           data-index={index + 1}
+          style={{
+            height: '100vh', // 명확한 높이 설정
+          }}
           // data-color1={project.colors.color1}
           // data-color2={project.colors.color2}
           // {...project.colors}
-          scroll-snap-align
+          // scroll-snap-align
         />
       ))}
     </div>
