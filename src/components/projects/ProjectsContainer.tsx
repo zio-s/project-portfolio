@@ -38,7 +38,7 @@ export const ProjectsContainer = () => {
         </div>
       </div>
 
-      <div id='descriptions' className='d-none'>
+      <div id='descriptions'>
         {projectsData.map((project) => (
           <ProjectDescription
             key={project.id}

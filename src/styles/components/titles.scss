@@ -72,3 +72,16 @@
     }
   }
 }
+
+body.details {
+  #titles {
+    .client {
+      transition: 0.4s;
+      opacity: 0 !important;
+    }
+    .meta {
+      transition: 0.4s;
+      opacity: 0 !important;
+    }
+  }
+}

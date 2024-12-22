@@ -1,8 +1,30 @@
 :root {
-  --card-height: 60vh;
-  --card-height: 60svh;
   --duration: 0.15s;
   --color1: #f5e6d3;
   --color2: #000000;
   --color3: #ffffff;
+}
+
+// 데스크탑 (가로모드)
+@media (orientation: landscape) {
+  :root {
+    --card-height: 60vh;
+    --card-height: 60svh;
+  }
+
+  body.details #cards {
+    transform: translate(calc(-50% - 25vw), -50%);
+  }
+}
+
+// 모바일 (세로모드)
+@media (orientation: portrait) {
+  :root {
+    --card-height: 48vh;
+    --card-height: 48svh;
+  }
+
+  body.details #cards {
+    transform: translate(-50%, calc(-50% - 0vh));
+  }
 }

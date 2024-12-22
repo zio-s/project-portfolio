@@ -1,46 +1,43 @@
 #descriptions {
   position: fixed;
-  inset: 0;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100lvh;
   z-index: 30;
   pointer-events: none;
+  opacity: 0;
+  transition: 1s;
+  /* details 클래스가 있을 때만 보이도록 */
+  body.details & {
+    opacity: 1;
+  }
 
   .description {
     position: absolute;
     inset: 0;
-    opacity: 0;
-    visibility: hidden;
     overflow-y: scroll;
-    transform: translateX(100%); // 오른쪽에서 시작
-    transition: opacity calc(var(--duration) * 2) ease-out, visibility calc(var(--duration) * 2) ease-out,
-      transform calc(var(--duration) * 6) cubic-bezier(0.19, 1, 0.22, 1);
-
-    @media (orientation: portrait) {
-      transform: translateY(100%); // 모바일에서는 아래에서 시작
-    }
+    visibility: hidden;
 
     &.active {
-      opacity: 1;
       visibility: visible;
-      transform: translateX(0);
       pointer-events: auto;
+    }
 
-      @media (orientation: portrait) {
-        transform: translateY(0);
+    /* details 클래스가 없을 때는 모든 pointer-events 비활성화 */
+    body:not(.details) & {
+      pointer-events: none !important;
+
+      * {
+        pointer-events: none !important;
       }
     }
   }
 
-  body:not(.details) & .description {
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-  }
-
   .inner_container {
-    width: 100%;
     position: relative;
     padding: 10vh max(2rem, 4vw);
-    padding: 10lvh max(2rem, 4vw);
     min-height: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -51,14 +48,18 @@
   .inner {
     position: relative;
     z-index: 20;
-    pointer-events: auto;
+    width: 100%;
   }
 
   .description_in {
     margin-block: 2.4em 4em;
-    font-size: 1.35em;
+    font-size: 1.15em;
     color: var(--color9, rgb(var(--color2)));
     transition: color calc(var(--duration) * 2) ease-out;
+
+    /* 텍스트 최대 너비 제한 */
+    max-width: 75ch;
+    margin-inline: auto;
   }
 
   .detail {
@@ -78,66 +79,54 @@
       transform-origin: 0 50%;
       transition: transform calc(var(--duration) * 4) calc(var(--duration) * 2) cubic-bezier(0.87, 0, 0.13, 1);
     }
+  }
 
-    .links {
-      display: flex;
-      justify-content: center;
-      font-size: 1.15em;
-      gap: 1.5em;
-      align-items: center;
-      transition: opacity calc(var(--duration) * 2) ease-out;
+  .links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5em;
+    align-items: center;
+    margin-top: 2em;
 
-      a,
-      button {
-        display: block;
-        white-space: nowrap;
-        padding: 0.75em 1em;
-        text-align: center;
-        border-radius: 50rem;
-        border: var(--linewidth) solid var(--color4);
-        color: var(--color4);
-        background: var(--color1);
-        text-shadow: none;
-        transition: background-color var(--duration) ease-out, color var(--duration) ease-out,
-          border-color var(--duration) ease-out, opacity var(--duration) ease-out,
-          scale calc(var(--duration) * 2) cubic-bezier(0.34, 1.56, 0.64, 1);
+    a,
+    button {
+      display: block;
+      white-space: nowrap;
+      padding: 0.75em 1em;
+      text-align: center;
+      border-radius: 50rem;
+      border: var(--linewidth) solid var(--color4);
+      color: var(--color4);
+      background: var(--color1);
+      transition: all calc(var(--duration) * 2) cubic-bezier(0.34, 1.56, 0.64, 1);
 
-        &:hover {
-          scale: 1.1;
-          border-color: var(--color5);
-          color: var(--color6);
-          background: var(--color5);
-        }
+      &:hover {
+        scale: 1.1;
+        border-color: var(--color5);
+        color: var(--color6);
+        background: var(--color5);
       }
     }
   }
 }
 
-// 가로 모드
-@media all and (orientation: landscape), all and (aspect-ratio: 1) {
-  .description {
+/* 가로 모드 (데스크톱) */
+@media (orientation: landscape) {
+  #descriptions {
     .inner_container {
       padding-inline-start: 50%;
+      text-align: left;
     }
 
     .description_in {
       font-size: 1.35em;
-
-      &.big {
-        font-size: 1.6em;
-        line-height: 1.5;
-      }
-    }
-
-    .meta .links {
-      font-size: 1.35em;
     }
   }
 }
 
-// 세로 모드 (모바일)
-@media all and (orientation: portrait) {
-  .description {
+/* 세로 모드 (모바일) */
+@media (orientation: portrait) {
+  #descriptions {
     .inner_container {
       text-align: center;
     }

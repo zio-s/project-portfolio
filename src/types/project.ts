@@ -5,6 +5,7 @@ export interface Project {
   description: string;
   year: string;
   client: string;
+  desc?: string;
   image: string[];
   colors: {
     color1: string;

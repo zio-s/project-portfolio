@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import Link from 'next/link';
 import { Project } from '@/types/project';
+import gsap from 'gsap';
 
 interface ProjectTitleProps {
   project: Project;
@@ -11,13 +12,21 @@ interface ProjectTitleProps {
 export const ProjectTitle = memo(({ project, openProjectDetail }: ProjectTitleProps) => {
   const handleDetailClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation(); // 이벤트 전파 중지
+
     const cardHolder = document.querySelector(`.card-holder[data-id="${project.id}"]`);
     if (cardHolder instanceof HTMLElement) {
+      // 이미 details 상태면 무시
+      if (document.body.classList.contains('details')) return;
+
+      // 현재 진행 중인 애니메이션이 있다면 중지
+      gsap.killTweensOf(cardHolder.querySelectorAll('.card'));
+
       openProjectDetail(cardHolder);
     }
   };
   return (
-    <div className={`title words_holder `} data-id={project.id}>
+    <div className='title words_holder' data-id={project.id}>
       <div className='title_holder'>
         <div className='client fw-bold mask'>
           <span>
