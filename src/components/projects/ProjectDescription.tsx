@@ -1,7 +1,7 @@
 import { Project } from '@/types/project';
 import { memo, useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { MoveLeft } from 'lucide-react';
+import { Badge, CalendarIcon, ExternalLinkIcon, FileTextIcon, GithubIcon, MoveLeft } from 'lucide-react';
 
 interface ProjectDescriptionProps {
   project: Project;
@@ -181,6 +181,84 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
                 Back Home
               </button>
             </div>
+          </div>
+          <div className='project-details'>
+            {/* 프로젝트 헤더 섹션 */}
+            <section className='project-header'>
+              <h1>{project.title}</h1>
+              <div className='project-period'>
+                <CalendarIcon />
+                <span>{project.period}</span> {/* 예: "2023.09 - 2024.01" */}
+              </div>
+              <div className='project-type'>
+                {project.type} {/* 예: "Team Project (4인)" 또는 "Personal Project" */}
+              </div>
+            </section>
+
+            {/* 핵심 정보 섹션 */}
+            <section className='project-overview'>
+              <div className='role-responsibility'>
+                <h3>Role & Responsibility</h3>
+                <ul>
+                  {project.responsibilities?.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className='tech-stack'>
+                <h3>Tech Stack</h3>
+                <div className='tech-badges'>
+                  {project.techStack?.map((tech) => (
+                    <Badge key={tech}>{tech}</Badge>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* 프로젝트 상세 설명 */}
+            <section className='project-description'>
+              <div className='key-features'>
+                <h3>Key Features</h3>
+                {project.keyFeatures?.map((feature) => (
+                  <div key={feature.title} className='feature-card'>
+                    <h4>{feature.title}</h4>
+                    <p>{feature.description}</p>
+                    {/* 기능 시연 GIF나 이미지 */}
+                  </div>
+                ))}
+              </div>
+
+              <div className='challenges'>
+                <h3>Technical Challenges</h3>
+                {project.challenges?.map((challenge) => (
+                  <div key={challenge.title} className='challenge-card'>
+                    <h4>{challenge.title}</h4>
+                    <p>{challenge.description}</p>
+                    <div className='solution'>{challenge.solution}</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* 링크 섹션 */}
+            <section className='project-links'>
+              {project.links.github && (
+                <a href={project.links.github} target='_blank'>
+                  <GithubIcon /> View Code
+                </a>
+              )}
+              {project.links.live && (
+                <a href={project.links.live} target='_blank'>
+                  <ExternalLinkIcon /> Live Demo
+                </a>
+              )}
+              {project.links.presentation && (
+                <a href={project.links.presentation} target='_blank'>
+                  <FileTextIcon /> Project Deck
+                </a>
+              )}
+            </section>
           </div>
         </div>
       </div>

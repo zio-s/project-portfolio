@@ -1,10 +1,23 @@
 :root {
   --duration: 0.15s;
-  --color1: #f5e6d3;
-  --color2: #000000;
-  --color3: #ffffff;
+  --color1: #fff8e8;
+  --color2: #fff;
+  --color3: #333333;
+  --color4: #666666;
+  --color5: #999999;
+  --color6: #cccccc;
+  --color7: #eeeeee;
+  --color8: #f5f5f5;
+  --color9: #fafafa;
 }
+body {
+  transition: background-color 0.6s ease-out, color 0.6s ease-out;
 
+  &.details {
+    // background-color: var(--color3);
+    color: var(--color2);
+  }
+}
 // 데스크탑 (가로모드)
 @media (orientation: landscape) {
   :root {

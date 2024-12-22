@@ -67,7 +67,15 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
     (holder: HTMLElement) => {
       if (!holder || !lenisRef.current) return;
       if (document.body.classList.contains('details')) return;
+      const projectId = holder.getAttribute('data-project-id') || holder.getAttribute('data-id');
 
+      const currentProject = projects.find((p) => p.id === projectId);
+      if (currentProject?.colors) {
+        Object.entries(currentProject.colors).forEach(([key, value]) => {
+          document.documentElement.style.setProperty(`--${key}`, value);
+          document.body.setAttribute(`data-${key}`, value);
+        });
+      }
       gsap.killTweensOf('.card');
       gsap.killTweensOf('#cards');
       gsap.killTweensOf('#titles');
@@ -79,7 +87,6 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       const allCardHolders = document.querySelectorAll('.card-holder');
       allCardHolders.forEach((card) => card.classList.remove('active'));
 
-      const projectId = holder.getAttribute('data-project-id') || holder.getAttribute('data-id');
       if (projectId) {
         setActiveProject(projectId);
         holder.classList.add('active');
@@ -191,7 +198,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
         }
       );
     },
-    [lenisRef, setActiveProject]
+    [lenisRef, setActiveProject, projects]
   );
 
   const closeProjectDetail = useCallback(() => {
@@ -320,7 +327,18 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       const targetIndex = cardHolders.indexOf(targetHolder);
       const targetId = targetHolder.dataset.id;
       const targetPosition = targetIndex * windowHeight;
+      const targetProject = projects[targetIndex];
 
+      if (targetProject?.colors) {
+        Object.entries(targetProject.colors).forEach(([key, value]) => {
+          document.documentElement.style.setProperty(`--${key}`, value);
+        });
+
+        // body에도 현재 색상 데이터 저장 (레퍼런스 코드와 동일하게)
+        Object.entries(targetProject.colors).forEach(([key, value]) => {
+          document.body.setAttribute(`data-${key}`, value);
+        });
+      }
       resetAllCards();
 
       // 모든 카드에서 active 클래스 제거
@@ -393,7 +411,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
         },
       });
     }
-  }, [animateActiveCard, resetAllCards]);
+  }, [animateActiveCard, resetAllCards, projects]);
 
   useEffect(() => {
     if (isInitializedRef.current) return;
