@@ -3,20 +3,20 @@ import Link from 'next/link';
 import { Project } from '@/types/project';
 import gsap from 'gsap';
 import { ExternalLink, Plus } from 'lucide-react';
-import { Playfair_Display } from 'next/font/google';
+import { Noto_Serif } from 'next/font/google';
 interface ProjectTitleProps {
   project: Project;
   isActive: boolean;
   openProjectDetail: (holder: HTMLElement) => void;
 }
-const playfairNormal = Playfair_Display({
+const playfairNormal = Noto_Serif({
   subsets: ['latin'],
   weight: '400',
 });
 
-const playfairBold = Playfair_Display({
+const playfairBold = Noto_Serif({
   subsets: ['latin'],
-  weight: '900',
+  weight: '600',
 });
 export const ProjectTitle = memo(({ project, openProjectDetail }: ProjectTitleProps) => {
   const handleDetailClick = (e: React.MouseEvent) => {
