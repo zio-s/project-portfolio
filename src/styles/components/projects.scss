@@ -40,18 +40,13 @@
   transform-origin: 50% 100%;
   will-change: transform;
 
-  &.active {
-    .card-holder-in {
-      opacity: 1;
-    }
-  }
-
   .card-holder-in {
     height: var(--card-height);
     display: flex;
     justify-content: center;
     align-items: center;
     opacity: 0.5;
+    opacity: 1;
     transition: all calc(var(--duration) * 4) cubic-bezier(0.19, 1, 0.22, 1);
   }
 
@@ -66,7 +61,7 @@
       inset: 0;
       overflow: hidden;
       border-radius: calc(var(--card-height) * 0.1);
-      background: var(--color1);
+      background: var(--color9);
 
       img,
       video {
