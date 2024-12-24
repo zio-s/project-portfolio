@@ -1,6 +1,7 @@
 import { MainLayout } from '@/components/layout/MainLayout';
 import type { Metadata } from 'next';
 import '@/styles/globals.scss';
+import 'line-awesome/dist/line-awesome/css/line-awesome.min.css';
 
 export const metadata: Metadata = {
   title: 'B의 Portfolio',
