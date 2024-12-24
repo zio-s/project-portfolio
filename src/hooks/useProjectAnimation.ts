@@ -71,7 +71,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
         .to(
           document.documentElement,
           {
-            duration: 0.6,
+            duration: 0.2,
             ease: 'power3.out',
             onStart: () => {
               if (targetProject?.colors) {
@@ -392,7 +392,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
         title.classList.remove('active');
       });
       lenisRef.current.scrollTo(targetPosition, {
-        duration: 0.5,
+        duration: 0.25,
         onComplete: () => {
           isScrollingRef.current = false;
           // 타겟 카드에 active 클래스 추가
