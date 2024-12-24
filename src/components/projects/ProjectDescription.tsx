@@ -1,126 +1,198 @@
-import { Project } from '@/types/project';
+import { ProjectDescriptionProps } from '@/types/project';
 import { memo, useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { Badge, CalendarIcon, ExternalLinkIcon, FileTextIcon, GithubIcon, MoveLeft } from 'lucide-react';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import { Badge, CalendarIcon, ExternalLink, ExternalLinkIcon, FileTextIcon, GithubIcon, MoveLeft } from 'lucide-react';
+import Link from 'next/link';
 
-interface ProjectDescriptionProps {
-  project: Project;
-  isActive: boolean;
-  closeProjectDetail: () => void;
-}
+gsap.registerPlugin(ScrollTrigger);
 
 export const ProjectDescription = memo(({ project, isActive, closeProjectDetail }: ProjectDescriptionProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isFirstRender = useRef(true);
+  const scrollTriggersRef = useRef<ScrollTrigger[]>([]);
 
-  // 컴포넌트 마운트/언마운트 시 스크롤 위치 관리
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    if (isActive) {
-      // 활성화될 때는 상단으로 스크롤
-      container.scrollTop = 0;
-    }
-
-    return () => {
-      if (container) {
-        container.scrollTop = 0;
-      }
-    };
-  }, [isActive]);
-
+  // 스크롤 트리거 클린업
+  const cleanupScrollTriggers = () => {
+    scrollTriggersRef.current.forEach((trigger) => trigger.kill());
+    scrollTriggersRef.current = [];
+  };
+  cleanupScrollTriggers();
+  // 초기 애니메이션 설정
   useEffect(() => {
     if (!contentRef.current || !isFirstRender.current) return;
 
     const container = contentRef.current;
-    const words = container.querySelectorAll('.word span');
-    const detail = container.querySelector('.detail');
-
     gsap.set(container, {
-      opacity: 0,
+      opacity: 1,
       x: window.innerWidth >= window.innerHeight ? '100%' : 0,
       y: window.innerWidth >= window.innerHeight ? 0 : '100%',
-    });
-
-    gsap.set([words, detail], {
-      opacity: 0,
-      yPercent: 100,
     });
 
     isFirstRender.current = false;
   }, []);
 
+  // 메인 애니메이션 효과
   useEffect(() => {
     if (!contentRef.current || !containerRef.current) return;
 
     const container = contentRef.current;
     const scrollContainer = containerRef.current;
-    const words = container.querySelectorAll('.word span');
-    const detail = container.querySelector('.detail');
 
-    gsap.killTweensOf([container, words, detail]);
+    // 이전 스크롤 트리거 정리
+    cleanupScrollTriggers();
 
     if (isActive) {
-      // 컨테이너 스타일 설정
       scrollContainer.style.pointerEvents = 'auto';
       scrollContainer.style.overflowY = 'auto';
 
-      gsap.to(container, {
+      // 기존 애니메이션 코드 유지
+      const tl = gsap.timeline();
+      tl.to(container, {
         opacity: 1,
         x: 0,
         y: 0,
-        duration: 0.4,
+        duration: 0.6,
         ease: 'expo.out',
-        onComplete: () => {
-          gsap.to(words, {
-            opacity: 1,
-            yPercent: 0,
-            duration: 0.7,
-            stagger: 0.02,
-            ease: 'expo.out',
-          });
+      });
 
-          gsap.to(detail, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: 'expo.out',
-          });
+      // 타이틀 애니메이션
+      const titleWords = container.querySelectorAll('.ttl .word span');
+      tl.from(
+        titleWords,
+        {
+          y: 100,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.05,
+          ease: 'expo.out',
         },
+        '-=0.3'
+      );
+
+      // 설명 텍스트 애니메이션
+      const descWords = container.querySelectorAll('.description_in .word span');
+      tl.from(
+        descWords,
+        {
+          y: 50,
+          opacity: 0,
+          duration: 0.6,
+          stagger: 0.02,
+          ease: 'expo.out',
+        },
+        '-=0.4'
+      );
+
+      // 링크 버튼 애니메이션
+      const links = container.querySelector('.links');
+      tl.from(
+        links,
+        {
+          y: 30,
+          opacity: 0,
+          duration: 0.6,
+          ease: 'expo.out',
+        },
+        '-=0.2'
+      );
+
+      // 스크롤 트리거 애니메이션
+      const sections = container.querySelectorAll('.project-details section');
+      sections.forEach((section) => {
+        const trigger = ScrollTrigger.create({
+          trigger: section,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          animation: gsap.from(section, {
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            ease: 'expo.out',
+            paused: true,
+          }),
+          toggleActions: 'play none none reverse',
+        });
+        scrollTriggersRef.current.push(trigger);
+
+        // 섹션 내부 요소들 애니메이션
+        const cards = section.querySelectorAll('.feature-card, .challenge-card');
+        if (cards.length) {
+          const cardsTrigger = ScrollTrigger.create({
+            trigger: section,
+            start: 'top 70%',
+            animation: gsap.from(cards, {
+              y: 30,
+              opacity: 0,
+              duration: 0.6,
+              stagger: 0.1,
+              ease: 'expo.out',
+              paused: true,
+            }),
+            toggleActions: 'play none none reverse',
+          });
+          scrollTriggersRef.current.push(cardsTrigger);
+        }
+
+        // Tech Stack 배지 애니메이션
+        const badges = section.querySelectorAll('.tech-badges span');
+        if (badges.length) {
+          const badgesTrigger = ScrollTrigger.create({
+            trigger: section,
+            start: 'top 75%',
+            animation: gsap.from(badges, {
+              scale: 0.8,
+              opacity: 0,
+              duration: 0.4,
+              stagger: 0.05,
+              ease: 'back.out(1.7)',
+              paused: true,
+            }),
+            toggleActions: 'play none none reverse',
+          });
+          scrollTriggersRef.current.push(badgesTrigger);
+        }
       });
     } else {
-      // 컨테이너 스타일 리셋
-      scrollContainer.style.pointerEvents = 'none';
-      scrollContainer.style.overflowY = 'hidden';
-
-      gsap.to([words, detail], {
-        opacity: 0,
-        yPercent: 100,
-        duration: 0.6,
-        stagger: 0.01,
-        ease: 'power2.in',
-      });
-
-      gsap.to(container, {
-        opacity: 0,
-        x: window.innerWidth >= window.innerHeight ? '100%' : 0,
-        y: window.innerWidth >= window.innerHeight ? 0 : '100%',
-        duration: 0.8,
-        ease: 'power2.in',
-        onComplete: () => {
-          scrollContainer.scrollTop = 0;
-        },
-      });
+      gsap
+        .timeline()
+        .to(container.querySelectorAll('.project-details section'), {
+          y: 50,
+          opacity: 0,
+          duration: 0.4,
+          stagger: 0.05,
+          ease: 'power2.in',
+        })
+        .to(
+          container,
+          {
+            opacity: 0,
+            x: window.innerWidth >= window.innerHeight ? '100%' : 0,
+            y: window.innerWidth >= window.innerHeight ? 0 : '100%',
+            duration: 0.6,
+            ease: 'power2.in',
+            onComplete: () => {
+              scrollContainer.scrollTop = 0;
+              scrollContainer.style.pointerEvents = 'none';
+              scrollContainer.style.overflowY = 'hidden';
+            },
+          },
+          '-=0.3'
+        );
     }
+
+    return () => {
+      cleanupScrollTriggers();
+    };
   }, [isActive]);
 
   return (
     <div
-      className={`description fixed inset-0 w-full h-full ${isActive ? 'active' : ''}`}
+      className={`description fixed inset-0 w-full h-full `}
+      data-active={isActive}
       style={{
-        zIndex: 1000,
+        // zIndex: 1000,
         overflow: isActive ? 'auto' : 'hidden',
       }}
       data-lenis-scroll-snap-align='start'
@@ -162,23 +234,20 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
           </div>
 
           <div className='detail mt-8'>
-            <div className='links flex items-center justify-between'>
+            <div className='links'>
               {project?.links?.live && (
-                <a
-                  className='go inline-flex items-center hover:opacity-80 transition-opacity'
-                  target='_blank'
-                  href={project.links.live}
-                  rel='noopener noreferrer'
-                >
-                  Launch project
-                </a>
+                <Link className='launch-link' target='_blank' href={project.links.live} rel='noopener noreferrer'>
+                  <span className='link-content'>
+                    Launch project
+                    <ExternalLink className='icon' size={18} />
+                  </span>
+                </Link>
               )}
-              <button
-                className='less inline-flex items-center hover:opacity-80 transition-opacity'
-                onClick={closeProjectDetail}
-              >
-                <MoveLeft size={20} strokeWidth={1.5} className='mr-2' />
-                Back Home
+              <button className='back-link' onClick={closeProjectDetail}>
+                <span className='link-content'>
+                  <MoveLeft className='icon' size={18} strokeWidth={1.5} />
+                  Back Home
+                </span>
               </button>
             </div>
           </div>
