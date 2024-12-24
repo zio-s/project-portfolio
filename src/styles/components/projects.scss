@@ -55,6 +55,7 @@
     aspect-ratio: 9/13;
     position: relative;
     transform-style: preserve-3d;
+    z-index: 200;
 
     &-in {
       position: absolute;

@@ -30,17 +30,16 @@
 
   .client {
     margin-bottom: 1rem;
-
-    // opacity: 0.6;
+    color: var(--color9);
   }
 
   .title_in {
     font-size: clamp(2rem, 5vw, 4rem);
     line-height: 1.5;
+    letter-spacing: -2;
     color: var(--color9);
     display: block;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7), 2px 2px 4px rgba(0, 0, 0, 0.5), -1px -1px 0 rgba(0, 0, 0, 0.3),
-      -1px -1px 0 rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1), /* 주 그림자 */ 10px 10px 0 rgba(0, 0, 0, 0.2);
   }
 
   .ready {
@@ -104,7 +103,7 @@
 
       // Launch project 버튼 스타일
       .launch-link {
-        background: transparent;
+        background: var(--color9);
         border: 2px solid var(--color9);
 
         &:hover {

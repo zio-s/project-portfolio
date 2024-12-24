@@ -45,22 +45,15 @@
       }
     }
   }
-
-  .inner {
-    position: relative;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
 }
-
+.inner {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
 // 타이틀 영역
 .ttl {
-  .d-flex {
-    display: block;
-    overflow: hidden;
-  }
-
   .word {
     display: inline-block;
     font-size: clamp(2.5rem, 8vw, 5rem);
@@ -301,14 +294,14 @@
 // 스크롤바 커스텀
 .inner_container {
   scrollbar-width: thin;
-  scrollbar-color: var(--color3) rgba(var(--color3-rgb), 0.1);
+  scrollbar-color: var(--color3);
 
   &::-webkit-scrollbar {
     width: 8px;
   }
 
   &::-webkit-scrollbar-track {
-    background: rgba(var(--color3-rgb), 0.1);
+    background: var(--color3);
     border-radius: 4px;
   }
 

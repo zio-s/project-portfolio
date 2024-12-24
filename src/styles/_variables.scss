@@ -1,6 +1,19 @@
 :root {
   --duration: 0.15s;
 }
+::-webkit-scrollbar {
+  width: 0.2rem;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color7);
+  /* border-radius: 10rem; */
+}
 body {
   transition: background-color 0.6s ease-out, color 0.6s ease-out;
 
