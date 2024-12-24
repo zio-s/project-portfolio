@@ -21,47 +21,77 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
   const previousIndexRef = useRef<number>(-1);
   const [isVertical, setIsVertical] = useState(false);
   // 활성 카드 애니메이션
-  const animateActiveCard = useCallback((holder: HTMLElement) => {
-    if (!holder || isScrollingRef.current) return;
+  const animateActiveCard = useCallback(
+    (holder: HTMLElement) => {
+      if (!holder || isScrollingRef.current) return;
 
-    // 이미 애니메이션이 진행 중이면 중단
-    if (activeAnimationRef.current) {
-      activeAnimationRef.current.kill();
-    }
+      // 이미 애니메이션이 진행 중이면 중단
+      if (activeAnimationRef.current) {
+        activeAnimationRef.current.kill();
+      }
 
-    const cards = holder.querySelectorAll('.card');
-    const tl = gsap.timeline({
-      defaults: { duration: 0.6, ease: 'power3.out' },
-    });
+      const cards = holder.querySelectorAll('.card');
 
-    const direction = Math.random() > 0.5 ? 1 : -1;
-    const xOffset = gsap.utils.random(25, 35);
-    const yOffset = gsap.utils.random(5, 12);
-    const rotation1 = gsap.utils.random(6, 18) * direction * -1;
-    const rotation2 = gsap.utils.random(6, 18) * direction;
+      // cardHolders 배열에서 현재 holder의 실제 인덱스를 찾습니다
+      const cardHolders = gsap.utils.toArray<HTMLElement>('.card-holder');
+      const currentIndex = cardHolders.indexOf(holder);
 
-    tl.to(
-      cards[0],
-      {
-        xPercent: xOffset * direction * -1,
-        yPercent: yOffset * -1,
-        rotation: rotation1,
-        overwrite: true,
-      },
-      0
-    ).to(
-      cards[1],
-      {
-        xPercent: xOffset * direction,
-        yPercent: yOffset,
-        rotation: rotation2,
-        overwrite: true,
-      },
-      0
-    );
+      const targetProject = projects[currentIndex];
 
-    activeAnimationRef.current = tl;
-  }, []);
+      const tl = gsap.timeline({
+        defaults: { duration: 0.6, ease: 'power3.out' },
+      });
+
+      const direction = Math.random() > 0.5 ? 1 : -1;
+      const xOffset = gsap.utils.random(25, 35);
+      const yOffset = gsap.utils.random(5, 12);
+      const rotation1 = gsap.utils.random(6, 18) * direction * -1;
+      const rotation2 = gsap.utils.random(6, 18) * direction;
+
+      tl.to(
+        cards[0],
+        {
+          xPercent: xOffset * direction * -1,
+          yPercent: yOffset * -1,
+          rotation: rotation1,
+          overwrite: true,
+        },
+        0
+      )
+        .to(
+          cards[1],
+          {
+            xPercent: xOffset * direction,
+            yPercent: yOffset,
+            rotation: rotation2,
+            overwrite: true,
+          },
+          0
+        )
+        .to(
+          document.documentElement,
+          {
+            duration: 0.6,
+            ease: 'power3.out',
+            onStart: () => {
+              if (targetProject?.colors) {
+                Object.entries(targetProject.colors).forEach(([key, value]) => {
+                  document.body.setAttribute(`data-${key}`, value);
+                });
+              }
+            },
+            ...Object.entries(targetProject?.colors || {}).reduce((acc, [key, value]) => {
+              acc[`--${key}`] = value;
+              return acc;
+            }, {} as Record<string, string>),
+          },
+          0
+        );
+
+      activeAnimationRef.current = tl;
+    },
+    [projects]
+  );
 
   const openProjectDetail = useCallback(
     (holder: HTMLElement) => {
@@ -130,7 +160,19 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       } else {
         const huh = Math.random() > 0.5 ? 1 : -1;
         const huh2 = Math.random() > 0.5 ? 1 : -1;
-
+        gsap.fromTo(
+          cardsTitle,
+          {
+            y: 0,
+            opacity: 1,
+          },
+          {
+            opacity: 0,
+            duration: 1.2,
+            y: 35,
+            ease: 'expo.out',
+          }
+        );
         // 첫 번째 카드의 현재 상태
         const card0XPercent = gsap.getProperty(cards[0], 'xPercent') || 0;
         const card0YPercent = gsap.getProperty(cards[0], 'yPercent') || 0;
@@ -245,7 +287,19 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       const yOffset = gsap.utils.random(5, 12);
       const rotation1 = gsap.utils.random(6, 18) * direction * -1;
       const rotation2 = gsap.utils.random(6, 18) * direction;
-
+      gsap.fromTo(
+        cardsTitle,
+        {
+          y: 35,
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          duration: 1.2,
+          y: 0,
+          ease: 'expo.out',
+        }
+      );
       gsap.to(activeCards[0], {
         xPercent: xOffset * direction * -1,
         yPercent: yOffset * -1,
@@ -327,18 +381,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       const targetIndex = cardHolders.indexOf(targetHolder);
       const targetId = targetHolder.dataset.id;
       const targetPosition = targetIndex * windowHeight;
-      const targetProject = projects[targetIndex];
 
-      if (targetProject?.colors) {
-        Object.entries(targetProject.colors).forEach(([key, value]) => {
-          document.documentElement.style.setProperty(`--${key}`, value);
-        });
-
-        // body에도 현재 색상 데이터 저장 (레퍼런스 코드와 동일하게)
-        Object.entries(targetProject.colors).forEach(([key, value]) => {
-          document.body.setAttribute(`data-${key}`, value);
-        });
-      }
       resetAllCards();
 
       // 모든 카드에서 active 클래스 제거
@@ -348,9 +391,8 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       titleHolders.forEach((title) => {
         title.classList.remove('active');
       });
-
       lenisRef.current.scrollTo(targetPosition, {
-        duration: 0.1,
+        duration: 0.5,
         onComplete: () => {
           isScrollingRef.current = false;
           // 타겟 카드에 active 클래스 추가
@@ -411,14 +453,13 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
         },
       });
     }
-  }, [animateActiveCard, resetAllCards, projects]);
+  }, [animateActiveCard, resetAllCards]);
 
   useEffect(() => {
     if (isInitializedRef.current) return;
     isInitializedRef.current = true;
 
     gsap.registerPlugin(ScrollTrigger);
-    // 초기 상태 설정 - 첫 번째 카드와 타이틀 활성화
 
     // URL에서 현재 활성화된 카드의 인덱스 찾기
     const getCurrentCardIndex = () => {
@@ -428,14 +469,24 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
     };
 
     const currentIndex = getCurrentCardIndex();
+    const currentProject = projects[currentIndex];
+
+    if (currentProject?.colors) {
+      Object.entries(currentProject.colors).forEach(([key, value]) => {
+        document.documentElement.style.setProperty(`--${key}`, value);
+        document.body.setAttribute(`data-${key}`, value);
+      });
+    }
 
     // 현재 인덱스에 해당하는 카드와 타이틀 찾기
     const cardHolders = document.querySelectorAll('.card-holder');
     const titles = document.querySelectorAll('.title');
+
     const currentCard = cardHolders[currentIndex] as HTMLElement;
     const currentTitle = titles[currentIndex] as HTMLElement;
 
     if (currentCard && currentTitle) {
+      currentCard.setAttribute('data-project-id', currentProject.id);
       // 현재 위치로 스크롤
       setTimeout(() => {
         window.scrollTo({
@@ -495,13 +546,13 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
         }
 
         // 활성 프로젝트 상태 업데이트
-        setActiveProject(projects[currentIndex].id);
+        setActiveProject(currentProject.id);
         previousIndexRef.current = currentIndex;
-      }, 100);
+      }, 1000);
     }
     // Lenis 초기화
     lenisRef.current = new Lenis({
-      duration: 1,
+      duration: 0.25,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       wheelMultiplier: 1,
