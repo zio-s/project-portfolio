@@ -12,6 +12,7 @@
     "@studio-freight/lenis": "^1.0.42",
     "@types/gsap": "^3.0.0",
     "gsap": "^3.12.5",
+    "line-awesome": "^1.3.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.468.0",
     "next": "15.1.0",
