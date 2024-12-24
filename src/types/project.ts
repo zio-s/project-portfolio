@@ -74,3 +74,9 @@ export interface ProjectChallenge {
 export interface ProjectColorsProps {
   colors: Project;
 }
+
+export interface ProjectDescriptionProps {
+  project: Project;
+  isActive: boolean;
+  closeProjectDetail: () => void;
+}
