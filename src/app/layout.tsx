@@ -1,7 +1,6 @@
 import { MainLayout } from '@/components/layout/MainLayout';
 import type { Metadata } from 'next';
 import '@/styles/globals.scss';
-// import Container from '@/components/layout/Container';
 
 export const metadata: Metadata = {
   title: 'B의 Portfolio',
@@ -33,6 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko'>
+      <head></head>
       <body>
         <MainLayout>{children}</MainLayout>
       </body>
