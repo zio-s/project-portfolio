@@ -9,18 +9,20 @@
   pointer-events: none;
   opacity: 0;
   transition: 1s;
+
   /* details 클래스가 있을 때만 보이도록 */
   body.details & {
     opacity: 1;
   }
-
   .description {
     position: absolute;
     inset: 0;
     overflow-y: scroll;
     visibility: hidden;
+    opacity: 0;
 
-    &.active {
+    &[data-active='true'] {
+      opacity: 1;
       visibility: visible;
       pointer-events: auto;
     }
@@ -33,110 +35,304 @@
         pointer-events: none !important;
       }
     }
-  }
+    .inner_container {
+      position: relative;
+      height: 100%;
+      padding: 5vh max(2rem, 4vw);
 
-  .inner_container {
-    position: relative;
-    padding: 10vh max(2rem, 4vw);
-    min-height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+      @media (orientation: landscape) {
+        padding-left: 50%;
+      }
+    }
   }
 
   .inner {
     position: relative;
-    z-index: 20;
     width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
+// 타이틀 영역
+.ttl {
+  .d-flex {
+    display: block;
+    overflow: hidden;
   }
 
-  .description_in {
-    margin-block: 2.4em 4em;
-    font-size: 1.15em;
-    color: var(--color9, rgb(var(--color2)));
-    transition: color calc(var(--duration) * 2) ease-out;
+  .word {
+    display: inline-block;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-right: 0.25em;
 
-    /* 텍스트 최대 너비 제한 */
-    max-width: 75ch;
-    margin-inline: auto;
-  }
-
-  .detail {
-    margin-top: 2em;
-    padding-top: calc(1em + var(--linewidth));
-    position: relative;
-
-    &::after {
-      content: '';
-      display: block;
-      width: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: var(--linewidth);
-      background-color: currentColor;
-      transform-origin: 0 50%;
-      transition: transform calc(var(--duration) * 4) calc(var(--duration) * 2) cubic-bezier(0.87, 0, 0.13, 1);
+    span {
+      display: inline-block;
     }
   }
 
-  .links {
-    display: flex;
-    justify-content: center;
-    gap: 1.5em;
-    align-items: center;
-    margin-top: 2em;
+  @media (orientation: portrait) {
+    text-align: center;
+    margin-top: 2rem;
+  }
+}
 
-    a,
-    button {
-      display: block;
-      white-space: nowrap;
-      padding: 0.75em 1em;
-      text-align: center;
-      border-radius: 50rem;
-      border: var(--linewidth) solid var(--color4);
+// 설명 텍스트
+.description_in {
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  line-height: 1.8;
+  color: var(--color4);
+  max-width: 75ch;
+  margin-top: 2rem;
+
+  .word {
+    display: inline-block;
+    margin-right: 0.25em;
+
+    span {
+      display: inline-block;
+    }
+  }
+
+  p + p {
+    margin-top: 1rem;
+  }
+}
+
+// 프로젝트 상세 정보
+.project-details {
+  margin-top: 4rem;
+
+  section {
+    margin-bottom: 3rem;
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--color3);
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -0.5rem;
+        width: 3rem;
+        height: 2px;
+        background-color: currentColor;
+      }
+    }
+  }
+
+  // 프로젝트 헤더
+  .project-header {
+    h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .project-period,
+    .project-type {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
       color: var(--color4);
-      background: var(--color1);
-      transition: all calc(var(--duration) * 2) cubic-bezier(0.34, 1.56, 0.64, 1);
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
 
-      &:hover {
-        scale: 1.1;
-        border-color: var(--color5);
-        color: var(--color6);
-        background: var(--color5);
+      svg {
+        width: 1.2em;
+        height: 1.2em;
+      }
+    }
+  }
+
+  // 프로젝트 개요
+  .project-overview {
+    display: grid;
+    gap: 2rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .role-responsibility {
+      ul {
+        list-style: disc;
+        padding-left: 1.2rem;
+
+        li {
+          margin-bottom: 0.75rem;
+          line-height: 1.6;
+          color: var(--color4);
+        }
+      }
+    }
+
+    .tech-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+
+      span {
+        padding: 0.6rem 1.2rem;
+        background: rgba(var(--color3-rgb), 0.08);
+        border: 1px solid rgba(var(--color3-rgb), 0.2);
+        border-radius: 2rem;
+        font-size: 0.9rem;
+        color: var(--color3);
+        font-weight: 500;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: var(--color3);
+          color: var(--color1);
+        }
+      }
+    }
+  }
+
+  // 카드 스타일
+  .feature-card,
+  .challenge-card {
+    background: rgba(var(--color3-rgb), 0.05);
+    border: 1px solid rgba(var(--color3-rgb), 0.1);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color3);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      line-height: 1.7;
+      color: var(--color4);
+    }
+
+    .solution {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(var(--color3-rgb), 0.1);
+      color: var(--color4);
+    }
+  }
+
+  // 프로젝트 링크
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      background: rgba(var(--color3-rgb), 0.08);
+      border-radius: 0.5rem;
+      color: var(--color3);
+      font-size: 0.95rem;
+      font-weight: 500;
+
+      svg {
+        width: 1.2em;
+        height: 1.2em;
       }
     }
   }
 }
 
-/* 가로 모드 (데스크톱) */
-@media (orientation: landscape) {
-  #descriptions {
-    .inner_container {
-      padding-inline-start: 50%;
-      text-align: left;
-    }
+// 버튼 영역
+.links {
+  display: flex;
+  gap: 1.5rem;
+  margin: 2rem 0;
 
-    .description_in {
-      font-size: 1.35em;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  a,
+  button {
+    position: relative;
+    padding: 0.8rem 1.8rem;
+    border: 2px solid var(--color3);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: transparent;
+    cursor: pointer;
+
+    .link-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--color3);
+      font-weight: 500;
+      font-size: 1rem;
+
+      .icon {
+        width: 1.2em;
+        height: 1.2em;
+      }
+    }
+  }
+
+  .launch-link {
+    background: var(--color3);
+    border-color: var(--color3);
+
+    .link-content {
+      color: var(--color1);
     }
   }
 }
 
-/* 세로 모드 (모바일) */
-@media (orientation: portrait) {
-  #descriptions {
-    .inner_container {
-      text-align: center;
-    }
+// 스크롤바 커스텀
+.inner_container {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color3) rgba(var(--color3-rgb), 0.1);
 
-    .ttl {
-      text-align: center;
-      font-size: 4.5em;
-      margin-top: 0.5em;
-      color: var(--color3);
-      text-shadow: 0 0.075em 0.1em rgba(0, 0, 0, 0.35);
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(var(--color3-rgb), 0.1);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color3);
+    border-radius: 4px;
+
+    &:hover {
+      background-color: var(--color4);
     }
+  }
+}
+
+// 반응형 조정
+@media (max-width: 768px) {
+  .inner_container {
+    padding: 2rem;
+  }
+
+  .description_in {
+    margin-inline: auto;
+  }
+
+  .project-details section {
+    margin-bottom: 2rem;
   }
 }
