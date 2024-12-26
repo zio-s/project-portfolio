@@ -5,6 +5,7 @@ import { useMouseMove } from '@/hooks/useMouseMove';
 
 export const ProjectCard = memo(({ project, index, isActive }: ProjectCardProps) => {
   const cardRef = useMouseMove();
+
   return (
     <div
       ref={cardRef}
@@ -15,21 +16,27 @@ export const ProjectCard = memo(({ project, index, isActive }: ProjectCardProps)
       <div className='card-holder-in'>
         <div className='card-holder-inn'>
           <div className='card'>
+            <div className='card-overlay'></div>
             <div className='card-in relative'>
-              <Image
-                src={project.image[0]}
+              {/* <Image
+                src={project.image[0] || project.image[1]}
                 alt={project.title}
                 fill
                 sizes='(max-width: 768px) 100vw, 50vw'
                 priority={index === 0}
-                className='d-sheet object-cover'
-              />
+                className='d-sheet obj
+                ect-cover'
+              /> */}
+              <video muted playsInline autoPlay>
+                <source src={project.image[1]} />
+              </video>
             </div>
           </div>
           <div className='card'>
+            <div className='card-overlay'></div>
             <div className='card-in relative'>
               <Image
-                src={project.image[0] || project.image[0]}
+                src={project.image[0] || project.image[1]}
                 alt={project.title}
                 fill
                 sizes='(max-width: 768px) 100vw, 50vw'
