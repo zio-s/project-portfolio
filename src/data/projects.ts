@@ -9,7 +9,7 @@ export const projectsData: Project[] = [
     year: '2024',
     client: 'Personal Project',
     desc: '이 프로젝트는 기존 지니뮤직의 웹 서비스를 현대적인 디자인과 향상된 사용자 경험으로 재해석한 작업입니다. React와 Next.js를 활용하여 개발되었으며, 실시간 음원 차트, 개인화된 플레이리스트 추천, 소셜 음악 공유 기능 등을 새롭게 구현했습니다.\n\n특히 성능 최적화에 중점을 두어 이미지 레이지 로딩, 컴포넌트 코드 스플리팅, 서버 사이드 렌더링을 적용했으며, 이를 통해 초기 로딩 시간을 40% 단축했습니다. 또한 Framer Motion을 활용한 부드러운 애니메이션으로 사용자 인터랙션을 개선했습니다.',
-    image: ['/images/common/placeholder.png', '/images/common/placeholder.png'],
+    image: ['/images/pattern/genie-intro.png', '/images/pattern/genie-intro.mp4'],
     period: '2024.09.10 - 2024.09.21',
     colors: {
       color1: '#003161',
@@ -23,9 +23,32 @@ export const projectsData: Project[] = [
       color9: '#ffffff',
     },
     links: {
-      live: 'https://genie-music-redesign.vercel.app',
+      live: 'https://zio-s.github.io/project-genie/pages/',
       details: '/projects/genie-music',
+      github: 'https://github.com/zio-s/project-genie',
     },
+    responsibilities: [
+      '웹 표준 준수와 접근성을 강화하여 다양한 사용자가 쉽게 접근할 수 있는 UI 설계 및 개발.',
+      'SCSS 및 CSS 변수(CSS Custom Properties)를 활용하여 유지보수가 용이한 모듈형 스타일링 체계 구현.',
+      'GSAP과 스크롤 이벤트를 활용하여 동적인 UI/UX 인터랙션 및 시각적 몰입감 제공.',
+      '그누보드 연동을 통해 커스터마이징 가능한 게시판 기능 구현 및 사용자 데이터 관리 시스템 구축.',
+      'Git과 GitHub를 활용한 버전 관리 및 협업 효율성 극대화.',
+    ],
+    techStack: ['html', 'scss', 'JavaScript', 'GSAP', 'FullPage.js', 'Gnubord', 'Swiper'],
+    keyFeatures: [
+      {
+        title: '실시간 1:1 및 그룹 채팅',
+        description:
+          'Socket.io를 활용한 실시간 메시징 시스템. 읽음 확인, 타이핑 표시 등 풍부한 채팅 기능을 제공하며, 메시지 전송 지연시간을 100ms 이하로 최적화했습니다.',
+        image: '/images/chat-demo.gif',
+      },
+      {
+        title: '이미지/파일 첨부 기능',
+        description:
+          '드래그 앤 드롭으로 간편한 파일 첨부가 가능하며, 이미지는 자동으로 최적화되어 저장됩니다. AWS S3를 활용한 안정적인 파일 저장 시스템을 구축했습니다.',
+        image: '/images/pattern/genie-intro.png',
+      },
+    ],
   },
   {
     id: 'gamers-nest',
@@ -33,9 +56,10 @@ export const projectsData: Project[] = [
     subtitle: 'Gaming Community Platform',
     description: '게이머들을 위한 소셜 커뮤니티 플랫폼으로, 게임 리뷰, 팁 공유, 팀 매칭 기능을 제공하는 웹 서비스',
     year: '2024',
-    client: 'Team Project',
+    client: 'Personal Project',
     desc: 'Gamers-Nest는 게이머들이 자유롭게 소통하고 정보를 공유할 수 있는 커뮤니티 플랫폼입니다. Socket.io를 활용한 실시간 채팅, WebRTC 기반의 음성 채팅, 게임 매칭 시스템 등을 구현했습니다.\n\n프로젝트의 백엔드는 Node.js와 Express를 사용했으며, MongoDB를 데이터베이스로 활용했습니다. 프론트엔드는 React와 TypeScript를 기반으로 개발되었으며, 상태 관리를 위해 Redux Toolkit을 사용했습니다.\n\n특히 SEO 최적화와 웹 접근성 개선에 주력하여 Lighthouse 성능 점수 95점을 달성했습니다.',
     image: ['/images/common/placeholder.png', '/images/common/placeholder.png'],
+    period: '2024.09.10 - 2024.09.21',
     colors: {
       color1: '#3B1E54',
       color2: '#1A1A1A',
@@ -51,6 +75,14 @@ export const projectsData: Project[] = [
       live: 'https://gamers-nest.vercel.app',
       details: '/projects/gamers-nest',
     },
+    responsibilities: [
+      '웹 표준 준수와 접근성을 강화하여 다양한 사용자가 쉽게 접근할 수 있는 UI 설계 및 개발.',
+      'SCSS 및 CSS 변수(CSS Custom Properties)를 활용하여 유지보수가 용이한 모듈형 스타일링 체계 구현.',
+      'GSAP과 스크롤 이벤트를 활용하여 동적인 UI/UX 인터랙션 및 시각적 몰입감 제공.',
+      '그누보드 연동을 통해 커스터마이징 가능한 게시판 기능 구현 및 사용자 데이터 관리 시스템 구축.',
+      'Git과 GitHub를 활용한 버전 관리 및 협업 효율성 극대화.',
+    ],
+    techStack: ['html', 'scss', 'JavaScript', 'GSAP', 'FullPage.js', 'Gnubord', 'Swiper'],
   },
   {
     id: 'portfolio-2024',
