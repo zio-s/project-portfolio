@@ -16,7 +16,7 @@ const Footer = () => {
           </li>
           <li className='sns_blog'>
             <Link href='https://github.com/zio-s' target='_blank'>
-              <i className='la la-blog' style={{ fontSize: '32px', color: 'var(--color3)' }}></i>
+              <i className='lab la-blogger-b' style={{ fontSize: '32px', color: 'var(--color3)' }}></i>
             </Link>
           </li>
         </ul>
