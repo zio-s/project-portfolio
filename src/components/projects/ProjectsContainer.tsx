@@ -1,7 +1,7 @@
 'use client';
 import { projectsData } from '@/data/projects';
 import { useProjectAnimation } from '@/hooks/useProjectAnimation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ProjectTitle } from './ProjectTitle';
 import { ProjectCard } from './ProjectCard';
 import { ProjectDescription } from './ProjectDescription';
@@ -12,6 +12,27 @@ export const ProjectsContainer = () => {
     projects: projectsData,
     setActiveProject,
   });
+  useEffect(() => {
+    const cardsElement = cardsRef.current;
+    if (!cardsElement) return;
+
+    const handleClick = (e: MouseEvent) => {
+      if (!document.body.classList.contains('details')) return;
+
+      const target = e.target as HTMLElement;
+      if (target.closest('button') || target.closest('a') || target.closest('.interactive-element')) {
+        return;
+      }
+
+      closeProjectDetail();
+    };
+
+    cardsElement.addEventListener('click', handleClick);
+
+    return () => {
+      cardsElement.removeEventListener('click', handleClick);
+    };
+  }, [cardsRef, closeProjectDetail]);
 
   return (
     <div id='stage' ref={wrapperRef} className='min-h-screen h-auto overflow-visible relative'>
@@ -26,7 +47,7 @@ export const ProjectsContainer = () => {
         ))}
       </div>
 
-      <div id='cards'>
+      <div id='cards' className='cards-container'>
         <div
           ref={cardsRef}
           id='cards_in'
