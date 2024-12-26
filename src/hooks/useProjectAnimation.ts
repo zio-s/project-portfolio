@@ -25,17 +25,14 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
     (holder: HTMLElement) => {
       if (!holder || isScrollingRef.current) return;
 
-      // 이미 애니메이션이 진행 중이면 중단
       if (activeAnimationRef.current) {
         activeAnimationRef.current.kill();
       }
 
       const cards = holder.querySelectorAll('.card');
-
-      // cardHolders 배열에서 현재 holder의 실제 인덱스를 찾습니다
+      const overlays = holder.querySelectorAll('.card-overlay');
       const cardHolders = gsap.utils.toArray<HTMLElement>('.card-holder');
       const currentIndex = cardHolders.indexOf(holder);
-
       const targetProject = projects[currentIndex];
 
       const tl = gsap.timeline({
@@ -47,6 +44,16 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       const yOffset = gsap.utils.random(5, 12);
       const rotation1 = gsap.utils.random(6, 18) * direction * -1;
       const rotation2 = gsap.utils.random(6, 18) * direction;
+
+      // 오버레이 표시
+      tl.to(
+        overlays,
+        {
+          opacity: 1,
+          duration: 0.3,
+        },
+        0
+      );
 
       tl.to(
         cards[0],
@@ -344,6 +351,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
     const cardHolders = gsap.utils.toArray<HTMLElement>('.card-holder');
     cardHolders.forEach((holder) => {
       const cards = holder.querySelectorAll('.card');
+      const overlays = holder.querySelectorAll('.card-overlay');
       gsap.to(cards, {
         xPercent: 0,
         yPercent: 0,
@@ -351,61 +359,85 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
         duration: 0.4,
         overwrite: true,
       });
+      gsap.to(overlays, {
+        opacity: 0,
+        duration: 0.3,
+      });
     });
   }, []);
 
   // 스크롤 스냅
   const snapToNearestCard = useCallback(() => {
     if (!lenisRef.current || isScrollingRef.current === false) return;
+
+    // HTMLElement 타입을 가진 배열로 명시적 타입 지정
     const titleHolders = gsap.utils.toArray<HTMLElement>('.title');
     const cardHolders = gsap.utils.toArray<HTMLElement>('.card-holder');
+
+    if (!titleHolders.length || !cardHolders.length) return; // 요소가 없는 경우 early return
+
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
     const winCenterScroll = scrollPosition + windowHeight / 2;
 
-    let targetHolder: HTMLElement | null = null;
-    let minDistance = Infinity;
+    interface HolderDistance {
+      holder: HTMLElement;
+      distance: number;
+    }
 
-    cardHolders.forEach((holder) => {
-      const rect = holder.getBoundingClientRect();
-      const holderCenter = rect.top + rect.height / 2;
-      const distance = Math.abs(winCenterScroll - (holderCenter + scrollPosition));
+    // 가장 가까운 홀더 찾기를 reduce로 변경하여 더 명확하게 처리
+    const closest = cardHolders.reduce<HolderDistance>(
+      (acc, holder) => {
+        const rect = holder.getBoundingClientRect();
+        const holderCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(winCenterScroll - (holderCenter + scrollPosition));
 
-      if (distance < minDistance) {
-        minDistance = distance;
-        targetHolder = holder;
-      }
-    });
+        return distance < acc.distance ? { holder, distance } : acc;
+      },
+      { holder: cardHolders[0], distance: Infinity }
+    );
 
-    if (targetHolder) {
-      const targetIndex = cardHolders.indexOf(targetHolder);
-      const targetId = targetHolder.dataset.id;
-      const targetPosition = targetIndex * windowHeight;
+    const targetHolder = closest.holder;
+    const targetIndex = cardHolders.indexOf(targetHolder);
+    const targetId = targetHolder.dataset.id;
 
-      resetAllCards();
+    if (targetId === undefined) return; // dataset.id가 없는 경우 early return
 
-      // 모든 카드에서 active 클래스 제거
-      cardHolders.forEach((holder) => {
-        holder.classList.remove('active');
-      });
-      titleHolders.forEach((title) => {
-        title.classList.remove('active');
-      });
+    const targetPosition = targetIndex * windowHeight;
+
+    resetAllCards();
+
+    // 모든 요소의 active 클래스 제거
+    cardHolders.forEach((holder) => holder.classList.remove('active'));
+    titleHolders.forEach((title) => title.classList.remove('active'));
+
+    // 스크롤 애니메이션
+    if (lenisRef.current) {
       lenisRef.current.scrollTo(targetPosition, {
         duration: 0.25,
         onComplete: () => {
           isScrollingRef.current = false;
-          // 타겟 카드에 active 클래스 추가
-          targetHolder?.classList.add('active');
+
+          // 타겟 홀더 active 처리
+          targetHolder.classList.add('active');
+
+          // 타겟 타이틀 찾기
           const targetTitle = titleHolders.find((title) => title.dataset.id === targetId);
+
           if (targetTitle) {
-            // 타이틀 애니메이션을 위한 GSAP 타임라인
-            const tl = gsap.timeline();
+            const titleIn = targetTitle.querySelector<HTMLElement>('.title_in');
+            const clientElements = targetTitle.querySelectorAll<HTMLElement>('.client');
+            const metaElement = targetTitle.querySelector<HTMLElement>('.meta');
+
+            if (!titleIn || !metaElement || clientElements.length === 0) return;
+
             targetTitle.classList.add('active');
+
+            const tl = gsap.timeline();
 
             // 타이틀 애니메이션
             tl.fromTo(
-              targetTitle.querySelector('.title_in'),
+              titleIn,
               {
                 yPercent: 100,
                 opacity: 0,
@@ -418,7 +450,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
               }
             )
               .fromTo(
-                targetTitle.querySelectorAll('.client'),
+                clientElements,
                 {
                   yPercent: -100,
                   opacity: 0,
@@ -433,7 +465,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
                 '-=0.4'
               )
               .fromTo(
-                targetTitle.querySelector('.meta'),
+                metaElement,
                 {
                   yPercent: 50,
                   opacity: 0,
@@ -448,7 +480,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
               );
           }
 
-          animateActiveCard(targetHolder!);
+          animateActiveCard(targetHolder);
           previousIndexRef.current = targetIndex;
         },
       });
