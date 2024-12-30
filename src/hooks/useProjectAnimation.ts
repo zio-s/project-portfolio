@@ -76,15 +76,20 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
           0
         )
         .to(
-          document.documentElement,
+          [document.documentElement, document.querySelector('header')],
           {
-            duration: 0.2,
+            duration: 0.01,
             ease: 'power3.out',
             onStart: () => {
               if (targetProject?.colors) {
                 Object.entries(targetProject.colors).forEach(([key, value]) => {
                   document.body.setAttribute(`data-${key}`, value);
                 });
+                // header에도 background-color 설정
+                const header = document.querySelector('header');
+                if (header && targetProject.colors.color1) {
+                  header.style.backgroundColor = targetProject.colors.color1;
+                }
               }
             },
             ...Object.entries(targetProject?.colors || {}).reduce((acc, [key, value]) => {
@@ -117,7 +122,6 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       gsap.killTweensOf('#cards');
       gsap.killTweensOf('#titles');
 
-      lenisRef.current.stop();
       document.body.classList.add('details');
       document.body.classList.remove('home');
       document.documentElement.style.overflow = 'hidden';
