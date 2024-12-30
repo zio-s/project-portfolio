@@ -80,3 +80,18 @@ export interface ProjectDescriptionProps {
   isActive: boolean;
   closeProjectDetail: () => void;
 }
+
+export interface techStackIcons {
+  HTML: string;
+  CSS: string;
+  JavaScript: string;
+  React: string;
+  SASS: string;
+  Node: string;
+  Python: string;
+  GSAP?: string;
+  'FullPage.js'?: string;
+  Gnubord?: string;
+  Swiper?: string;
+  [key: string]: string | undefined; // 추가 기술 스택을 위한 인덱스 시그니처
+}
