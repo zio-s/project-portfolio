@@ -3,20 +3,16 @@ import Link from 'next/link';
 import { Project } from '@/types/project';
 import gsap from 'gsap';
 import { ExternalLink, Plus } from 'lucide-react';
-import { Noto_Serif } from 'next/font/google';
+import { Lora } from 'next/font/google';
 interface ProjectTitleProps {
   project: Project;
   isActive: boolean;
   openProjectDetail: (holder: HTMLElement) => void;
 }
-const playfairNormal = Noto_Serif({
-  subsets: ['latin'],
-  weight: '400',
-});
-
-const playfairBold = Noto_Serif({
-  subsets: ['latin'],
-  weight: '600',
+const lora = Lora({
+  subsets: ['latin'], // 라틴 문자 서브셋
+  weight: ['400', '500', '600', '700'], // 필요한 폰트 굵기 선택
+  style: ['normal', 'italic'], // normal과 italic 스타일 모두 사용
 });
 export const ProjectTitle = memo(({ project, openProjectDetail }: ProjectTitleProps) => {
   const handleDetailClick = (e: React.MouseEvent) => {
@@ -38,7 +34,7 @@ export const ProjectTitle = memo(({ project, openProjectDetail }: ProjectTitlePr
     <div className='title words_holder' data-id={project.id}>
       <div className='title_holder'>
         <div className='client fw-bold mask'>
-          <span className={playfairNormal.className}>
+          <span className={`lora.className`}>
             {project.year} &mdash; {project.title}
           </span>
         </div>
@@ -51,8 +47,8 @@ export const ProjectTitle = memo(({ project, openProjectDetail }: ProjectTitlePr
           onClick={handleDetailClick}
         >
           <strong className='project-title'>
-            <span className={`${playfairBold.className} word`}>
-              <span style={{ transitionDelay: '0s' }}>{project.title}</span>
+            <span className={`${lora.className} word italic font-normal `}>
+              <span>{project.title}</span>
             </span>
             {/* {project.subtitle && (
               <span className='word'>
