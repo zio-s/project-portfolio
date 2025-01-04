@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const About = ({ isActive, closeOverlay }: IAboutProps) => {
   return (
     <div
-      className={`fixed inset-0 w-full h-full bg-[#fff0db] text-[#263c4f] transition-opacity duration-500
+      className={`fixed inset-0 w-full h-full bg-[#fff0db] text-[#263c4f] transition-opacity duration-300
         ${isActive ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
       data-active={isActive}
       data-lenis-prevent-wheel={!isActive}
