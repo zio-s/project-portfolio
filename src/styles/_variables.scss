@@ -22,6 +22,10 @@ body {
     color: var(--color2);
   }
 }
+.page-transition {
+  will-change: transform;
+}
+
 // 데스크탑 (가로모드)
 @media (orientation: landscape) {
   :root {

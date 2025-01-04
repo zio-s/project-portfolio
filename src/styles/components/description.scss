@@ -1,3 +1,15 @@
+.description[data-animating='true'] {
+  pointer-events: none; /* 애니메이션 중 상호작용 방지 */
+}
+
+.description .inner {
+  transition: transform 0.3s ease;
+}
+
+.description[data-animating='true'] .inner {
+  /* 애니메이션 중 시각적 피드백 */
+  transform: scale(0.99);
+}
 #descriptions {
   position: fixed;
   left: 0;
@@ -5,7 +17,7 @@
   width: 100vw;
   height: 100vh;
   height: 100lvh;
-  z-index: 30;
+  z-index: 24;
   pointer-events: none;
   opacity: 0;
   transition: 1s;
@@ -46,203 +58,373 @@
     }
   }
 }
+
+// 컨테이너에 상대적 위치 설정
+.inner_container {
+  position: relative;
+  min-height: 100vh;
+}
 .inner {
   position: relative;
   width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
 }
 // 타이틀 영역
 .ttl {
+  // position: sticky;
+  top: 80px; // 헤더 높이만큼
+  width: 100%;
+  transition: all 0.3s ease;
+  background-color: transparent;
+  &.fixed-title {
+    position: fixed;
+    left: 0;
+    right: 0;
+
+    .word {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+  }
   .word {
-    display: inline-block;
+    display: block;
     font-size: clamp(2.5rem, 8vw, 5rem);
     font-weight: 700;
     line-height: 1.1;
-    margin-right: 0.25em;
-
-    span {
-      display: inline-block;
-    }
+    color: var(--color3);
+    transition: font-size 0.3s ease;
   }
-
+  .subtitle {
+    display: inline-block;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--color4);
+  }
   @media (orientation: portrait) {
     text-align: center;
     margin-top: 2rem;
+  }
+}
+.project-day-type {
+  display: flex;
+  gap: 2rem;
+  .project-period,
+  .project-type {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color4);
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+
+    svg {
+      width: 1.2em;
+      height: 1.2em;
+    }
   }
 }
 
 // 설명 텍스트
 .description_in {
   font-size: clamp(1.1rem, 2vw, 1.25rem);
-  line-height: 1.8;
+  line-height: 1.5;
   color: var(--color4);
   max-width: 75ch;
-  margin-top: 2rem;
-
   .word {
     display: inline-block;
-    margin-right: 0.25em;
-
     span {
       display: inline-block;
     }
   }
+}
 
-  p + p {
-    margin-top: 1rem;
+section {
+  margin-bottom: 3rem;
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    position: relative;
+    color: var(--color4);
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -0.5rem;
+      width: 3rem;
+      height: 2px;
+      background: var(--color3);
+      transition: width 0.3s ease;
+    }
+
+    &:hover::after {
+      width: 6rem;
+    }
   }
 }
 
-// 프로젝트 상세 정보
-.project-details {
-  margin-top: 4rem;
+// 프로젝트 개요
+.project-overview {
+  display: grid;
+  gap: 2rem;
 
-  section {
-    margin-bottom: 3rem;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-    h3 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      color: var(--color3);
-      position: relative;
+  .role-responsibility {
+    ul {
+      list-style: disc;
+      padding-left: 1.2rem;
 
-      &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -0.5rem;
-        width: 3rem;
-        height: 2px;
-        background-color: currentColor;
+      li {
+        margin-bottom: 0.75rem;
+        line-height: 1.6;
+        color: var(--color4);
       }
     }
   }
 
-  // 프로젝트 헤더
-  .project-header {
-    h1 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
+  .tech-badges {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
 
-    .project-period,
-    .project-type {
+    .tech-icon-wrapper {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      color: var(--color4);
-      font-size: 0.95rem;
-      margin-top: 0.5rem;
+      justify-content: center;
 
-      svg {
-        width: 1.2em;
-        height: 1.2em;
-      }
-    }
-  }
-
-  // 프로젝트 개요
-  .project-overview {
-    display: grid;
-    gap: 2rem;
-
-    @media (min-width: 768px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .role-responsibility {
-      ul {
-        list-style: disc;
-        padding-left: 1.2rem;
-
-        li {
-          margin-bottom: 0.75rem;
-          line-height: 1.6;
-          color: var(--color4);
-        }
-      }
-    }
-
-    .tech-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-
-      span {
-        padding: 0.6rem 1.2rem;
-        background: rgba(var(--color3-rgb), 0.08);
-        border: 1px solid rgba(var(--color3-rgb), 0.2);
-        border-radius: 2rem;
-        font-size: 0.9rem;
-        color: var(--color3);
-        font-weight: 500;
-        transition: all 0.3s ease;
+      i {
+        font-size: 2.5rem;
+        transition: transform 0.2s ease;
 
         &:hover {
-          background: var(--color3);
-          color: var(--color1);
+          transform: scale(1.1);
         }
+      }
+
+      .tech-name {
+        padding: 0.25rem 0.5rem;
+        background-color: var(--color-bg-secondary);
+        border-radius: 4px;
+        font-size: 0.875rem;
       }
     }
   }
+}
 
-  // 카드 스타일
-  .feature-card,
+// 카드 스타일
+.key-features {
+  margin-top: 2rem;
+
+  .feature-card {
+    display: flex;
+    background: rgba(var(--color3-rgb), 0.05);
+    border: 1px solid rgba(var(--color3-rgb), 0.1);
+    overflow: hidden;
+    margin-bottom: 2rem;
+    transition: transform 0.2s ease;
+    border-radius: 25px;
+
+    // 호버 효과
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(var(--color3-rgb), 0.1);
+
+      &::before {
+        transform: translateX(0);
+        opacity: 0.1;
+      }
+    }
+
+    // 호버시 나타나는 배경 효과
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--color3), transparent);
+      transform: translateX(-100%);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 0;
+    }
+
+    // 이미지 컨테이너
+    .image-wrapper {
+      flex: 0 0 45%;
+      position: relative;
+      min-height: 300px;
+
+      img {
+        object-fit: cover;
+        border-radius: 20px;
+      }
+    }
+
+    // 텍스트 컨텐츠
+    .content {
+      flex: 1;
+      padding: 2rem;
+
+      h4 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--color3);
+        margin-bottom: 1rem;
+      }
+
+      p {
+        line-height: 1.7;
+        color: var(--color4);
+      }
+    }
+  }
+}
+
+// 반응형
+@media (max-width: 768px) {
+  .key-features .feature-card {
+    flex-direction: column;
+
+    .image-wrapper {
+      flex: 0 0 200px;
+      min-height: auto;
+      width: 100%;
+    }
+
+    .content {
+      padding: 1.5rem 0.8rem;
+    }
+  }
+}
+
+// 프로젝트 링크
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: rgba(var(--color3-rgb), 0.08);
+    border-radius: 0.5rem;
+    color: var(--color3);
+    font-size: 0.95rem;
+    font-weight: 500;
+
+    svg {
+      width: 1.2em;
+      height: 1.2em;
+    }
+  }
+}
+
+.challenges {
+  margin-top: 4rem;
+
   .challenge-card {
     background: rgba(var(--color3-rgb), 0.05);
     border: 1px solid rgba(var(--color3-rgb), 0.1);
     border-radius: 1rem;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    // 호버 효과
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(var(--color3-rgb), 0.1);
+
+      &::before {
+        transform: translateX(0);
+        opacity: 0.1;
+      }
+    }
+
+    // 호버시 나타나는 배경 효과
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--color3), transparent);
+      transform: translateX(-100%);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 0;
+    }
+
+    // 내용물은 배경 효과 위에 보이도록
+    h4,
+    p,
+    .solution {
+      position: relative;
+      z-index: 1;
+    }
 
     h4 {
       font-size: 1.25rem;
       font-weight: 600;
       color: var(--color3);
       margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(var(--color3-rgb), 0.1);
     }
 
     p {
       line-height: 1.7;
       color: var(--color4);
+      margin-bottom: 1.5rem;
     }
 
     .solution {
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(var(--color3-rgb), 0.1);
+      position: relative;
+      padding-top: 1.5rem;
       color: var(--color4);
+      border-top: 1px solid rgba(var(--color3-rgb), 0.1);
+
+      // "Solution" 레이블 추가
+      &::before {
+        content: 'Solution';
+        position: absolute;
+        top: -0.75rem;
+        left: 0;
+        background: rgba(var(--color3-rgb), 0.05);
+
+        border-radius: 1rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--color3);
+        border: 1px solid rgba(var(--color3-rgb), 0.1);
+      }
     }
   }
 
-  // 프로젝트 링크
-  .project-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+  // 반응형 조정
+  @media (max-width: 768px) {
+    .challenge-card {
+      padding: 0.8rem;
+      h4 {
+        font-size: 1.125rem;
+      }
 
-    a {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.25rem;
-      background: rgba(var(--color3-rgb), 0.08);
-      border-radius: 0.5rem;
-      color: var(--color3);
-      font-size: 0.95rem;
-      font-weight: 500;
-
-      svg {
-        width: 1.2em;
-        height: 1.2em;
+      .solution::before {
+        font-size: 1.125rem;
       }
     }
   }
 }
-
 // 버튼 영역
 .links {
   display: flex;
@@ -291,34 +473,10 @@
   }
 }
 
-// 스크롤바 커스텀
-.inner_container {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color3);
-
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--color3);
-    border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--color3);
-    border-radius: 4px;
-
-    &:hover {
-      background-color: var(--color4);
-    }
-  }
-}
-
 // 반응형 조정
 @media (max-width: 768px) {
   .inner_container {
-    padding: 2rem;
+    // padding: 2rem;
   }
 
   .description_in {
@@ -327,5 +485,10 @@
 
   .project-details section {
     margin-bottom: 2rem;
+  }
+  .solution {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
   }
 }

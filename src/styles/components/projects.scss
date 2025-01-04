@@ -1,7 +1,6 @@
-#stage {
+.projects-stage {
   position: relative;
   min-height: 100vh;
-
   .faux_slide {
     height: 100vh;
     width: 100%;
@@ -9,7 +8,6 @@
     scroll-snap-align: start;
   }
 }
-
 #cards {
   position: fixed;
   left: 50%;
@@ -18,9 +16,8 @@
   width: 100%;
   height: var(--card-height);
   pointer-events: none;
-  z-index: 2;
-
-  #cards_in {
+  z-index: 22;
+  &_in {
     position: absolute;
     left: 50%;
     top: 0;
@@ -30,7 +27,6 @@
     will-change: transform;
   }
 }
-
 .card-holder {
   position: absolute;
   left: 50%;
@@ -55,20 +51,27 @@
     aspect-ratio: 9/13;
     position: relative;
     transform-style: preserve-3d;
-    z-index: 200;
+    z-index: 20;
 
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      transition: opacity 0.3s ease;
+      border-radius: calc(var(--card-height) * 0.1);
+      z-index: 21;
+    }
     &-in {
       position: absolute;
       inset: 0;
       overflow: hidden;
       border-radius: calc(var(--card-height) * 0.1);
-      background: var(--color9);
-
       img,
       video {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        position: relative;
       }
     }
 
@@ -79,3 +82,18 @@
   }
 }
 // 랜드스케이프 모드 스타일
+// 모바일 (세로모드) 미디어 쿼리 수정
+@media (orientation: portrait) {
+  :root {
+    --card-height: 40vh; // 48vh에서 40vh로 줄임
+    --card-height: 40svh;
+  }
+
+  .card-holder {
+    .card {
+      width: auto; // 너비 자동 조정
+      height: var(--card-height);
+      max-width: 85vw; // 뷰포트 너비의 85%로 제한
+    }
+  }
+}

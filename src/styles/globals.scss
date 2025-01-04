@@ -7,7 +7,8 @@
 @import 'components/header';
 @import 'components/projects';
 @import 'components/titles';
-@import 'components/description.scss';
+@import 'components/description';
+@import 'components//about.scss';
 @import 'animations';
 @import 'utils';
 
@@ -33,7 +34,6 @@ html {
 }
 
 body {
-  // font-family: 'Instrument Sans', sans-serif;
   background-color: var(--color1);
   line-height: 1.5;
   overflow-x: hidden;
