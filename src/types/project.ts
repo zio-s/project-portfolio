@@ -80,6 +80,11 @@ export interface ProjectDescriptionProps {
   isActive: boolean;
   closeProjectDetail: () => void;
 }
+export interface IAboutProps {
+  project?: Project;
+  isActive: boolean;
+  closeOverlay: () => void;
+}
 
 export interface techStackIcons {
   HTML: string;
@@ -95,3 +100,31 @@ export interface techStackIcons {
   Swiper?: string;
   [key: string]: string | undefined; // 추가 기술 스택을 위한 인덱스 시그니처
 }
+
+export type LenisInstance = {
+  scrollTo: (
+    target: number | string | HTMLElement,
+    options?: {
+      offset?: number;
+      immediate?: boolean;
+      lock?: boolean;
+      duration?: number;
+    }
+  ) => void;
+  stop: () => void;
+  start: () => void;
+  destroy: () => void;
+  options: {
+    wrapper?: HTMLElement | Window;
+    content?: HTMLElement;
+    lerp?: number;
+    duration?: number;
+    orientation?: 'vertical' | 'horizontal';
+    gestureOrientation?: 'vertical' | 'horizontal';
+    smoothWheel?: boolean;
+    smoothTouch?: boolean;
+    wheelMultiplier?: number;
+    touchMultiplier?: number;
+    infinite?: boolean;
+  };
+};
