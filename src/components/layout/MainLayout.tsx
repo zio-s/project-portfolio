@@ -1,9 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 
-// import { useThemeColor } from '@/hooks/useThemeColor';
-// import { projectsData } from '@/data/projects';
 import Header from '../Header';
 import Footer from '../Footer';
 
@@ -11,11 +9,8 @@ interface MainLayoutProps {
   children: React.ReactNode;
 }
 
-export const MainLayout = ({ children }: MainLayoutProps) => {
+export const MainLayout = memo(({ children }: MainLayoutProps) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isScrolling, setIsScrolling] = useState(false);
-
-  // useThemeColor(projectsData[0].colors); // 초기 컬러 설정
 
   useEffect(() => {
     // 폰트 및 이미지 로딩 체크
@@ -27,26 +22,22 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
   }, []);
 
   return (
-    <div className={`main-wrapper ${isLoading ? 'state-loading' : ''}`}>
+    <div className={`main-wrapper min-h-screen ${isLoading ? 'state-loading' : ''}`}>
       {isLoading && (
         <div id='splash' className='words_holder fonty'>
           {/* 로딩 화면 내용 */}
         </div>
       )}
 
-      <div id='cursor' className='d-portrait-none' aria-hidden='true'>
-        <div>
-          <i className='smile-icon'></i>
-        </div>
-      </div>
+      {/* <CustomCursor /> */}
 
       <Header />
 
-      <div id='main' className={isScrolling ? 'is-scrolling' : ''}>
-        {children}
-      </div>
+      <main className='relative min-h-screen'>{children}</main>
 
       <Footer />
     </div>
   );
-};
+});
+
+MainLayout.displayName = 'MainLayout';
