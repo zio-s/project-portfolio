@@ -20,6 +20,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
   const isInitializedRef = useRef(false);
   const previousIndexRef = useRef<number>(-1);
   const [isVertical, setIsVertical] = useState(false);
+
   // 활성 카드 애니메이션
   const animateActiveCard = useCallback(
     (holder: HTMLElement) => {
@@ -491,6 +492,110 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
     }
   }, [animateActiveCard, resetAllCards]);
 
+  const initializeAnimation = useCallback(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 기존 ScrollTrigger와 Lenis 인스턴스 정리
+    if (lenisRef.current) {
+      lenisRef.current.destroy();
+      lenisRef.current = null;
+    }
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+
+    // About 섹션일 때는 초기화하지 않음
+    // if (currentSection !== 'home') {
+    //   return () => {};
+    // }
+
+    // URL에서 현재 활성화된 카드의 인덱스 찾기
+    const getCurrentCardIndex = () => {
+      const hash = window.location.hash.replace('#', '');
+      const currentIndex = projects.findIndex((project) => project.id === hash);
+      return currentIndex >= 0 ? currentIndex : 0;
+    };
+
+    const currentIndex = getCurrentCardIndex();
+    const currentProject = projects[currentIndex];
+
+    // 색상 초기화
+    if (currentProject?.colors) {
+      Object.entries(currentProject.colors).forEach(([key, value]) => {
+        document.documentElement.style.setProperty(`--${key}`, value);
+        document.body.setAttribute(`data-${key}`, value);
+      });
+    }
+
+    // Lenis 초기화
+    lenisRef.current = new Lenis({
+      duration: 0.25,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 1,
+    });
+
+    // RAF 설정
+    const raf = (time: number) => {
+      lenisRef.current?.raf(time * 1000);
+      ScrollTrigger.update();
+    };
+
+    gsap.ticker.add(raf);
+
+    return () => {
+      if (activeAnimationRef.current) {
+        activeAnimationRef.current.kill();
+      }
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      if (lenisRef.current) {
+        lenisRef.current.destroy();
+      }
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+      gsap.ticker.remove(raf);
+    };
+  }, [projects, setActiveProject]);
+
+  useEffect(() => {
+    const cleanup = initializeAnimation();
+
+    // hashchange 이벤트 리스너 추가
+    const handleHashChange = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      const hash = customEvent.detail || window.location.hash;
+
+      // 현재 활성화된 카드의 인덱스 찾기
+      const currentIndex = projects.findIndex((project) => project.id === hash.replace('#', ''));
+
+      if (currentIndex >= 0) {
+        // Lenis 인스턴스 유지하면서 스크롤
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(currentIndex * window.innerHeight, {
+            duration: 1,
+            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          });
+        }
+
+        // 프로젝트 색상 업데이트
+        const currentProject = projects[currentIndex];
+        if (currentProject?.colors) {
+          Object.entries(currentProject.colors).forEach(([key, value]) => {
+            document.documentElement.style.setProperty(`--${key}`, value);
+            document.body.setAttribute(`data-${key}`, value);
+          });
+        }
+      }
+    };
+
+    // 이벤트 리스너 등록
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => {
+      cleanup();
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, [initializeAnimation, projects]);
+
   useEffect(() => {
     if (isInitializedRef.current) return;
     isInitializedRef.current = true;
@@ -788,5 +893,5 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       window.removeEventListener('resize', debouncedResize);
     };
   }, [debouncedResize]);
-  return { wrapperRef, cardsRef, isVertical, openProjectDetail, closeProjectDetail };
+  return { wrapperRef, cardsRef, isVertical, openProjectDetail, closeProjectDetail, lenis: lenisRef.current };
 };
