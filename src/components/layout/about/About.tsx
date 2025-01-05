@@ -11,13 +11,17 @@ gsap.registerPlugin(ScrollTrigger);
 const About = ({ isActive, closeOverlay }: IAboutProps) => {
   return (
     <div
-      className={`fixed inset-0 w-full h-full bg-[#fff0db] text-[#263c4f] transition-opacity duration-300
-        ${isActive ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+      className={`overlay fixed inset-0 w-full h-full bg-[#fff0db] text-[#263c4f]
+      ${isActive ? 'visible' : 'invisible'}`}
+      style={{
+        willChange: 'transform, opacity',
+        display: 'none',
+      }}
       data-active={isActive}
       data-lenis-prevent-wheel={!isActive}
     >
       <div
-        className='h-full overflow-y-auto'
+        className='about-content h-full overflow-y-auto'
         style={{
           WebkitOverflowScrolling: 'touch',
         }}
