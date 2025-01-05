@@ -58,9 +58,9 @@ export const ProjectsContainer = () => {
   }, [isOverlayActive]);
 
   return (
-    <div className='relative min-h-screen overflow-hidden'>
+    <>
       {/* Main content wrapper */}
-      <main
+      <div
         className={`relative w-full h-full transition-opacity duration-500 ${
           isOverlayActive ? 'opacity-0 pointer-events-none' : 'opacity-100'
         }`}
@@ -111,7 +111,7 @@ export const ProjectsContainer = () => {
             />
           ))}
         </div>
-      </main>
+      </div>
 
       {/* Overlay sections */}
       <div
@@ -125,6 +125,6 @@ export const ProjectsContainer = () => {
         {/* 다른 컴포넌트 오버레이 */}
         {/* {currentSection === 'contact' && <Contact isActive={isOverlayActive} closeOverlay={handleCloseOverlay} />} */}
       </div>
-    </div>
+    </>
   );
 };
