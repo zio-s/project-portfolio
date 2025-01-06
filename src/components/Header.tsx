@@ -1,13 +1,43 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from './navigation/NavLink';
 
 const Header = () => {
+  const [textColor, setTextColor] = useState('var(--color3)');
+
+  // 색상 업데이트 함수를 별도로 분리
+  const updateTextColor = (hash: string) => {
+    setTextColor(hash !== '' ? '#263c4f' : 'var(--color3)');
+  };
+
+  useEffect(() => {
+    // 초기 해시 체크
+    updateTextColor(window.location.hash);
+
+    // 해시 변경 감지
+    const handleHashChange = () => {
+      updateTextColor(window.location.hash);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+
+    // URL 변경 감지 (pushState, replaceState 이벤트 감지)
+    const handleUrlChange = () => {
+      updateTextColor(window.location.hash);
+    };
+
+    window.addEventListener('popstate', handleUrlChange);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('popstate', handleUrlChange);
+    };
+  }, []);
   return (
     <header id='header' className='fixed top-0 left-0 w-screen p-8'>
       <div className='flex justify-between items-center'>
-        <div className='text-2xl font-bold ' style={{ color: 'var(--color3)' }}>
+        <div className='text-2xl font-bold transition-colors duration-300' style={{ color: textColor }}>
           <NavLink href='/'>Byunfolio</NavLink>
         </div>
         <nav className='flex gap-8'>
@@ -15,8 +45,10 @@ const Header = () => {
             <NavLink
               key={index}
               href={`/${item.toLowerCase().replace(' ', '')}`}
-              className='relative text-lg font-semibold hover:-translate-y-0.5 transition-all duration-300 group [color:var(--color3)]'
-              // style={{ color: 'var(--color3)' }}
+              className={`relative text-lg font-semibold hover:-translate-y-0.5 transition-all duration-300 group ${
+                textColor === '#263c4f' ? 'text-[#263c4f]' : 'text-[var(--color3)]'
+              }`}
+              // style={{ color: textColor }}
             >
               {item}
               <span className='absolute bottom-[-4px] left-1/2 w-0 h-0.5 bg-current transform -translate-x-1/2 group-hover:w-full transition-all duration-300 ease-in-out' />
