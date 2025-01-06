@@ -502,29 +502,6 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
     }
     ScrollTrigger.getAll().forEach((t) => t.kill());
 
-    // About 섹션일 때는 초기화하지 않음
-    // if (currentSection !== 'home') {
-    //   return () => {};
-    // }
-
-    // URL에서 현재 활성화된 카드의 인덱스 찾기
-    const getCurrentCardIndex = () => {
-      const hash = window.location.hash.replace('#', '');
-      const currentIndex = projects.findIndex((project) => project.id === hash);
-      return currentIndex >= 0 ? currentIndex : 0;
-    };
-
-    const currentIndex = getCurrentCardIndex();
-    const currentProject = projects[currentIndex];
-
-    // 색상 초기화
-    if (currentProject?.colors) {
-      Object.entries(currentProject.colors).forEach(([key, value]) => {
-        document.documentElement.style.setProperty(`--${key}`, value);
-        document.body.setAttribute(`data-${key}`, value);
-      });
-    }
-
     // Lenis 초기화
     lenisRef.current = new Lenis({
       duration: 0.25,
@@ -603,14 +580,35 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
     gsap.registerPlugin(ScrollTrigger);
 
     // URL에서 현재 활성화된 카드의 인덱스 찾기
-    const getCurrentCardIndex = () => {
-      const hash = window.location.hash.replace('#', '');
-      const currentIndex = projects.findIndex((project) => project.id === hash);
-      return currentIndex >= 0 ? currentIndex : 0; // hash가 없으면 첫 번째 카드
+    const getCurrentCardInfo = () => {
+      // 1. 먼저 active 클래스를 가진 카드를 찾습니다
+      const activeCardHolder = document.querySelector('.card-holder.active') as HTMLElement;
+
+      if (activeCardHolder) {
+        // active 클래스를 가진 카드가 있다면, 해당 카드의 인덱스를 찾습니다
+        const cardHolders = Array.from(document.querySelectorAll('.card-holder'));
+        const activeIndex = cardHolders.indexOf(activeCardHolder);
+
+        if (activeIndex >= 0) {
+          return {
+            currentIndex: activeIndex,
+            currentProject: projects[activeIndex],
+          };
+        }
+      }
+
+      // 2. active 클래스를 가진 카드가 없다면, 현재 스크롤 위치를 기준으로 가장 가까운 카드를 찾습니다
+      const currentScroll = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const currentIndex = Math.round(currentScroll / windowHeight);
+
+      return {
+        currentIndex: Math.min(currentIndex, projects.length - 1),
+        currentProject: projects[Math.min(currentIndex, projects.length - 1)],
+      };
     };
 
-    const currentIndex = getCurrentCardIndex();
-    const currentProject = projects[currentIndex];
+    const { currentIndex, currentProject } = getCurrentCardInfo();
 
     if (currentProject?.colors) {
       Object.entries(currentProject.colors).forEach(([key, value]) => {
