@@ -29,6 +29,7 @@ export const useTransitionAnimation = ({ lenis, onTransitionComplete }: UseTrans
       const cardsTitle = document.querySelector('#titles') as HTMLElement;
       const overlay = document.querySelector('.overlay') as HTMLElement;
       const aboutContent = document.querySelector('.about-content') as HTMLElement;
+      const header = document.querySelector('header') as HTMLElement;
 
       // CSS transition 설정
       gsap.set([cardsContainer, cardsTitle], {
@@ -73,6 +74,13 @@ export const useTransitionAnimation = ({ lenis, onTransitionComplete }: UseTrans
           });
         },
       });
+      if (header) {
+        gsap.to(header, {
+          backgroundColor: '#fff0db',
+          duration: 0.55,
+          ease: 'back.out(1.2)',
+        });
+      }
     },
     [lenis, onTransitionComplete]
   );
@@ -83,11 +91,20 @@ export const useTransitionAnimation = ({ lenis, onTransitionComplete }: UseTrans
     if (lenis) {
       lenis.start();
     }
-
+    window.dispatchEvent(new Event('popstate'));
     const overlay = document.querySelector('.overlay') as HTMLElement;
     const aboutContent = document.querySelector('.about-content') as HTMLElement;
     const cardsContainer = document.querySelector('#cards') as HTMLElement;
     const cardsTitle = document.querySelector('#titles') as HTMLElement;
+    const header = document.querySelector('header') as HTMLElement;
+
+    if (header) {
+      gsap.to(header, {
+        backgroundColor: 'transparent', // 또는 원하는 기본 배경색
+        duration: 0.25,
+        ease: 'power2.inOut',
+      });
+    }
 
     // 1. 현재 진행 중인 모든 애니메이션 정리
     gsap.killTweensOf([cardsContainer, cardsTitle, overlay, aboutContent]);
@@ -104,6 +121,7 @@ export const useTransitionAnimation = ({ lenis, onTransitionComplete }: UseTrans
       opacity: 0,
       duration: 0.3, // 좀 더 빠르게
       ease: 'back.in(1.2)', // 더 강한 back 효과
+
       onComplete: () => {
         // 4. About 오버레이 페이드아웃
         gsap.to(overlay, {
