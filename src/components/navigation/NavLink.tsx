@@ -15,8 +15,7 @@ export const NavLink = ({ href, children, className, isActive }: NavLinkProps) =
       e.preventDefault();
       const currentHash = window.location.hash;
       const targetHash = href === '/' ? '' : href.slice(1);
-
-      // Toggle functionality - if clicking the same link that's active, remove the hash
+      //토글 헤쉬
       if (currentHash === `#${targetHash}`) {
         history.pushState(null, '', window.location.pathname);
         window.dispatchEvent(new HashChangeEvent('hashchange'));
