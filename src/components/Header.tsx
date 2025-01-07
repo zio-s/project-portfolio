@@ -41,7 +41,7 @@ const Header = () => {
           <NavLink href='/'>Byunfolio</NavLink>
         </div>
         <nav className='flex gap-8'>
-          {['About', 'Projects', 'Contact'].map((item, index) => (
+          {['About'].map((item, index) => (
             <NavLink
               key={index}
               href={`/${item.toLowerCase().replace(' ', '')}`}
