@@ -4,6 +4,7 @@ import { memo, useEffect, useState } from 'react';
 
 import Header from '../Header';
 import Footer from '../Footer';
+import CustomCursor from '../CustomCursor';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -29,7 +30,7 @@ export const MainLayout = memo(({ children }: MainLayoutProps) => {
         </div>
       )}
 
-      {/* <CustomCursor /> */}
+      <CustomCursor />
 
       <Header />
 
