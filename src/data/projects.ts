@@ -110,7 +110,7 @@ export const projectsData: Project[] = [
     description: '인터랙티브한 애니메이션과 세련된 디자인이 특징인 개발자 포트폴리오 웹사이트',
     year: '2024',
     client: 'Personal Project',
-    desc: '이 포트폴리오는 GSAP와 Framer Motion을 활용하여 부드러운 페이지 전환과 스크롤 기반 애니메이션을 구현했습니다. Next.js 13의 App Router를 도입하여 라우팅과 페이지 전환을 최적화했으며, Tailwind CSS를 사용하여 반응형 디자인을 구현했습니다.\n\n특히 WebGL을 활용한 3D 요소와 커스텀 셰이더로 독특한 시각적 효과를 만들어냈으며, 성능 최적화를 통해 모바일 환경에서도 60fps의 부드러운 애니메이션을 구현했습니다.',
+    desc: '이 포트폴리오는 GSAP와 Lines 활용하여 부드러운 페이지 전환과 스크롤 기반 애니메이션을 구현했습니다. Next.js 13의 App Router를 도입하여 라우팅과 페이지 전환을 최적화했으며, Tailwind CSS를 사용하여 반응형 디자인을 구현했습니다.\n\n특히 WebGL을 활용한 3D 요소와 커스텀 셰이더로 독특한 시각적 효과를 만들어냈으며, 성능 최적화를 통해 모바일 환경에서도 60fps의 부드러운 애니메이션을 구현했습니다.',
     image: ['/images/common/placeholder.png', '/images/common/placeholder.png'],
     colors: {
       color1: '#181C14',
@@ -124,8 +124,9 @@ export const projectsData: Project[] = [
       color9: '#ffffff',
     },
     links: {
-      live: 'https://portfolio-2024.vercel.app',
+      live: 'https://project-portfolio-gules.vercel.app/',
       details: '/projects/portfolio-2024',
+      github: 'https://github.com/zio-s/project-portfolio',
     },
   },
 ];
