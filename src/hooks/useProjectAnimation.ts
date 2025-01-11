@@ -493,6 +493,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
   }, [animateActiveCard, resetAllCards]);
 
   const initializeAnimation = useCallback(() => {
+    if (typeof window === 'undefined') return () => {};
     gsap.registerPlugin(ScrollTrigger);
 
     // 기존 ScrollTrigger와 Lenis 인스턴스 정리
@@ -531,46 +532,11 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       ScrollTrigger.getAll().forEach((t) => t.kill());
       gsap.ticker.remove(raf);
     };
-  }, [projects, setActiveProject]);
+  }, []);
 
   useEffect(() => {
     const cleanup = initializeAnimation();
-
-    // hashchange 이벤트 리스너 추가
-    const handleHashChange = (event: Event) => {
-      const customEvent = event as CustomEvent;
-      const hash = customEvent.detail || window.location.hash;
-
-      // 현재 활성화된 카드의 인덱스 찾기
-      const currentIndex = projects.findIndex((project) => project.id === hash.replace('#', ''));
-
-      if (currentIndex >= 0) {
-        // Lenis 인스턴스 유지하면서 스크롤
-        if (lenisRef.current) {
-          lenisRef.current.scrollTo(currentIndex * window.innerHeight, {
-            duration: 1,
-            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          });
-        }
-
-        // 프로젝트 색상 업데이트
-        const currentProject = projects[currentIndex];
-        if (currentProject?.colors) {
-          Object.entries(currentProject.colors).forEach(([key, value]) => {
-            document.documentElement.style.setProperty(`--${key}`, value);
-            document.body.setAttribute(`data-${key}`, value);
-          });
-        }
-      }
-    };
-
-    // 이벤트 리스너 등록
-    window.addEventListener('hashchange', handleHashChange);
-
-    return () => {
-      cleanup();
-      window.removeEventListener('hashchange', handleHashChange);
-    };
+    return () => cleanup();
   }, [initializeAnimation, projects]);
 
   useEffect(() => {

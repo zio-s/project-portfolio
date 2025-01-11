@@ -85,7 +85,7 @@ const CustomCursor = () => {
 
         pointsRef.current.forEach((point) => {
           const randomAngle = Math.random() * 360;
-          const randomDistance = 450 + Math.random() * 150;
+          const randomDistance = 450 + Math.random() * 250;
           gsap.to(point, {
             r: randomAngle,
             d: randomDistance,
@@ -115,7 +115,7 @@ const CustomCursor = () => {
         gsap.to(mousePos.current, {
           x: e.clientX,
           y: e.clientY,
-          duration: 0.6,
+          duration: 1.2,
           ease: 'power2.out',
         });
       }
@@ -123,7 +123,7 @@ const CustomCursor = () => {
 
     const COUNT = 25;
     const SPEED_VARIATION = 5;
-    const DISTANCE = 80;
+    const DISTANCE = 60;
 
     // 초기 색상 설정
     const initialColor = document.body.getAttribute('data-color3') || '#263c4f';
@@ -164,7 +164,7 @@ const CustomCursor = () => {
 
         if (p.p.x !== null && p.p.y !== null && currentX !== null && currentY !== null) {
           if (cursorModeRef.current === 'interactive') {
-            const pulse = Math.sin(Date.now() * 0.005) * 1 + 3; // 1~5 사이로 점 크기가 변화
+            const pulse = Math.sin(Date.now() * 0.005) * 1 + 10; // 1~5 사이로 점 크기가 변화
 
             ctx.strokeStyle = p.c;
             ctx.lineWidth = 1;

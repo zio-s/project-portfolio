@@ -5,7 +5,19 @@ import gsap from 'gsap';
 export function useMouseMove() {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isActive, setIsActive] = useState(false);
-  const isVertical = window.innerWidth < window.innerHeight;
+  // const isVertical = window.innerWidth < window.innerHeight;
+  const [isVertical, setIsVertical] = useState(false);
+  useEffect(() => {
+    // 여기서 window 체크 및 상태 설정
+    setIsVertical(window.innerWidth < window.innerHeight);
+
+    const handleResize = () => {
+      setIsVertical(window.innerWidth < window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const card = cardRef.current;
@@ -64,7 +76,7 @@ export function useMouseMove() {
         y: 0,
       });
     };
-  }, [isActive]);
+  }, [isActive, isVertical]);
 
   return cardRef;
 }
