@@ -18,18 +18,18 @@ export const ProjectCard = memo(({ project, index, isActive }: ProjectCardProps)
           <div className='card'>
             <div className='card-overlay'></div>
             <div className='card-in relative'>
-              {/* <Image
-                src={project.image[0] || project.image[1]}
+              <Image
+                src={project.image[1] || project.image[0]}
                 alt={project.title}
                 fill
                 sizes='(max-width: 768px) 100vw, 50vw'
                 priority={index === 0}
                 className='d-sheet obj
                 ect-cover'
-              /> */}
-              <video muted playsInline autoPlay>
+              />
+              {/* <video muted playsInline autoPlay>
                 <source src={project.image[1]} />
-              </video>
+              </video> */}
             </div>
           </div>
           <div className='card'>
