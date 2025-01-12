@@ -61,6 +61,7 @@ export interface ProjectFeature {
   title: string;
   description: string;
   image?: string;
+  type?: 'image' | 'video';
 }
 
 // 프로젝트 기술적 도전과제 인터페이스

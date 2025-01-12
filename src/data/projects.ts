@@ -105,39 +105,42 @@ export const projectsData: Project[] = [
     keyFeatures: [
       {
         title: '전체게임 검색',
-        description: '전체 게임을 검색을 할 수 있습니다.',
-        image: '/images/pattern/genie-intro.png',
+        description: '다양한 게임 타이틀을 빠르고 효율적으로 검색할 수 있는 통합 검색 시스템을 제공합니다.',
+        image: '/images/pattern/gamer-search.mp4',
+        type: 'video',
       },
       {
         title: '커뮤니티 페이지',
-        description: '유저간의 게시글',
-        image: '/images/pattern/section2-ezgif.com-crop.gif',
+        description: '유저들이 자유롭게 소통하고 정보를 공유할 수 있는 interactive한 커뮤니티 공간입니다.',
+        image: '/images/pattern/gamer-Community.mp4',
+        type: 'video',
       },
       {
         title: '이미지 확대 기능',
-        description: '이미지 확대가능 게시글',
+        description: '게시글의 이미지를 클릭하여 상세하게 확대 확인할 수 있는 뷰어 기능을 제공합니다.',
         image: '/images/pattern/section2-ezgif.com-crop.gif',
+        type: 'video',
       },
       {
         title: '필터 기능',
-        description: '게시판을 필터가 가능합니다.',
+        description: '게시판의 콘텐츠를 사용자가 원하는 조건으로 분류하고 정렬할 수 있는 필터링 시스템을 제공합니다.',
         image: '/images/pattern/section2-ezgif.com-crop.gif',
       },
     ],
     challenges: [
       {
-        title: 'RAWG API 데이터를 쉽게 가져오는 방법',
+        title: 'RAWG API 데이터 처리와 성능 최적화',
         description:
-          'GSAP과 FullPage.js를 함께 사용하는 과정에서 스크롤 이벤트 충돌 문제가 발생했습니다. 두 라이브러리가 서로 다른 방식으로 DOM을 조작하고 스크롤 이벤트를 핸들링하면서, 애니메이션이 끊기거나 스크롤이 정상적으로 동작하지 않는 현상이 발생했습니다.',
+          'RAWG API에서 대량의 게임 데이터를 가져올 때 성능 이슈가 발생했습니다. 특히 이미지가 많은 데이터를 처리하고 캐싱하는 과정에서 렌더링 지연과 메모리 사용량 증가 문제가 있었습니다.',
         solution:
-          'FullPage.js의 scrollOverflow 옵션을 활성화하고, GSAP 애니메이션의 타임라인을 FullPage.js의 afterLoad/onLeave 콜백과 동기화했습니다. 섹션의 높이를 동적으로 계산하여 스크롤 가능 영역을 조정했고, ScrollTrigger의 scroller 옵션을 FullPage.js의 wrapper element로 설정하여 두 라이브러리 간의 호환성을 확보했습니다.',
+          'API를 활용한 무한 스크롤을 구현했습니다. Next.js의 Image 컴포넌트를 도입하여 이미지 최적화와 지연 로딩을 구현했으며, 또한 페이지당 로드되는 데이터 양을 제한하고, 사용자의 컨텐츠위치 따라 점진적으로 데이터를 로드하는 방식을 적용하여 초기 로딩 시간과 메모리 사용량을 크게 개선했습니다.',
       },
       {
-        title: 'grid와 swiper 충돌버그',
+        title: 'Grid 레이아웃과 Swiper 통합 시 반응형 이슈',
         description:
-          'GSAP의 .set() 메서드로 설정된 초기 위치값들이 윈도우 리사이즈 시 적절하게 업데이트되지 않아 반응형 레이아웃에서 애니메이션이 깨지는 현상이 발생했습니다. 특히 복잡한 시퀀스 애니메이션에서 위치 계산이 부정확해지는 문제가 있었습니다.',
+          'Grid로 구성된 레이아웃에 Swiper를 통합하는 과정에서 반응형 디자인 이슈가 발생했습니다. 특히 화면 크기 변경 시 Grid와 Swiper의 레이아웃이 충돌하면서 컨텐츠 깨짐과 스와이프 동작 오류가 발생했습니다.',
         solution:
-          '단순히 Resize가 되면 업데이트를 할 수 있을거라 생각 했지만, 이부분에 어려움을 겪어 새로고침을 하여 재생성 할수 있게 하였고, 애니메이션 타임라인을 재생성하기위해 여러 방면을 검색하다가 실패 하였습니다. 하지만 최근 Next.js에서 GSAP을 사용 하면서 ResizeObserver API라는 것을 접해 보았고, 리사이징을 모니터링하여, 디바운스 처리된 핸들러에서 애니메이션을 재계산을 하도록 구현을 할 수 있다는 것을 알고, 추후 적용 할 예정입니다.',
+          'Swiper 컴포넌트의 부모 요소에 position: absolute를 적용하여 레이아웃 흐름에서 분리했습니다. 이를 통해 불필요한 가로 스크롤 발생을 방지하고, Grid 레이아웃과의 충돌을 해결했습니다. 추가로 CSS Grid의 auto-fit과 minmax 속성을 활용하여 반응형 그리드를 구현하고, Swiper의 breakpoints 옵션을 설정하여 다양한 화면 크기에서도 안정적으로 동작하도록 개선했습니다. 미디어 쿼리를 통해 모바일 환경에서는 Grid를 단일 컬럼으로 변경하여 사용성을 향상시켰습니다.',
       },
     ],
   },

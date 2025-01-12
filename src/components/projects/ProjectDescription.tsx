@@ -231,13 +231,19 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
                   <div key={feature.title} className='feature-card'>
                     {feature.image && (
                       <div className='image-wrapper'>
-                        <Image
-                          src={feature.image}
-                          alt={feature.title}
-                          fill
-                          className='object-cover'
-                          sizes='(max-width: 768px) 100vw, 45vw'
-                        />
+                        {feature.image.endsWith('.mp4') ? (
+                          <video autoPlay loop muted playsInline className='object-cover w-full h-full'>
+                            <source src={feature.image} type='video/mp4' />
+                          </video>
+                        ) : (
+                          <Image
+                            src={feature.image}
+                            alt={feature.title}
+                            fill
+                            className='object-cover'
+                            sizes='(max-width: 768px) 100vw, 45vw'
+                          />
+                        )}
                       </div>
                     )}
                     <div className='content'>
