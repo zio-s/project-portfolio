@@ -71,29 +71,26 @@ const CustomCursor = () => {
       const currentHash = window.location.hash;
 
       if (currentHash === '#about' || currentHash === '#contact') {
-        cursorModeRef.current = 'interactive';
-
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-
-        gsap.to(mousePos.current, {
-          x: centerX,
-          y: centerY,
-          duration: 2,
-          ease: 'power2.out',
-        });
-
-        pointsRef.current.forEach((point) => {
-          const randomAngle = Math.random() * 360;
-          const randomDistance = 450 + Math.random() * 250;
-          gsap.to(point, {
-            r: randomAngle,
-            d: randomDistance,
-            duration: 1.5,
-            ease: 'power2.out',
-          });
-          point.s = point.s * 0.1;
-        });
+        // cursorModeRef.current = 'interactive';
+        // const centerX = window.innerWidth / 2;
+        // const centerY = window.innerHeight / 2;
+        // gsap.to(mousePos.current, {
+        //   x: centerX,
+        //   y: centerY,
+        //   duration: 2,
+        //   ease: 'power2.out',
+        // });
+        // pointsRef.current.forEach((point) => {
+        //   const randomAngle = Math.random() * 360;
+        //   const randomDistance = 450 + Math.random() * 250;
+        //   gsap.to(point, {
+        //     r: randomAngle,
+        //     d: randomDistance,
+        //     duration: 1.5,
+        //     ease: 'power2.out',
+        //   });
+        //   point.s = point.s * 0.1;
+        // });
       } else {
         cursorModeRef.current = 'default';
 

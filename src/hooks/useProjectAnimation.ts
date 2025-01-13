@@ -496,11 +496,13 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
     if (typeof window === 'undefined') return () => {};
     gsap.registerPlugin(ScrollTrigger);
 
-    // 기존 ScrollTrigger와 Lenis 인스턴스 정리
+    // ScrollTrigger 및 Lenis 정리
+    ScrollTrigger.getAll().forEach((t) => t.kill());
     if (lenisRef.current) {
       lenisRef.current.destroy();
       lenisRef.current = null;
     }
+
     ScrollTrigger.getAll().forEach((t) => t.kill());
 
     // Lenis 초기화
