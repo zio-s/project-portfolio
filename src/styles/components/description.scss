@@ -137,7 +137,7 @@
 .inner {
   section {
     margin-bottom: 3rem;
-
+    backdrop-filter: blur(4px);
     h3 {
       font-size: 1.5rem;
       font-weight: 600;
@@ -429,7 +429,7 @@
         font-weight: 600;
         color: var(--color3);
         border: 1px solid rgba(var(--color3-rgb), 0.1);
-        backdrop-filter: blur(4px);
+
         transition: all 0.3s ease;
       }
 
@@ -455,15 +455,6 @@
       p {
         font-size: 1rem;
         margin-bottom: 1.5rem;
-      }
-
-      .solution {
-        padding-top: 1.5rem;
-
-        &::before {
-          font-size: 1rem;
-          padding: 0.4rem 1rem;
-        }
       }
     }
   }
