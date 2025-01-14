@@ -95,6 +95,7 @@ export interface techStackIcons {
   SASS: string;
   Node: string;
   Python: string;
+  Lenis: string;
   GSAP?: string;
   'FullPage.js'?: string;
   Gnubord?: string;

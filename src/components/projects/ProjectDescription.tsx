@@ -139,6 +139,7 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
         Gnubord: 'bg-[#4A90E2] text-white',
         Swiper: 'bg-[#6332F6] text-white',
         Emotion: 'bg-[#D36AC2] text-white',
+        Lenis: 'bg-purple-600 text-white',
       };
 
       return colorMap[tech] || 'bg-gray-500 text-white'; // 기본값

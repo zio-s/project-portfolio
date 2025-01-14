@@ -118,13 +118,13 @@ export const projectsData: Project[] = [
       {
         title: '이미지 확대 기능',
         description: '게시글의 이미지를 클릭하여 상세하게 확대 확인할 수 있는 뷰어 기능을 제공합니다.',
-        image: '/images/pattern/section2-ezgif.com-crop.gif',
+        image: '/images/pattern/gamer-viewimg.mp4',
         type: 'video',
       },
       {
         title: '필터 기능',
         description: '게시판의 콘텐츠를 사용자가 원하는 조건으로 분류하고 정렬할 수 있는 필터링 시스템을 제공합니다.',
-        image: '/images/pattern/section2-ezgif.com-crop.gif',
+        image: '/images/pattern/gamer-filter.mp4',
       },
     ],
     challenges: [
@@ -153,6 +153,7 @@ export const projectsData: Project[] = [
     client: 'Personal Project',
     desc: '이 포트폴리오는 GSAP와 Lines 활용하여 부드러운 페이지 전환과 스크롤 기반 애니메이션을 구현했습니다. Next.js 13의 App Router를 도입하여 라우팅과 페이지 전환을 최적화했으며, Tailwind CSS를 사용하여 반응형 디자인을 구현했습니다.\n\n특히 WebGL을 활용한 3D 요소와 커스텀 셰이더로 독특한 시각적 효과를 만들어냈으며, 성능 최적화를 통해 모바일 환경에서도 60fps의 부드러운 애니메이션을 구현했습니다.',
     image: ['/images/pattern/2024-1.png', '/images/pattern/2024-2.png'],
+    period: '2024.12 - 2025.01 ~',
     colors: {
       color1: '#181C14',
       color2: '#1A1A1A',
@@ -176,36 +177,49 @@ export const projectsData: Project[] = [
       '그누보드 연동을 통해 커스터마이징 가능한 게시판 기능 구현 및 사용자 데이터 관리 시스템 구축.',
       'Git과 GitHub를 활용한 버전 관리 및 협업 효율성 극대화.',
     ],
-    techStack: ['HTML', 'Scss', 'JavaScript', 'GSAP', 'FullPage.js', 'Gnubord', 'Swiper'],
+    techStack: ['HTML', 'Scss', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'GSAP', 'Lenis'],
 
     keyFeatures: [
       {
-        title: '이미지/파일 첨부 기능',
+        title: '인터랙티브한 애니메이션과 세련된 디자인',
         description:
-          '드래그 앤 드롭으로 간편한 파일 첨부가 가능하며, 이미지는 자동으로 최적화되어 저장됩니다. AWS S3를 활용한 안정적인 파일 저장 시스템을 구축했습니다.',
-        image: '/images/pattern/genie-intro.png',
+          'GSAP와 Lenis 활용하여 페이지 전환 시 부드럽고 직관적인 애니메이션을 구현하였습니다. 또한, 스크롤 기반 인터랙션을 통해 사용자가 콘텐츠를 자연스럽게 탐색할 수 있도록 디자인하였습니다. 전체적인 색상 및 타이포그래피는 사용자 친화적인 경험을 제공하기 위해 세련되게 구성하였습니다.',
+        image: '/images/pattern/b-intro.mp4',
       },
       {
-        title: 'gsap을 활용한 img data 속성/랜덤 웨이브 생성',
+        title: 'Next.js 13의 App Router를 도입하여 라우팅과 페이지 전환을 최적화',
         description:
-          'img의 src속성을 활용하여 배경이미지로 저장을 했습니다. 그리고 섹션 진입시 박스 웨이브를 랜덤으로 설정하여, 음악이 재생되는 분위기를 만들었습니다.',
-        image: '/images/pattern/section2-ezgif.com-crop.gif',
+          'Next.js 13의 App Router를 통해 서버 사이드 렌더링(SSR)과 클라이언트 사이드 렌더링(CSR)을 적절히 조합하여 빠르고 안정적인 라우팅 경험을 제공합니다. 사용자 요청 시 필요한 데이터만 로드되어 성능을 최적화하였습니다.',
+        image: '/images/pattern/b-about.mp4',
+      },
+      {
+        title: '반응형 디자인 적용',
+        description:
+          'SCSS와 Tailwind CSS를 사용하여 다양한 디바이스에서도 콘텐츠가 보기 좋게 표시되도록 반응형 디자인을 적용하였습니다. 모바일, 태블릿, 데스크톱 환경 모두에서 일관된 사용자 경험을 제공합니다.',
+        image: '/images/pattern/b-mobile.mp4',
       },
     ],
     challenges: [
       {
-        title: 'GSAP과 FullPage.js 스크롤 이벤트 충돌 해결',
+        title: '카드의 초기 위치 설정 버그',
         description:
-          'GSAP과 FullPage.js를 함께 사용하는 과정에서 스크롤 이벤트 충돌 문제가 발생했습니다. 두 라이브러리가 서로 다른 방식으로 DOM을 조작하고 스크롤 이벤트를 핸들링하면서, 애니메이션이 끊기거나 스크롤이 정상적으로 동작하지 않는 현상이 발생했습니다.',
+          '카드 애니메이션의 초기 상태가 잘못된 위치에서 시작하는 문제가 발생했습니다. 이는 애니메이션 초기화 시 CSS 트랜스폼 값이 제대로 적용이 되지 않는 문제 였습니다.',
         solution:
-          'FullPage.js의 scrollOverflow 옵션을 활성화하고, GSAP 애니메이션의 타임라인을 FullPage.js의 afterLoad/onLeave 콜백과 동기화했습니다. 섹션의 높이를 동적으로 계산하여 스크롤 가능 영역을 조정했고, ScrollTrigger의 scroller 옵션을 FullPage.js의 wrapper element로 설정하여 두 라이브러리 간의 호환성을 확보했습니다.',
+          '애니메이션 초기화 단계에서 CSS에서 `transform` 설정을 하지 않고, 애니메이션 시작 시 초기 위치를 GSAP으로 지정하기 위해 Intersection Observer와 GSAP의 `fromTo` 메서드를 활용하였습니다.',
       },
       {
-        title: 'GSAP 애니메이션 반응형 대응 구현',
+        title: '리사이징 될 때 애니메이션의 위치값 못 잡는 버그',
         description:
-          'GSAP의 .set() 메서드로 설정된 초기 위치값들이 윈도우 리사이즈 시 적절하게 업데이트되지 않아 반응형 레이아웃에서 애니메이션이 깨지는 현상이 발생했습니다. 특히 복잡한 시퀀스 애니메이션에서 위치 계산이 부정확해지는 문제가 있었습니다.',
+          '브라우저 창 크기를 조정할 때 애니메이션 요소의 위치값이 제대로 갱신되지 않아, 애니메이션 동작이 부자연스러워졌습니다.',
         solution:
-          '단순히 Resize가 되면 업데이트를 할 수 있을거라 생각 했지만, 이부분에 어려움을 겪어 새로고침을 하여 재생성 할수 있게 하였고, 애니메이션 타임라인을 재생성하기위해 여러 방면을 검색하다가 실패 하였습니다. 하지만 최근 Next.js에서 GSAP을 사용 하면서 ResizeObserver API라는 것을 접해 보았고, 리사이징을 모니터링하여, 디바운스 처리된 핸들러에서 애니메이션을 재계산을 하도록 구현을 할 수 있다는 것을 알고, 추후 적용 할 예정입니다.',
+          '`resize` 이벤트 리스너를 추가하여 창 크기 변경 시 각 요소의 위치값을 재계산하도록 수정하였습니다. 특히, `getBoundingClientRect()`를 활용해 동적으로 요소의 위치값을 다시 계산하고, GSAP의 `invalidate()` 메서드를 사용해 애니메이션 상태를 초기화하였습니다. 하지만 GSAP을 숙련도가 낮아, 리사이징 완벽하게 해결되지 않았습니다.',
+      },
+      {
+        title: '어바웃 페이지 라우팅 방식',
+        description:
+          '같은 섹션을 클릭했을 때 비정상적인 동작: 같은 해시를 클릭해도 정상적으로 URL이 초기화되거나, 새로운 이벤트가 트리거되지 않는 문제가 있었습니다. 특정 링크를 클릭했을 때, 해시 상태를 토글하거나 초기화할 수 있도록 구현해야 했습니다.',
+        solution:
+          'useCallback 훅을 사용하여 해시 라우팅 핸들러를 최적화하고, 중복 렌더링을 방지하였습니다. 다른 해시를 가리키는 경우, window.location.hash를 업데이트하여 해시를 변경합니다. 해시 변경 후 HashChangeEvent를 트리거하여 다른 이벤트 핸들러와 동기화되도록 설계하였습니다.',
       },
     ],
   },
