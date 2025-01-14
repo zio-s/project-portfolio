@@ -329,23 +329,34 @@
   margin-top: 4rem;
 
   .challenge-card {
-    background: rgba(var(--color3-rgb), 0.05);
-    border: 1px solid rgba(var(--color3-rgb), 0.1);
-    border-radius: 1rem;
-    padding: 2rem;
+    background: rgba(var(--color3-rgb), 0.03);
+    border: 1px solid rgba(var(--color3-rgb), 0.08);
+    border-radius: 1.25rem;
+    padding: 2.5rem;
     margin-bottom: 2rem;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
 
     // 호버 효과
     &:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(var(--color3-rgb), 0.1);
+      box-shadow: 0 12px 24px rgba(var(--color3-rgb), 0.08);
+      border-color: rgba(var(--color3-rgb), 0.15);
+
+      h4 {
+        color: var(--color3);
+        border-bottom-color: rgba(var(--color3-rgb), 0.15);
+
+        &::after {
+          width: 100%;
+          background: linear-gradient(135deg, var(--color3), rgba(var(--color3-rgb), 0.8));
+        }
+      }
 
       &::before {
         transform: translateX(0);
-        opacity: 0.1;
+        opacity: 0.05;
       }
     }
 
@@ -357,10 +368,10 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(45deg, var(--color3), transparent);
+      background: linear-gradient(135deg, var(--color3), transparent);
       transform: translateX(-100%);
       opacity: 0;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 0;
     }
 
@@ -373,39 +384,59 @@
     }
 
     h4 {
-      font-size: 1.25rem;
-      font-weight: 600;
+      font-size: 1.5rem;
+      font-weight: 700;
       color: var(--color3);
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid rgba(var(--color3-rgb), 0.1);
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid rgba(var(--color3-rgb), 0.08);
+      transition: all 0.3s ease;
+      display: inline-block;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 2rem;
+        height: 2px;
+        background: var(--color3);
+        transition: all 0.3s ease;
+      }
     }
 
     p {
-      line-height: 1.7;
+      line-height: 1.8;
       color: var(--color4);
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 1.05rem;
     }
 
     .solution {
       position: relative;
-      padding-top: 1.5rem;
+      padding-top: 2rem;
       color: var(--color4);
-      border-top: 1px solid rgba(var(--color3-rgb), 0.1);
+      border-top: 1px solid rgba(var(--color3-rgb), 0.08);
 
-      // "Solution" 레이블 추가
+      // "Solution" 레이블 개선
       &::before {
         content: 'Solution';
         position: absolute;
-        top: -0.75rem;
+        top: -0.875rem;
         left: 0;
-        background: rgba(var(--color3-rgb), 0.05);
-
-        border-radius: 1rem;
-        font-size: 1.25rem;
+        font-size: 1.1rem;
         font-weight: 600;
         color: var(--color3);
         border: 1px solid rgba(var(--color3-rgb), 0.1);
+        backdrop-filter: blur(4px);
+        transition: all 0.3s ease;
+      }
+
+      &:hover::before {
+        background: linear-gradient(135deg, rgba(var(--color3-rgb), 0.1), rgba(var(--color3-rgb), 0.05));
+        transform: translateY(-2px);
+        font-size: 1.5rem;
       }
     }
   }
@@ -413,13 +444,26 @@
   // 반응형 조정
   @media (max-width: 768px) {
     .challenge-card {
-      padding: 0.8rem;
+      padding: 1.5rem;
+
       h4 {
-        font-size: 1.125rem;
+        font-size: 1.25rem;
+        padding-bottom: 0.75rem;
+        margin-bottom: 1.25rem;
       }
 
-      .solution::before {
-        font-size: 1.125rem;
+      p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .solution {
+        padding-top: 1.5rem;
+
+        &::before {
+          font-size: 1rem;
+          padding: 0.4rem 1rem;
+        }
       }
     }
   }
