@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://project-portfolio-gules.vercel.app/sitemap.xml

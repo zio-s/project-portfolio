@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   generator: 'Next.js',
   applicationName: 'B Portfolio',
   keywords: ['포트폴리오', '웹개발', 'frontend', 'react', 'next.js', '프론트앤드', 'gsap'],
-  authors: [{ name: 'B', url: 'https://your-website.com' }],
+  authors: [{ name: 'B', url: 'https://project-portfolio-gules.vercel.app/' }],
   creator: 'B',
   publisher: 'B',
   formatDetection: {
@@ -46,17 +46,27 @@ export const metadata: Metadata = {
       },
     ],
   },
-
+  metadataBase: new URL('https://project-portfolio-gules.vercel.app/'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'ko-KR': '/ko',
+      'en-US': '/en',
+    },
+  },
+  verification: {
+    google: 'google7a081191afb23e6f', // Search Console에서 받은 코드
+  },
   openGraph: {
     title: 'B의 Portfolio',
     description: 'B의 포트폴리오 - 웹 개발자 포트폴리오 사이트입니다.',
-    url: 'https://your-website.com',
+    url: 'https://project-portfolio-gules.vercel.app/',
     siteName: 'B Portfolio',
     locale: 'ko_KR',
     type: 'website',
     images: [
       {
-        url: 'https://your-website.com/og-image.jpg',
+        url: '/2024-1.png',
         width: 1200,
         height: 630,
         alt: 'B의 포트폴리오 대표 이미지',
