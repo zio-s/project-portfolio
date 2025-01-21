@@ -112,7 +112,7 @@ export const projectsData: Project[] = [
       {
         title: '커뮤니티 페이지',
         description: '유저들이 자유롭게 소통하고 정보를 공유할 수 있는 interactive한 커뮤니티 공간입니다.',
-        image: '/images/pattern/gamer-Community.mp4',
+        image: '/images/pattern/gamer-community.mp4',
         type: 'video',
       },
       {
