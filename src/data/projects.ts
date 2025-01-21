@@ -38,9 +38,9 @@ export const projectsData: Project[] = [
 
     keyFeatures: [
       {
-        title: '이미지/파일 첨부 기능',
+        title: '인트로 인터렉션 스크롤 효과 ',
         description:
-          '드래그 앤 드롭으로 간편한 파일 첨부가 가능하며, 이미지는 자동으로 최적화되어 저장됩니다. AWS S3를 활용한 안정적인 파일 저장 시스템을 구축했습니다.',
+          '페이지 첫 진입시 스크롤 할때마다 이미지가 scale이 조절되면서 transform이 움직이며 작동 하는 애니메이션, 클릭시 애니메이션으로 한번에 작동합니다.',
         image: '/images/pattern/genie-intro.png',
       },
       {
