@@ -4,7 +4,7 @@ import { memo, useEffect, useState } from 'react';
 
 import Header from '../Header';
 import Footer from '../Footer';
-import CustomCursor from '../CustomCursor';
+// import CustomCursor from '../CustomCursor';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -29,8 +29,8 @@ export const MainLayout = memo(({ children }: MainLayoutProps) => {
           {/* 로딩 화면 내용 */}
         </div>
       )}
-
-      <CustomCursor />
+      {/* 커스텀 커서 효과 비활성화, 나중에 다시 구현 예정 */}
+      {/* <CustomCursor /> */}
 
       <Header />
 
