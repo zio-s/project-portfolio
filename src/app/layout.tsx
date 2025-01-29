@@ -4,11 +4,24 @@ import '@/styles/globals.scss';
 import 'line-awesome/dist/line-awesome/css/line-awesome.min.css';
 
 export const metadata: Metadata = {
-  title: 'B의 Portfolio',
-  description: 'B의 포트폴리오 - 웹 개발자 포트폴리오 사이트입니다.',
+  title: 'B - 프론트엔드 개발자 포트폴리오',
+  description:
+    '프론트엔드 개발자 B의 포트폴리오입니다. React, Next.js를 활용한 웹 개발 프로젝트를 확인하실 수 있습니다.',
   generator: 'Next.js',
   applicationName: 'B Portfolio',
-  keywords: ['포트폴리오', '웹개발', 'frontend', 'react', 'next.js', '프론트앤드', 'gsap'],
+  keywords: [
+    '포트폴리오',
+    '웹개발자',
+    'frontend',
+    'react',
+    'next.js',
+    '프론트엔드 개발자',
+    '웹 포트폴리오',
+    '신입 개발자',
+    '프론트엔드 포트폴리오',
+    'React 개발자',
+    '웹사이트 제작',
+  ],
   authors: [{ name: 'B', url: 'https://project-portfolio-gules.vercel.app/' }],
   creator: 'B',
   publisher: 'B',
@@ -58,8 +71,9 @@ export const metadata: Metadata = {
     google: 'google7a081191afb23e6f', // Search Console에서 받은 코드
   },
   openGraph: {
-    title: 'B의 Portfolio',
-    description: 'B의 포트폴리오 - 웹 개발자 포트폴리오 사이트입니다.',
+    title: 'B - 프론트엔드 개발자 포트폴리오',
+    description:
+      '프론트엔드 개발자 B의 포트폴리오입니다. React, Next.js를 활용한 웹 개발 프로젝트를 확인하실 수 있습니다.',
     url: 'https://project-portfolio-gules.vercel.app/',
     siteName: 'B Portfolio',
     locale: 'ko_KR',
@@ -75,8 +89,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'B의 Portfolio',
-    description: 'B의 포트폴리오 - 웹 개발자 포트폴리오 사이트입니다.',
+    title: 'B - 프론트엔드 개발자 포트폴리오',
+    description:
+      '프론트엔드 개발자 B의 포트폴리오입니다. React, Next.js를 활용한 웹 개발 프로젝트를 확인하실 수 있습니다.',
     creator: '@your_twitter',
     images: ['https://your-website.com/twitter-image.jpg'],
   },
