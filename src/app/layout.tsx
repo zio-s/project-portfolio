@@ -21,6 +21,11 @@ export const metadata: Metadata = {
     '프론트엔드 포트폴리오',
     'React 개발자',
     '웹사이트 제작',
+    'React Next.js 포트폴리오',
+    '리엑트 포트폴리오',
+    '타입스크립트 포트폴리오',
+    '신입 개발자 react 포트폴리오',
+    '신입 개발자 react 포트폴리오',
   ],
   authors: [{ name: 'B', url: 'https://project-portfolio-gules.vercel.app/' }],
   creator: 'B',
@@ -68,7 +73,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'google7a081191afb23e6f', // Search Console에서 받은 코드
+    google: 'google7a081191afb23e6f',
   },
   openGraph: {
     title: 'B - 프론트엔드 개발자 포트폴리오',
