@@ -6,7 +6,7 @@ import 'line-awesome/dist/line-awesome/css/line-awesome.min.css';
 export const metadata: Metadata = {
   title: 'B - 프론트엔드 개발자 포트폴리오',
   description:
-    '프론트엔드 개발자 B의 포트폴리오입니다. React, Next.js를 활용한 웹 개발 프로젝트를 확인하실 수 있습니다.',
+    '프론트엔드 개발자 변세민 포트폴리오입니다. 제 작업물이 궁금 하신가요? 바로 확인 해보세요! React, Next.js를 활용한 웹 개발 프로젝트를 확인하실 수 있습니다.',
   generator: 'Next.js',
   applicationName: 'B Portfolio',
   keywords: [

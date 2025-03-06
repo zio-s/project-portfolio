@@ -2,7 +2,7 @@ import { ProjectDescriptionProps } from '@/types/project';
 import { memo, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { CalendarIcon, ExternalLink, GithubIcon, MoveLeft, User2 } from 'lucide-react';
+import { CalendarIcon, ExternalLink, GithubIcon, MoveLeft, User2, Users } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -13,19 +13,16 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
   const containerRef = useRef<HTMLDivElement>(null);
   const isFirstRender = useRef(true);
   const scrollTriggersRef = useRef<ScrollTrigger[]>([]);
-  // const titleRef = useRef(null);
-  const headerHeight = '80px'; // 실제 헤더 높이에 맞게 조정
+  const headerHeight = '80px';
   const titleRef = useRef<HTMLDivElement>(null);
   interface TechBadgeProps {
     name: string;
   }
-  // 스크롤 트리거 클린업
   const cleanupScrollTriggers = () => {
     scrollTriggersRef.current.forEach((trigger) => trigger.kill());
     scrollTriggersRef.current = [];
   };
   cleanupScrollTriggers();
-  // 초기 애니메이션 설정
   useEffect(() => {
     if (!contentRef.current || !isFirstRender.current) return;
 
@@ -40,7 +37,6 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
     isFirstRender.current = false;
   }, []);
 
-  // 메인 애니메이션 효과
   useEffect(() => {
     if (!contentRef.current || !containerRef.current) return;
 
@@ -113,7 +109,6 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
   }, [isActive]);
 
   const TechBadge: React.FC<TechBadgeProps> = ({ name }) => {
-    // 기술 스택별 배경색 매핑
     const getBadgeColor = (tech: string) => {
       const colorMap: { [key: string]: string } = {
         TypeScript: 'bg-[#3178C6] text-white',
@@ -123,7 +118,7 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
         Zustand: 'bg-[#4C4C4C] text-white',
         Recoil: 'bg-[#3578E5] text-white',
         'React-Query': 'bg-[#FF4154] text-white',
-        'React-Hook-Form': 'bg-[#EC5990] text-white',
+        'Styled-Components': 'bg-[#EC5990] text-white',
         Scss: 'bg-[#CC6699] text-white',
         'Tailwind CSS': 'bg-[#38B2AC] text-white',
         Django: 'bg-[#092E20] text-white',
@@ -140,9 +135,11 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
         Swiper: 'bg-[#6332F6] text-white',
         Emotion: 'bg-[#D36AC2] text-white',
         Lenis: 'bg-purple-600 text-white',
+        React: 'bg-[#61DAFB] text-black',
+        Vite: 'bg-[#646CFF] text-white',
       };
 
-      return colorMap[tech] || 'bg-gray-500 text-white'; // 기본값
+      return colorMap[tech] || 'bg-gray-500 text-white';
     };
 
     return (
@@ -156,7 +153,6 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
       className={`description fixed inset-0 w-full h-full`}
       data-active={isActive}
       style={{
-        // zIndex: 1000,
         overflow: isActive ? 'auto' : 'hidden',
       }}
       data-lenis-scroll-snap-align='start'
@@ -175,7 +171,7 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
             ref={titleRef}
             className='ttl flex flex-col gap-4 fonty words'
             style={{
-              marginTop: headerHeight, // 헤더 높이만큼 여백
+              marginTop: headerHeight,
             }}
           >
             <div className='title-box'>
@@ -187,10 +183,11 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
             <div className='project-day-type'>
               <div className='project-period'>
                 <CalendarIcon />
-                <span>{project.period}</span> {/* 예: "2023.09 - 2024.01" */}
+                <span>{project.period}</span>
               </div>
               <div className='project-type'>
-                <User2 /> {project.client} {/* 예: "Team Project (4인)" 또는 "Personal Project" */}
+                {project.client.includes('Team') || project.client.includes('팀') ? <Users /> : <User2 />}
+                {project.client}
               </div>
             </div>
           </div>

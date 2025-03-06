@@ -1,6 +1,3 @@
-// types/project.ts
-
-// 기본 프로젝트 정보 인터페이스
 export interface Project {
   id: string;
   title: string;
@@ -11,7 +8,6 @@ export interface Project {
   desc?: string;
   image: string[];
 
-  // 프로젝트에 사용된 색상 정보
   colors: ProjectColors;
 
   // 프로젝트 링크 정보
@@ -35,28 +31,25 @@ export interface ProjectCardProps {
   isActive: boolean;
 }
 
-// 색상 정보 인터페이스
 export interface ProjectColors {
-  color1: string; // 주 배경색
-  color2: string; // 주 텍스트색
-  color3: string; // 강조색
-  color4: string; // 보조색 1
-  color5: string; // 보조색 2
-  color6: string; // 보조색 3
-  color7: string; // 보조색 4
-  color8: string; // 보조색 5
-  color9: string; // 보조색 6
+  color1: string;
+  color2: string;
+  color3: string;
+  color4: string;
+  color5: string;
+  color6: string;
+  color7: string;
+  color8: string;
+  color9: string;
 }
 
-// 링크 정보 인터페이스
 export interface ProjectLinks {
-  live?: string; // 라이브 데모 링크
-  details?: string; // 상세 정보 페이지 링크
-  github?: string; // 깃허브 레포지토리 링크
-  presentation?: string; // 프로젝트 발표자료 링크
+  live?: string;
+  details?: string;
+  github?: string;
+  presentation?: string;
 }
 
-// 프로젝트 주요 기능 인터페이스
 export interface ProjectFeature {
   title: string;
   description: string;
@@ -64,14 +57,12 @@ export interface ProjectFeature {
   type?: 'image' | 'video';
 }
 
-// 프로젝트 기술적 도전과제 인터페이스
 export interface ProjectChallenge {
   title: string;
   description: string;
   solution: string;
 }
 
-// 전체 프로젝트 데이터의 색상 정보 Props
 export interface ProjectColorsProps {
   colors: Project;
 }
@@ -100,7 +91,7 @@ export interface techStackIcons {
   'FullPage.js'?: string;
   Gnubord?: string;
   Swiper?: string;
-  [key: string]: string | undefined; // 추가 기술 스택을 위한 인덱스 시그니처
+  [key: string]: string | undefined;
 }
 
 export type LenisInstance = {

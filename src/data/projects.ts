@@ -19,7 +19,7 @@ export const projectsData: Project[] = [
       color5: '#495057',
       color6: '#20C997',
       color7: '#845EF7',
-      color8: '#FF922B',
+      color8: '#23C873',
       color9: '#ffffff',
     },
     links: {
@@ -85,7 +85,7 @@ export const projectsData: Project[] = [
       color5: '##e57a7a',
       color6: '#fff',
       color7: '#e57a7a',
-      color8: '#263c4f',
+      color8: '#23C873',
       color9: '#ffffff',
     },
     links: {
@@ -162,7 +162,7 @@ export const projectsData: Project[] = [
       color5: '#FFE4E1',
       color6: '#FFA07A',
       color7: '#FF69B4',
-      color8: '#FFB6C1',
+      color8: '#23C873',
       color9: '#ffffff',
     },
     links: {
@@ -220,6 +220,90 @@ export const projectsData: Project[] = [
           '같은 섹션을 클릭했을 때 비정상적인 동작: 같은 해시를 클릭해도 정상적으로 URL이 초기화되거나, 새로운 이벤트가 트리거되지 않는 문제가 있었습니다. 특정 링크를 클릭했을 때, 해시 상태를 토글하거나 초기화할 수 있도록 구현해야 했습니다.',
         solution:
           'useCallback 훅을 사용하여 해시 라우팅 핸들러를 최적화하고, 중복 렌더링을 방지하였습니다. 다른 해시를 가리키는 경우, window.location.hash를 업데이트하여 해시를 변경합니다. 해시 변경 후 HashChangeEvent를 트리거하여 다른 이벤트 핸들러와 동기화되도록 설계하였습니다.',
+      },
+    ],
+  },
+  {
+    id: 'Viewee',
+    title: 'Viewee',
+    subtitle: '사용자 중심의 직관적 인터페이스로 재탄생한 OTT 플랫폼',
+    description:
+      '사용자 취향 분석 알고리즘과 소셜 기능이 결합된 새로운 OTT 경험을 제공합니다. 콘텐츠 추천부터 시청 커뮤니티까지, 단순한 영상 시청을 넘어 콘텐츠와 소통하는 플랫폼입니다.',
+    year: '2025',
+    client: 'Team Project (4인)',
+    desc: 'Viewee는 React-Vite 기반으로 개발된 OTT 플랫폼으로, 프로젝트 팀장으로서 전체 개발 과정을 주도했습니다. TMDB API 설계 및 사용자 데이터 연동을 담당하여 개인화된 콘텐츠 추천 시스템을 구현했습니다. 또한 실시간 알림 기능을 개발하여 사용자 경험을 향상시키고, Redux를 활용한 상태 관리와 반응형 디자인 적용으로 다양한 디바이스에서의 접근성을 확보했습니다.',
+    image: ['/images/pattern/viewee.jpg', '/images/pattern/viewee.jpg'],
+    period: '2025.01 - 2025.03',
+    colors: {
+      color1: '#1A1A2E', // 기본 배경색 (어두운 네이비 - 너무 검지 않음)
+      color2: '#242436', // 보조 배경색 (약간 밝은 네이비)
+      color3: '#F57E9A', // 주요 강조색 (핑크)
+      color4: '#FFFFFF', // 주요 텍스트 색상
+      color5: '#A0A0B2', // 보조 텍스트 색상 (밝은 회색)
+      color6: '#2D2D42', // 입력 필드 배경
+      color7: '#00B9FF', // 보조 강조색 (파란색)
+      color8: '#23C873', // 성공/긍정 피드백 색상 (녹색)
+      color9: '#F5F5F1',
+    },
+    links: {
+      live: 'https://viewee.vercel.app',
+      details: '/projects/portfolio-2024',
+      github: 'https://github.com/zio-s/project-viewee',
+    },
+    responsibilities: [
+      '사용자 경험을 최우선으로 고려한 반응형 UI/UX 설계 및 구현',
+      'Styled-Components를 활용한 모듈화된 컴포넌트 개발로 유지보수성 향상',
+      'GSAP 라이브러리를 활용한 인터랙티브 랜딩 페이지 구현으로 서비스 첫인상 강화',
+      '팝업과 호버 모달을 통한 직관적인 정보 제공 방식 설계',
+      'Vercel 플랫폼을 사용하여 신속한 빌드와 안정적인 배포 환경 구축.',
+      'Local Storage 기반 인증 시스템(로그인/회원가입) 구현',
+      'TMDB API를 사용하여, 사용자 데이터와 연동을 하여 UI/UX 개발',
+      'Git을 활용한 효율적인 버전 관리 및 팀 협업 프로세스 최적화',
+    ],
+
+    techStack: ['React', 'Vite', 'Styled-Components', 'JavaScript', 'GSAP', 'Lenis', 'Swiper'],
+
+    keyFeatures: [
+      {
+        title: 'TMDB API 활용 콘텐츠 필터링 및 검색 기능',
+        description:
+          'TMDB API를 활용하여 카테고리별 필터링과 검색 기능을 구현했습니다. 사용자가 원하는 영화나 시리즈를 쉽게 찾을 수 있도록 직관적인 인터페이스를 설계했으며, 검색 결과는 실시간으로 업데이트되어 사용자 경험을 향상시켰습니다.',
+        image: '/images/pattern/b-intro.mp4',
+      },
+      {
+        title: 'Local Storage 기반 인증 시스템 및 마이페이지 구현',
+        description:
+          'Local Storage를 활용하여 로그인 및 회원가입 기능을 구현했습니다. 사용자 데이터를 안전하게 저장하고 관리할 수 있으며, 개인화된 마이페이지를 통해 관심 콘텐츠와 시청 기록 등을 확인할 수 있도록 했습니다. 사용자 인증 상태에 따라 UI가 동적으로 변경되어 맞춤형 경험을 제공합니다.',
+        image: '/images/pattern/b-about.mp4',
+      },
+      {
+        title: '사용자 맞춤형 알림 시스템 구현',
+        description:
+          '토스트 알림과 팝업 알림을 통해 사용자에게 실시간 피드백을 제공했습니다. 사용자 활동(찜하기, 평가 등록, 로그인 등)에 따라 적절한 알림을 표시하여 상호작용을 강화했으며, 사용자 데이터와 연동하여 개인화된 알림 경험을 구현했습니다. 직관적인 디자인으로 사용자가 쉽게 알림을 인지하고 반응할 수 있도록 했습니다.',
+        image: '/images/pattern/b-mobile.mp4',
+      },
+    ],
+    challenges: [
+      {
+        title: 'TMDB API 구조 설계 문제점',
+        description:
+          'TMDB API를 통해 데이터를 비동기로 가져올 때, 외국 작품과 성인물을 제외하고 필터링하려 했으나 원하는 결과가 제대로 출력되지 않았습니다. API 응답에서 필터링 조건이 예상대로 작동하지 않는 문제가 발생했습니다.',
+        solution:
+          'API 응답 구조를 분석하여 필터링 로직을 개선했습니다. 서버에서 받아온 데이터를 클라이언트 측에서 한 번 더 필터링하는 2단계 필터링 방식을 적용했으며, 언어 설정과 성인물 제외 파라미터를 정확히 구성하여 API 요청 시 올바른 필터링이 이루어지도록 수정했습니다.',
+      },
+      {
+        title: 'Git 팀 협업 과정의 충돌 문제',
+        description:
+          'Git을 활용한 팀 협업 중 각자의 브랜치에서 작업 후 develop 브랜치로 병합하는 과정에서 많은 충돌과 오류가 발생했습니다. 또한 개인 브랜치에 최신 develop 코드를 pull 받는 과정에서도 충돌이 자주 발생했습니다.',
+        solution:
+          '팀 내 Git 워크플로우 규칙을 명확히 정립했습니다. 작업 전 항상 develop 브랜치의 최신 코드를 pull 받고, 작은 단위로 커밋하며, 코드 리뷰를 통해 병합 전 검증하는 과정을 도입했습니다. 또한 충돌이 발생했을 때 함께 모여 해결하는 시간을 마련하고, 공통 파일 작업 시 사전에 팀원들과 소통하여 충돌을 최소화했습니다.',
+      },
+      {
+        title: '데이터 이미지 로딩 지연 문제',
+        description:
+          '컴포넌트 렌더링 시 API를 통해 데이터를 불러오는 과정에서, 특히 이미지가 많은 경우 로딩 시간이 길어져 사용자 경험이 저하되었습니다. 로딩 스피너를 사용하지 않고 더 효율적인 데이터 로딩 방법이 필요했습니다.',
+        solution:
+          '사용자 경험 향상을 위해 데이터 프리로딩 전략을 구현했습니다. 메인 페이지에서 컨텐츠에 호버할 때 DetailSlice를 작동시켜 상세 페이지 데이터를 미리 로드하도록 설계했습니다. 이를 통해 사용자가 상세 페이지로 이동했을 때 이미 데이터가 준비되어 있어 즉시 콘텐츠가 표시되도록 했습니다. 결과적으로 별도의 로딩 화면 없이도 자연스러운 페이지 전환과 콘텐츠 표시가 가능해졌습니다.',
       },
     ],
   },

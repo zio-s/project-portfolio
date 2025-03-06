@@ -345,7 +345,7 @@
       border-color: rgba(var(--color3-rgb), 0.15);
 
       h4 {
-        color: var(--color3);
+        color: var(--color8);
         border-bottom-color: rgba(var(--color3-rgb), 0.15);
 
         &::after {
@@ -360,7 +360,6 @@
       }
     }
 
-    // 호버시 나타나는 배경 효과
     &::before {
       content: '';
       position: absolute;
@@ -375,7 +374,6 @@
       z-index: 0;
     }
 
-    // 내용물은 배경 효과 위에 보이도록
     h4,
     p,
     .solution {
@@ -386,7 +384,7 @@
     h4 {
       font-size: 1.5rem;
       font-weight: 700;
-      color: var(--color3);
+      color: var(--color8);
       margin-bottom: 1.5rem;
       padding-bottom: 1rem;
       border-bottom: 2px solid rgba(var(--color3-rgb), 0.08);
@@ -401,7 +399,7 @@
         left: 0;
         width: 2rem;
         height: 2px;
-        background: var(--color3);
+        background: var(--color8);
         transition: all 0.3s ease;
       }
     }
@@ -419,7 +417,6 @@
       color: var(--color4);
       border-top: 1px solid rgba(var(--color3-rgb), 0.08);
 
-      // "Solution" 레이블 개선
       &::before {
         content: 'Solution';
         position: absolute;
@@ -427,7 +424,7 @@
         left: 0;
         font-size: 1.1rem;
         font-weight: 600;
-        color: var(--color3);
+        color: var(--color8);
         border: 1px solid rgba(var(--color3-rgb), 0.1);
 
         transition: all 0.3s ease;
