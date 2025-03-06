@@ -1,6 +1,7 @@
 .projects-stage {
   position: relative;
   min-height: 100vh;
+
   .faux_slide {
     height: 100vh;
     width: 100%;
@@ -8,6 +9,8 @@
     scroll-snap-align: start;
   }
 }
+
+/* 카드 컨테이너 기본 스타일 */
 #cards {
   position: fixed;
   left: 50%;
@@ -17,6 +20,7 @@
   height: var(--card-height);
   pointer-events: none;
   z-index: 22;
+
   &_in {
     position: absolute;
     left: 50%;
@@ -27,6 +31,8 @@
     will-change: transform;
   }
 }
+
+/* 카드 홀더 기본 스타일 */
 .card-holder {
   position: absolute;
   left: 50%;
@@ -41,7 +47,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0.5;
     opacity: 1;
     transition: all calc(var(--duration) * 4) cubic-bezier(0.19, 1, 0.22, 1);
   }
@@ -57,15 +62,18 @@
       position: absolute;
       inset: 0;
       background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
       transition: opacity 0.3s ease;
       border-radius: calc(var(--card-height) * 0.1);
       z-index: 21;
     }
+
     &-in {
       position: absolute;
       inset: 0;
       overflow: hidden;
       border-radius: calc(var(--card-height) * 0.1);
+
       img,
       video {
         width: 100%;
@@ -81,19 +89,69 @@
     }
   }
 }
-// 랜드스케이프 모드 스타일
-// 모바일 (세로모드) 미디어 쿼리 수정
-@media (orientation: portrait) {
+
+/* 데스크탑 (가로모드) */
+@media (orientation: landscape) {
   :root {
-    --card-height: 40vh; // 48vh에서 40vh로 줄임
-    --card-height: 40svh;
+    --card-height: 60vh;
+    --card-height: 60svh;
   }
 
+  body.details #cards {
+    transform: translate(calc(-50% - 25vw), -50%);
+  }
+}
+
+/* 모바일 (세로모드) */
+@media (orientation: portrait) {
+  :root {
+    --card-height: 44vh;
+    --card-height: 44svh;
+  }
+
+  /* 세로 모드에서 카드 컨테이너 스타일 수정 */
+  #cards {
+    position: fixed;
+    height: var(--card-height);
+
+    &_in {
+      width: 100vw;
+      height: auto;
+      // top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  /* 카드 홀더 세로 모드 스타일 */
   .card-holder {
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+
     .card {
-      width: auto; // 너비 자동 조정
-      height: var(--card-height);
-      max-width: 85vw; // 뷰포트 너비의 85%로 제한
+      transform-origin: center center;
+    }
+
+    /* 두 번째 카드 위치 조정 */
+    .card + .card {
+      transform: translateY(10%) translateX(8%) rotate(5deg);
+    }
+  }
+
+  /* 활성화된 카드홀더 스타일 */
+  .card-holder.active {
+    z-index: 25;
+
+    .card:first-child {
+      transform: translateY(-8%) translateX(-8%) rotate(-5deg);
+    }
+
+    .card:last-child {
+      transform: translateY(10%) translateX(8%) rotate(5deg);
+    }
+
+    .card-overlay {
+      opacity: 1;
     }
   }
 }

@@ -31,14 +31,12 @@ const CustomCursor = () => {
   const cursorModeRef = useRef<CursorMode>('default');
 
   useEffect(() => {
-    // 색상 변경을 감지하는 observer 설정
     const colorObserver = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'attributes' && mutation.attributeName === 'data-color3') {
           const newColor = document.body.getAttribute('data-color3') || '#263c4f';
           colorRef.current = newColor;
 
-          // 모든 포인트의 색상 업데이트
           pointsRef.current.forEach((point) => {
             point.c = newColor;
           });

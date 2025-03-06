@@ -60,6 +60,12 @@
       justify-content: center;
       align-items: center;
 
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+      }
+
       .project-link,
       .launch-link {
         position: relative;
@@ -68,9 +74,15 @@
         border-radius: 8px;
         text-decoration: none;
         transition: all 0.4s ease;
+        justify-content: center;
+
+        @media (max-width: 768px) {
+          width: 100%;
+          padding: 14px 20px;
+          justify-content: center;
+        }
       }
 
-      // Details 버튼 스타일
       .project-link {
         background: var(--color3);
         border: none;
@@ -87,7 +99,8 @@
           transition: all 0.6s ease;
         }
 
-        &:hover {
+        &:hover,
+        &:focus {
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
@@ -99,26 +112,35 @@
             transform: rotate(90deg);
           }
         }
+
+        &:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
       }
 
-      // Launch project 버튼 스타일
       .launch-link {
         background: var(--color9);
         border: 2px solid var(--color9);
 
-        &:hover {
+        &:hover,
+        &:focus {
           background: var(--color1);
           transform: translateY(-2px);
           border-color: var(--color1);
+
           .link-content {
             .icon {
               transform: translate(3px, -3px);
             }
           }
         }
+
+        &:active {
+          transform: translateY(0);
+        }
       }
 
-      // 공통 콘텐츠 스타일
       .link-content {
         position: relative;
         display: flex;
@@ -131,13 +153,23 @@
         .icon {
           transition: transform 0.4s ease;
         }
+
+        @media (max-width: 768px) {
+          justify-content: center;
+          font-size: 16px;
+
+          .icon {
+            width: 20px;
+            height: 20px;
+          }
+        }
       }
 
-      // Launch 버튼의 특별한 텍스트 색상
       .launch-link {
         color: var(--color4);
 
-        &:hover {
+        &:hover,
+        &:focus {
           .link-content {
             color: var(--color9);
           }
@@ -146,6 +178,7 @@
     }
   }
 }
+
 .more {
   display: flex;
   align-items: center;

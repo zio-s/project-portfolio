@@ -302,28 +302,28 @@
 }
 
 // 프로젝트 링크
-.project-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+// .project-links {
+//   display: flex;
+//   flex-wrap: wrap;
+//   gap: 1rem;
 
-  a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.25rem;
-    background: rgba(var(--color3-rgb), 0.08);
-    border-radius: 0.5rem;
-    color: var(--color3);
-    font-size: 0.95rem;
-    font-weight: 500;
+//   a {
+//     display: inline-flex;
+//     align-items: center;
+//     gap: 0.5rem;
+//     padding: 0.75rem 1.25rem;
+//     background: rgba(var(--color3-rgb), 0.08);
+//     border-radius: 0.5rem;
+//     color: var(--color3);
+//     font-size: 0.95rem;
+//     font-weight: 500;
 
-    svg {
-      width: 1.2em;
-      height: 1.2em;
-    }
-  }
-}
+//     svg {
+//       width: 1.2em;
+//       height: 1.2em;
+//     }
+//   }
+// }
 
 .challenges {
   margin-top: 4rem;

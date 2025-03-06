@@ -6,23 +6,19 @@ import { NavLink } from './navigation/NavLink';
 const Header = () => {
   const [textColor, setTextColor] = useState('var(--color3)');
 
-  // 색상 업데이트 함수를 별도로 분리
   const updateTextColor = (hash: string) => {
     setTextColor(hash !== '' ? '#263c4f' : 'var(--color3)');
   };
 
   useEffect(() => {
-    // 초기 해시 체크
     updateTextColor(window.location.hash);
 
-    // 해시 변경 감지
     const handleHashChange = () => {
       updateTextColor(window.location.hash);
     };
 
     window.addEventListener('hashchange', handleHashChange);
 
-    // URL 변경 감지 (pushState, replaceState 이벤트 감지)
     const handleUrlChange = () => {
       updateTextColor(window.location.hash);
     };
@@ -52,7 +48,6 @@ const Header = () => {
             >
               {item}
               <span className='absolute bottom-[-4px] left-1/2 w-0 h-0.5 bg-current transform -translate-x-1/2 group-hover:w-full transition-all duration-300 ease-in-out' />
-              {/* 배경 강조 효과 */}
               <span className='absolute top-1/2 left-1/2 w-[120%] h-[120%] -translate-x-1/2 -translate-y-1/2 bg-current opacity-0 rounded-full -z-10 scale-0 group-hover:scale-100 group-hover:opacity-10 transition-all duration-400 ease-in-out' />
             </NavLink>
           ))}

@@ -17,7 +17,7 @@ const About = ({ isActive, closeOverlay }: IAboutProps) => {
       ${isActive ? 'visible' : 'invisible'}`}
       style={{
         willChange: 'transform, opacity',
-        display: 'none',
+        // display: isActive ? 'block' : 'none',
       }}
       data-active={isActive}
       data-lenis-prevent-wheel={!isActive}

@@ -2,72 +2,6 @@ import { Project } from '@/types/project';
 
 export const projectsData: Project[] = [
   {
-    id: 'genie-music',
-    title: 'Genie Music',
-    subtitle: 'Music Streaming Platform Redesign',
-    description:
-      '이 프로젝트는 기존 지니뮤직의 웹 서비스를 현대적인 디자인과 향상된 사용자 경험으로 재해석한 작업입니다.\n\nHTML, CSS, JavaScript를 활용하여 개발되었으며, 실시간 음원 차트와 아티스트 상세 정보 등 핵심 기능들을 새롭게 구현했습니다.\n\n특히 사용자 인터페이스 디자인에 중점을 두어 직관적인 네비게이션과 깔끔한 레이아웃으로 시각적 만족도를 높였습니다. GSAP 라이브러리를 활용하여 부드러운 페이지 전환과 요소 애니메이션을 구현함으로써 역동적이고 모던한 사용자 경험을 제공했습니다.\n\n또한, 반응형 웹 디자인을 적용하여 다양한 디바이스에서도 일관된 서비스 경험을 제공할 수 있도록 하였습니다. 웹 표준과 웹 접근성 지침을 준수하여 개발되었으며, 크로스 브라우징 호환성을 고려한 코드 작성으로 안정적인 서비스 구현에 주력하였습니다.',
-    year: '2024',
-    client: 'Personal Project',
-    image: ['/images/pattern/genie-intro.png', '/images/pattern/genie-2.gif'],
-    period: '2024.09.10 - 2024.09.21',
-    colors: {
-      color1: '#003161',
-      color2: '#1A1A1A',
-      color3: '#FFF4B7',
-      color4: '#F5EDE5',
-      color5: '#495057',
-      color6: '#20C997',
-      color7: '#845EF7',
-      color8: '#23C873',
-      color9: '#ffffff',
-    },
-    links: {
-      live: 'https://zio-s.github.io/project-genie/pages/',
-      details: '/projects/genie-music',
-      github: 'https://github.com/zio-s/project-genie',
-    },
-    responsibilities: [
-      '웹 표준 준수와 접근성을 강화하여 다양한 사용자가 쉽게 접근할 수 있는 UI 설계 및 개발.',
-      'SCSS 및 CSS 변수(CSS Custom Properties)를 활용하여 유지보수가 용이한 모듈형 스타일링 체계 구현.',
-      'GSAP과 스크롤 이벤트를 활용하여 동적인 UI/UX 인터랙션 및 시각적 몰입감 제공.',
-      '그누보드 연동을 통해 커스터마이징 가능한 게시판 기능 구현 및 사용자 데이터 관리 시스템 구축.',
-      'Git과 GitHub를 활용한 버전 관리 및 협업 효율성 극대화.',
-    ],
-    techStack: ['HTML', 'Scss', 'JavaScript', 'GSAP', 'FullPage.js', 'Gnubord', 'Swiper'],
-
-    keyFeatures: [
-      {
-        title: '인트로 인터렉션 스크롤 효과 ',
-        description:
-          '페이지 첫 진입시 스크롤 할때마다 이미지가 scale이 조절되면서 transform이 움직이며 작동 하는 애니메이션, 클릭시 애니메이션으로 한번에 작동합니다.',
-        image: '/images/pattern/genie-intro.png',
-      },
-      {
-        title: 'gsap을 활용한 img data 속성/랜덤 웨이브 생성',
-        description:
-          'img의 src속성을 활용하여 배경이미지로 저장을 했습니다. 그리고 섹션 진입시 박스 웨이브를 랜덤으로 설정하여, 음악이 재생되는 분위기를 만들었습니다.',
-        image: '/images/pattern/section2-ezgif.com-crop.gif',
-      },
-    ],
-    challenges: [
-      {
-        title: 'GSAP과 FullPage.js 스크롤 이벤트 충돌 해결',
-        description:
-          'GSAP과 FullPage.js를 함께 사용하는 과정에서 스크롤 이벤트 충돌 문제가 발생했습니다. 두 라이브러리가 서로 다른 방식으로 DOM을 조작하고 스크롤 이벤트를 핸들링하면서, 애니메이션이 끊기거나 스크롤이 정상적으로 동작하지 않는 현상이 발생했습니다.',
-        solution:
-          'FullPage.js의 scrollOverflow 옵션을 활성화하고, GSAP 애니메이션의 타임라인을 FullPage.js의 afterLoad/onLeave 콜백과 동기화했습니다. 섹션의 높이를 동적으로 계산하여 스크롤 가능 영역을 조정했고, ScrollTrigger의 scroller 옵션을 FullPage.js의 wrapper element로 설정하여 두 라이브러리 간의 호환성을 확보했습니다.',
-      },
-      {
-        title: 'GSAP 애니메이션 반응형 대응 구현',
-        description:
-          'GSAP의 .set() 메서드로 설정된 초기 위치값들이 윈도우 리사이즈 시 적절하게 업데이트되지 않아 반응형 레이아웃에서 애니메이션이 깨지는 현상이 발생했습니다. 특히 복잡한 시퀀스 애니메이션에서 위치 계산이 부정확해지는 문제가 있었습니다.',
-        solution:
-          '단순히 Resize가 되면 업데이트를 할 수 있을거라 생각 했지만, 이부분에 어려움을 겪어 새로고침을 하여 재생성 할수 있게 하였고, 애니메이션 타임라인을 재생성하기위해 여러 방면을 검색하다가 실패 하였습니다. 하지만 최근 Next.js에서 GSAP을 사용 하면서 ResizeObserver API라는 것을 접해 보았고, 리사이징을 모니터링하여, 디바운스 처리된 핸들러에서 애니메이션을 재계산을 하도록 구현을 할 수 있다는 것을 알고, 추후 적용 할 예정입니다.',
-      },
-    ],
-  },
-  {
     id: 'gamers-nest',
     title: 'Gamers-Nest',
     subtitle: 'Gaming Community Platform',
@@ -141,6 +75,156 @@ export const projectsData: Project[] = [
           'Grid로 구성된 레이아웃에 Swiper를 통합하는 과정에서 반응형 디자인 이슈가 발생했습니다. 특히 화면 크기 변경 시 Grid와 Swiper의 레이아웃이 충돌하면서 컨텐츠 깨짐과 스와이프 동작 오류가 발생했습니다.',
         solution:
           'Swiper 컴포넌트의 부모 요소에 position: absolute를 적용하여 레이아웃 흐름에서 분리했습니다. 이를 통해 불필요한 가로 스크롤 발생을 방지하고, Grid 레이아웃과의 충돌을 해결했습니다. 추가로 CSS Grid의 auto-fit과 minmax 속성을 활용하여 반응형 그리드를 구현하고, Swiper의 breakpoints 옵션을 설정하여 다양한 화면 크기에서도 안정적으로 동작하도록 개선했습니다. 미디어 쿼리를 통해 모바일 환경에서는 Grid를 단일 컬럼으로 변경하여 사용성을 향상시켰습니다.',
+      },
+    ],
+  },
+  {
+    id: 'Viewee',
+    title: 'Viewee',
+    subtitle: '사용자 중심의 직관적 인터페이스로 재탄생한 OTT 플랫폼',
+    description:
+      '사용자 취향 분석 알고리즘과 소셜 기능이 결합된 새로운 OTT 경험을 제공합니다. 콘텐츠 추천부터 시청 커뮤니티까지, 단순한 영상 시청을 넘어 콘텐츠와 소통하는 플랫폼입니다.',
+    year: '2025',
+    client: 'Team Project (4인)',
+    desc: 'Viewee는 React-Vite 기반으로 개발된 OTT 플랫폼으로, 프로젝트 팀장으로서 전체 개발 과정을 주도했습니다. TMDB API 설계 및 사용자 데이터 연동을 담당하여 개인화된 콘텐츠 추천 시스템을 구현했습니다. 또한 실시간 알림 기능을 개발하여 사용자 경험을 향상시키고, Redux를 활용한 상태 관리와 반응형 디자인 적용으로 다양한 디바이스에서의 접근성을 확보했습니다.',
+    image: ['/images/pattern/viewee.jpg', '/images/pattern/viewee.jpg'],
+    period: '2025.01 - 2025.03',
+    colors: {
+      color1: '#1A1A2E',
+      color2: '#242436',
+      color3: '#F57E9A',
+      color4: '#FFFFFF',
+      color5: '#A0A0B2',
+      color6: '#2D2D42',
+      color7: '#00B9FF',
+      color8: '#23C873',
+      color9: '#F5F5F1',
+    },
+    links: {
+      live: 'https://viewee.vercel.app',
+      details: '/projects/portfolio-2024',
+      github: 'https://github.com/zio-s/project-viewee',
+    },
+    responsibilities: [
+      '사용자 경험을 최우선으로 고려한 반응형 UI/UX 설계 및 구현',
+      'Styled-Components를 활용한 모듈화된 컴포넌트 개발로 유지보수성 향상',
+      'GSAP 라이브러리를 활용한 인터랙티브 랜딩 페이지 구현으로 서비스 첫인상 강화',
+      '팝업과 호버 모달을 통한 직관적인 정보 제공 방식 설계',
+      'Vercel 플랫폼을 사용하여 신속한 빌드와 안정적인 배포 환경 구축.',
+      'Local Storage 기반 인증 시스템(로그인/회원가입) 구현',
+      'TMDB API를 사용하여, 사용자 데이터와 연동을 하여 UI/UX 개발',
+      'Git을 활용한 효율적인 버전 관리 및 팀 협업 프로세스 최적화',
+    ],
+
+    techStack: ['React', 'Vite', 'Styled-Components', 'JavaScript', 'GSAP', 'Lenis', 'Swiper'],
+
+    keyFeatures: [
+      {
+        title: 'TMDB API 활용 콘텐츠 필터링 및 검색 기능',
+        description:
+          'TMDB API를 활용하여 카테고리별 필터링과 검색 기능을 구현했습니다. 사용자가 원하는 영화나 시리즈를 쉽게 찾을 수 있도록 직관적인 인터페이스를 설계했으며, 검색 결과는 실시간으로 업데이트되어 사용자 경험을 향상시켰습니다.',
+        image: '/images/pattern/b-intro.mp4',
+      },
+      {
+        title: 'Local Storage 기반 인증 시스템 및 마이페이지 구현',
+        description:
+          'Local Storage를 활용하여 로그인 및 회원가입 기능을 구현했습니다. 사용자 데이터를 안전하게 저장하고 관리할 수 있으며, 개인화된 마이페이지를 통해 관심 콘텐츠와 시청 기록 등을 확인할 수 있도록 했습니다. 사용자 인증 상태에 따라 UI가 동적으로 변경되어 맞춤형 경험을 제공합니다.',
+        image: '/images/pattern/b-about.mp4',
+      },
+      {
+        title: '사용자 맞춤형 알림 시스템 구현',
+        description:
+          '토스트 알림과 팝업 알림을 통해 사용자에게 실시간 피드백을 제공했습니다. 사용자 활동(찜하기, 평가 등록, 로그인 등)에 따라 적절한 알림을 표시하여 상호작용을 강화했으며, 사용자 데이터와 연동하여 개인화된 알림 경험을 구현했습니다. 직관적인 디자인으로 사용자가 쉽게 알림을 인지하고 반응할 수 있도록 했습니다.',
+        image: '/images/pattern/b-mobile.mp4',
+      },
+    ],
+    challenges: [
+      {
+        title: 'TMDB API 구조 설계 문제점',
+        description:
+          'TMDB API를 통해 데이터를 비동기로 가져올 때, 외국 작품과 성인물을 제외하고 필터링하려 했으나 원하는 결과가 제대로 출력되지 않았습니다. API 응답에서 필터링 조건이 예상대로 작동하지 않는 문제가 발생했습니다.',
+        solution:
+          'API 응답 구조를 분석하여 필터링 로직을 개선했습니다. 서버에서 받아온 데이터를 클라이언트 측에서 한 번 더 필터링하는 2단계 필터링 방식을 적용했으며, 언어 설정과 성인물 제외 파라미터를 정확히 구성하여 API 요청 시 올바른 필터링이 이루어지도록 수정했습니다.',
+      },
+      {
+        title: 'Git 팀 협업 과정의 충돌 문제',
+        description:
+          'Git을 활용한 팀 협업 중 각자의 브랜치에서 작업 후 develop 브랜치로 병합하는 과정에서 많은 충돌과 오류가 발생했습니다. 또한 개인 브랜치에 최신 develop 코드를 pull 받는 과정에서도 충돌이 자주 발생했습니다.',
+        solution:
+          '팀 내 Git 워크플로우 규칙을 명확히 정립했습니다. 작업 전 항상 develop 브랜치의 최신 코드를 pull 받고, 작은 단위로 커밋하며, 코드 리뷰를 통해 병합 전 검증하는 과정을 도입했습니다. 또한 충돌이 발생했을 때 함께 모여 해결하는 시간을 마련하고, 공통 파일 작업 시 사전에 팀원들과 소통하여 충돌을 최소화했습니다.',
+      },
+      {
+        title: '데이터 이미지 로딩 지연 문제',
+        description:
+          '컴포넌트 렌더링 시 API를 통해 데이터를 불러오는 과정에서, 특히 이미지가 많은 경우 로딩 시간이 길어져 사용자 경험이 저하되었습니다. 로딩 스피너를 사용하지 않고 더 효율적인 데이터 로딩 방법이 필요했습니다.',
+        solution:
+          '사용자 경험 향상을 위해 데이터 프리로딩 전략을 구현했습니다. 메인 페이지에서 컨텐츠에 호버할 때 DetailSlice를 작동시켜 상세 페이지 데이터를 미리 로드하도록 설계했습니다. 이를 통해 사용자가 상세 페이지로 이동했을 때 이미 데이터가 준비되어 있어 즉시 콘텐츠가 표시되도록 했습니다. 결과적으로 별도의 로딩 화면 없이도 자연스러운 페이지 전환과 콘텐츠 표시가 가능해졌습니다.',
+      },
+    ],
+  },
+  {
+    id: 'genie-music',
+    title: 'Genie Music',
+    subtitle: 'Music Streaming Platform Redesign',
+    description:
+      '이 프로젝트는 기존 지니뮤직의 웹 서비스를 현대적인 디자인과 향상된 사용자 경험으로 재해석한 작업입니다.\n\nHTML, CSS, JavaScript를 활용하여 개발되었으며, 실시간 음원 차트와 아티스트 상세 정보 등 핵심 기능들을 새롭게 구현했습니다.\n\n특히 사용자 인터페이스 디자인에 중점을 두어 직관적인 네비게이션과 깔끔한 레이아웃으로 시각적 만족도를 높였습니다. GSAP 라이브러리를 활용하여 부드러운 페이지 전환과 요소 애니메이션을 구현함으로써 역동적이고 모던한 사용자 경험을 제공했습니다.\n\n또한, 반응형 웹 디자인을 적용하여 다양한 디바이스에서도 일관된 서비스 경험을 제공할 수 있도록 하였습니다. 웹 표준과 웹 접근성 지침을 준수하여 개발되었으며, 크로스 브라우징 호환성을 고려한 코드 작성으로 안정적인 서비스 구현에 주력하였습니다.',
+    year: '2024',
+    client: 'Personal Project',
+    image: ['/images/pattern/genie-intro.png', '/images/pattern/genie-2.gif'],
+    period: '2024.09.10 - 2024.09.21',
+    colors: {
+      color1: '#003161',
+      color2: '#1A1A1A',
+      color3: '#FFF4B7',
+      color4: '#F5EDE5',
+      color5: '#495057',
+      color6: '#20C997',
+      color7: '#845EF7',
+      color8: '#23C873',
+      color9: '#ffffff',
+    },
+    links: {
+      live: 'https://zio-s.github.io/project-genie/pages/',
+      details: '/projects/genie-music',
+      github: 'https://github.com/zio-s/project-genie',
+    },
+    responsibilities: [
+      '웹 표준 준수와 접근성을 강화하여 다양한 사용자가 쉽게 접근할 수 있는 UI 설계 및 개발.',
+      'SCSS 및 CSS 변수(CSS Custom Properties)를 활용하여 유지보수가 용이한 모듈형 스타일링 체계 구현.',
+      'GSAP과 스크롤 이벤트를 활용하여 동적인 UI/UX 인터랙션 및 시각적 몰입감 제공.',
+      '그누보드 연동을 통해 커스터마이징 가능한 게시판 기능 구현 및 사용자 데이터 관리 시스템 구축.',
+      'Git과 GitHub를 활용한 버전 관리 및 협업 효율성 극대화.',
+    ],
+    techStack: ['HTML', 'Scss', 'JavaScript', 'GSAP', 'FullPage.js', 'Gnubord', 'Swiper'],
+
+    keyFeatures: [
+      {
+        title: '인트로 인터렉션 스크롤 효과 ',
+        description:
+          '페이지 첫 진입시 스크롤 할때마다 이미지가 scale이 조절되면서 transform이 움직이며 작동 하는 애니메이션, 클릭시 애니메이션으로 한번에 작동합니다.',
+        image: '/images/pattern/genie-intro.png',
+      },
+      {
+        title: 'gsap을 활용한 img data 속성/랜덤 웨이브 생성',
+        description:
+          'img의 src속성을 활용하여 배경이미지로 저장을 했습니다. 그리고 섹션 진입시 박스 웨이브를 랜덤으로 설정하여, 음악이 재생되는 분위기를 만들었습니다.',
+        image: '/images/pattern/section2-ezgif.com-crop.gif',
+      },
+    ],
+    challenges: [
+      {
+        title: 'GSAP과 FullPage.js 스크롤 이벤트 충돌 해결',
+        description:
+          'GSAP과 FullPage.js를 함께 사용하는 과정에서 스크롤 이벤트 충돌 문제가 발생했습니다. 두 라이브러리가 서로 다른 방식으로 DOM을 조작하고 스크롤 이벤트를 핸들링하면서, 애니메이션이 끊기거나 스크롤이 정상적으로 동작하지 않는 현상이 발생했습니다.',
+        solution:
+          'FullPage.js의 scrollOverflow 옵션을 활성화하고, GSAP 애니메이션의 타임라인을 FullPage.js의 afterLoad/onLeave 콜백과 동기화했습니다. 섹션의 높이를 동적으로 계산하여 스크롤 가능 영역을 조정했고, ScrollTrigger의 scroller 옵션을 FullPage.js의 wrapper element로 설정하여 두 라이브러리 간의 호환성을 확보했습니다.',
+      },
+      {
+        title: 'GSAP 애니메이션 반응형 대응 구현',
+        description:
+          'GSAP의 .set() 메서드로 설정된 초기 위치값들이 윈도우 리사이즈 시 적절하게 업데이트되지 않아 반응형 레이아웃에서 애니메이션이 깨지는 현상이 발생했습니다. 특히 복잡한 시퀀스 애니메이션에서 위치 계산이 부정확해지는 문제가 있었습니다.',
+        solution:
+          '단순히 Resize가 되면 업데이트를 할 수 있을거라 생각 했지만, 이부분에 어려움을 겪어 새로고침을 하여 재생성 할수 있게 하였고, 애니메이션 타임라인을 재생성하기위해 여러 방면을 검색하다가 실패 하였습니다. 하지만 최근 Next.js에서 GSAP을 사용 하면서 ResizeObserver API라는 것을 접해 보았고, 리사이징을 모니터링하여, 디바운스 처리된 핸들러에서 애니메이션을 재계산을 하도록 구현을 할 수 있다는 것을 알고, 추후 적용 할 예정입니다.',
       },
     ],
   },
@@ -220,90 +304,6 @@ export const projectsData: Project[] = [
           '같은 섹션을 클릭했을 때 비정상적인 동작: 같은 해시를 클릭해도 정상적으로 URL이 초기화되거나, 새로운 이벤트가 트리거되지 않는 문제가 있었습니다. 특정 링크를 클릭했을 때, 해시 상태를 토글하거나 초기화할 수 있도록 구현해야 했습니다.',
         solution:
           'useCallback 훅을 사용하여 해시 라우팅 핸들러를 최적화하고, 중복 렌더링을 방지하였습니다. 다른 해시를 가리키는 경우, window.location.hash를 업데이트하여 해시를 변경합니다. 해시 변경 후 HashChangeEvent를 트리거하여 다른 이벤트 핸들러와 동기화되도록 설계하였습니다.',
-      },
-    ],
-  },
-  {
-    id: 'Viewee',
-    title: 'Viewee',
-    subtitle: '사용자 중심의 직관적 인터페이스로 재탄생한 OTT 플랫폼',
-    description:
-      '사용자 취향 분석 알고리즘과 소셜 기능이 결합된 새로운 OTT 경험을 제공합니다. 콘텐츠 추천부터 시청 커뮤니티까지, 단순한 영상 시청을 넘어 콘텐츠와 소통하는 플랫폼입니다.',
-    year: '2025',
-    client: 'Team Project (4인)',
-    desc: 'Viewee는 React-Vite 기반으로 개발된 OTT 플랫폼으로, 프로젝트 팀장으로서 전체 개발 과정을 주도했습니다. TMDB API 설계 및 사용자 데이터 연동을 담당하여 개인화된 콘텐츠 추천 시스템을 구현했습니다. 또한 실시간 알림 기능을 개발하여 사용자 경험을 향상시키고, Redux를 활용한 상태 관리와 반응형 디자인 적용으로 다양한 디바이스에서의 접근성을 확보했습니다.',
-    image: ['/images/pattern/viewee.jpg', '/images/pattern/viewee.jpg'],
-    period: '2025.01 - 2025.03',
-    colors: {
-      color1: '#1A1A2E', // 기본 배경색 (어두운 네이비 - 너무 검지 않음)
-      color2: '#242436', // 보조 배경색 (약간 밝은 네이비)
-      color3: '#F57E9A', // 주요 강조색 (핑크)
-      color4: '#FFFFFF', // 주요 텍스트 색상
-      color5: '#A0A0B2', // 보조 텍스트 색상 (밝은 회색)
-      color6: '#2D2D42', // 입력 필드 배경
-      color7: '#00B9FF', // 보조 강조색 (파란색)
-      color8: '#23C873', // 성공/긍정 피드백 색상 (녹색)
-      color9: '#F5F5F1',
-    },
-    links: {
-      live: 'https://viewee.vercel.app',
-      details: '/projects/portfolio-2024',
-      github: 'https://github.com/zio-s/project-viewee',
-    },
-    responsibilities: [
-      '사용자 경험을 최우선으로 고려한 반응형 UI/UX 설계 및 구현',
-      'Styled-Components를 활용한 모듈화된 컴포넌트 개발로 유지보수성 향상',
-      'GSAP 라이브러리를 활용한 인터랙티브 랜딩 페이지 구현으로 서비스 첫인상 강화',
-      '팝업과 호버 모달을 통한 직관적인 정보 제공 방식 설계',
-      'Vercel 플랫폼을 사용하여 신속한 빌드와 안정적인 배포 환경 구축.',
-      'Local Storage 기반 인증 시스템(로그인/회원가입) 구현',
-      'TMDB API를 사용하여, 사용자 데이터와 연동을 하여 UI/UX 개발',
-      'Git을 활용한 효율적인 버전 관리 및 팀 협업 프로세스 최적화',
-    ],
-
-    techStack: ['React', 'Vite', 'Styled-Components', 'JavaScript', 'GSAP', 'Lenis', 'Swiper'],
-
-    keyFeatures: [
-      {
-        title: 'TMDB API 활용 콘텐츠 필터링 및 검색 기능',
-        description:
-          'TMDB API를 활용하여 카테고리별 필터링과 검색 기능을 구현했습니다. 사용자가 원하는 영화나 시리즈를 쉽게 찾을 수 있도록 직관적인 인터페이스를 설계했으며, 검색 결과는 실시간으로 업데이트되어 사용자 경험을 향상시켰습니다.',
-        image: '/images/pattern/b-intro.mp4',
-      },
-      {
-        title: 'Local Storage 기반 인증 시스템 및 마이페이지 구현',
-        description:
-          'Local Storage를 활용하여 로그인 및 회원가입 기능을 구현했습니다. 사용자 데이터를 안전하게 저장하고 관리할 수 있으며, 개인화된 마이페이지를 통해 관심 콘텐츠와 시청 기록 등을 확인할 수 있도록 했습니다. 사용자 인증 상태에 따라 UI가 동적으로 변경되어 맞춤형 경험을 제공합니다.',
-        image: '/images/pattern/b-about.mp4',
-      },
-      {
-        title: '사용자 맞춤형 알림 시스템 구현',
-        description:
-          '토스트 알림과 팝업 알림을 통해 사용자에게 실시간 피드백을 제공했습니다. 사용자 활동(찜하기, 평가 등록, 로그인 등)에 따라 적절한 알림을 표시하여 상호작용을 강화했으며, 사용자 데이터와 연동하여 개인화된 알림 경험을 구현했습니다. 직관적인 디자인으로 사용자가 쉽게 알림을 인지하고 반응할 수 있도록 했습니다.',
-        image: '/images/pattern/b-mobile.mp4',
-      },
-    ],
-    challenges: [
-      {
-        title: 'TMDB API 구조 설계 문제점',
-        description:
-          'TMDB API를 통해 데이터를 비동기로 가져올 때, 외국 작품과 성인물을 제외하고 필터링하려 했으나 원하는 결과가 제대로 출력되지 않았습니다. API 응답에서 필터링 조건이 예상대로 작동하지 않는 문제가 발생했습니다.',
-        solution:
-          'API 응답 구조를 분석하여 필터링 로직을 개선했습니다. 서버에서 받아온 데이터를 클라이언트 측에서 한 번 더 필터링하는 2단계 필터링 방식을 적용했으며, 언어 설정과 성인물 제외 파라미터를 정확히 구성하여 API 요청 시 올바른 필터링이 이루어지도록 수정했습니다.',
-      },
-      {
-        title: 'Git 팀 협업 과정의 충돌 문제',
-        description:
-          'Git을 활용한 팀 협업 중 각자의 브랜치에서 작업 후 develop 브랜치로 병합하는 과정에서 많은 충돌과 오류가 발생했습니다. 또한 개인 브랜치에 최신 develop 코드를 pull 받는 과정에서도 충돌이 자주 발생했습니다.',
-        solution:
-          '팀 내 Git 워크플로우 규칙을 명확히 정립했습니다. 작업 전 항상 develop 브랜치의 최신 코드를 pull 받고, 작은 단위로 커밋하며, 코드 리뷰를 통해 병합 전 검증하는 과정을 도입했습니다. 또한 충돌이 발생했을 때 함께 모여 해결하는 시간을 마련하고, 공통 파일 작업 시 사전에 팀원들과 소통하여 충돌을 최소화했습니다.',
-      },
-      {
-        title: '데이터 이미지 로딩 지연 문제',
-        description:
-          '컴포넌트 렌더링 시 API를 통해 데이터를 불러오는 과정에서, 특히 이미지가 많은 경우 로딩 시간이 길어져 사용자 경험이 저하되었습니다. 로딩 스피너를 사용하지 않고 더 효율적인 데이터 로딩 방법이 필요했습니다.',
-        solution:
-          '사용자 경험 향상을 위해 데이터 프리로딩 전략을 구현했습니다. 메인 페이지에서 컨텐츠에 호버할 때 DetailSlice를 작동시켜 상세 페이지 데이터를 미리 로드하도록 설계했습니다. 이를 통해 사용자가 상세 페이지로 이동했을 때 이미 데이터가 준비되어 있어 즉시 콘텐츠가 표시되도록 했습니다. 결과적으로 별도의 로딩 화면 없이도 자연스러운 페이지 전환과 콘텐츠 표시가 가능해졌습니다.',
       },
     ],
   },

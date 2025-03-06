@@ -1,9 +1,8 @@
-// useTransitionAnimation.ts
 import { useState, useCallback, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import type { LenisInstance } from '@/types/project';
 
-type Section = 'home' | string; // 모든 섹션 타입을 허용
+type Section = 'home' | string;
 
 interface UseTransitionOptions {
   onTransitionComplete?: (section: Section) => void;
@@ -31,12 +30,10 @@ export const useTransitionAnimation = ({ lenis, onTransitionComplete }: UseTrans
       const aboutContent = document.querySelector('.about-content') as HTMLElement;
       const header = document.querySelector('header') as HTMLElement;
 
-      // CSS transition 설정
       gsap.set([cardsContainer, cardsTitle], {
         transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
       });
 
-      // 1. About 컴포넌트 초기 상태 설정
       gsap.set(overlay, {
         display: 'block',
         opacity: 0,
@@ -48,19 +45,16 @@ export const useTransitionAnimation = ({ lenis, onTransitionComplete }: UseTrans
         opacity: 0,
       });
 
-      // 2. 카드 페이드아웃
       gsap.set([cardsContainer, cardsTitle], {
         opacity: 0,
         scale: 0.55,
       });
 
-      // 3. 오버레이 페이드인
       gsap.to(overlay, {
         opacity: 1,
         duration: 0.25,
         ease: 'power2.inOut',
         onComplete: () => {
-          // 4. About 컨텐츠 페이드인
           gsap.to(aboutContent, {
             y: 0,
             opacity: 1,
@@ -178,7 +172,6 @@ export const useTransitionAnimation = ({ lenis, onTransitionComplete }: UseTrans
     };
   }, [lenis]);
 
-  // 해시 변경 감지 및 처리
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1);

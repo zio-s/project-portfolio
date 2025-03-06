@@ -1,3 +1,4 @@
+'use client';
 import { ProjectDescriptionProps } from '@/types/project';
 import { memo, useEffect, useRef } from 'react';
 import gsap from 'gsap';

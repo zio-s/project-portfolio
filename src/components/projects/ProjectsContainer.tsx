@@ -1,4 +1,3 @@
-// ProjectsContainer.tsx
 'use client';
 import { projectsData } from '@/data/projects';
 import { useProjectAnimation } from '@/hooks/useProjectAnimation';
@@ -46,20 +45,18 @@ export const ProjectsContainer = () => {
     };
   }, [cardsRef, closeProjectDetail]);
 
-  // 스크롤 관리
   useEffect(() => {
     if (isOverlayActive) {
-      document.body.style.overflow = ''; // 오버레이 활성화시 기본 스크롤 허용
+      document.body.style.overflow = '';
     }
 
     return () => {
-      document.body.style.overflow = ''; // 클린업
+      document.body.style.overflow = '';
     };
   }, [isOverlayActive]);
 
   return (
     <>
-      {/* Main content wrapper */}
       <div
         className={`relative w-full h-full transition-opacity duration-500 ${
           isOverlayActive ? 'opacity-0 pointer-events-none' : 'opacity-100'
@@ -100,7 +97,6 @@ export const ProjectsContainer = () => {
             ))}
           </div>
 
-          {/* Faux slides */}
           {projectsData.map((project, index) => (
             <div
               key={`faux-${project.id}`}

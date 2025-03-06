@@ -21,7 +21,6 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
   const previousIndexRef = useRef<number>(-1);
   const [isVertical, setIsVertical] = useState(false);
 
-  // 활성 카드 애니메이션
   const animateActiveCard = useCallback(
     (holder: HTMLElement) => {
       if (!holder || isScrollingRef.current) return;
@@ -35,18 +34,15 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       const cardHolders = gsap.utils.toArray<HTMLElement>('.card-holder');
       const currentIndex = cardHolders.indexOf(holder);
       const targetProject = projects[currentIndex];
+      const isVerticalMode = window.innerWidth < window.innerHeight;
 
       const tl = gsap.timeline({
         defaults: { duration: 0.6, ease: 'power3.out' },
       });
 
       const direction = Math.random() > 0.5 ? 1 : -1;
-      const xOffset = gsap.utils.random(25, 35);
-      const yOffset = gsap.utils.random(5, 12);
-      const rotation1 = gsap.utils.random(6, 18) * direction * -1;
-      const rotation2 = gsap.utils.random(6, 18) * direction;
 
-      // 오버레이 표시
+      // Show overlay
       tl.to(
         overlays,
         {
@@ -56,17 +52,49 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
         0
       );
 
-      tl.to(
-        cards[0],
-        {
-          xPercent: xOffset * direction * -1,
-          yPercent: yOffset * -1,
-          rotation: rotation1,
-          overwrite: true,
-        },
-        0
-      )
-        .to(
+      if (isVerticalMode) {
+        // Vertical mode animation (mobile)
+        const yOffset = gsap.utils.random(10, 20);
+        const xOffset = gsap.utils.random(5, 10);
+        const rotation1 = gsap.utils.random(2, 8) * direction * -1;
+        const rotation2 = gsap.utils.random(2, 8) * direction;
+
+        tl.to(
+          cards[0],
+          {
+            yPercent: yOffset * -1,
+            xPercent: xOffset * direction,
+            rotation: rotation1,
+            overwrite: true,
+          },
+          0
+        ).to(
+          cards[1],
+          {
+            yPercent: yOffset,
+            xPercent: xOffset * direction * -1,
+            rotation: rotation2,
+            overwrite: true,
+          },
+          0
+        );
+      } else {
+        // Horizontal mode animation (desktop) - original
+        const xOffset = gsap.utils.random(25, 35);
+        const yOffset = gsap.utils.random(5, 12);
+        const rotation1 = gsap.utils.random(6, 18) * direction * -1;
+        const rotation2 = gsap.utils.random(6, 18) * direction;
+
+        tl.to(
+          cards[0],
+          {
+            xPercent: xOffset * direction * -1,
+            yPercent: yOffset * -1,
+            rotation: rotation1,
+            overwrite: true,
+          },
+          0
+        ).to(
           cards[1],
           {
             xPercent: xOffset * direction,
@@ -75,31 +103,34 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
             overwrite: true,
           },
           0
-        )
-        .to(
-          [document.documentElement, document.querySelector('header')],
-          {
-            duration: 0.01,
-            ease: 'power3.out',
-            onStart: () => {
-              if (targetProject?.colors) {
-                Object.entries(targetProject.colors).forEach(([key, value]) => {
-                  document.body.setAttribute(`data-${key}`, value);
-                });
-                // header에도 background-color 설정
-                const header = document.querySelector('header');
-                if (header && targetProject.colors.color1) {
-                  header.style.backgroundColor = targetProject.colors.color1;
-                }
-              }
-            },
-            ...Object.entries(targetProject?.colors || {}).reduce((acc, [key, value]) => {
-              acc[`--${key}`] = value;
-              return acc;
-            }, {} as Record<string, string>),
-          },
-          0
         );
+      }
+
+      // Update colors
+      tl.to(
+        [document.documentElement, document.querySelector('header')],
+        {
+          duration: 0.01,
+          ease: 'power3.out',
+          onStart: () => {
+            if (targetProject?.colors) {
+              Object.entries(targetProject.colors).forEach(([key, value]) => {
+                document.body.setAttribute(`data-${key}`, value);
+              });
+              // Update header background color
+              const header = document.querySelector('header');
+              if (header && targetProject.colors.color1) {
+                header.style.backgroundColor = targetProject.colors.color1;
+              }
+            }
+          },
+          ...Object.entries(targetProject?.colors || {}).reduce((acc, [key, value]) => {
+            acc[`--${key}`] = value;
+            return acc;
+          }, {} as Record<string, string>),
+        },
+        0
+      );
 
       activeAnimationRef.current = tl;
     },
@@ -351,7 +382,6 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
     });
   }, [lenisRef, setActiveProject, animateActiveCard]);
 
-  // 모든 카드 접기
   const resetAllCards = useCallback(() => {
     const cardHolders = gsap.utils.toArray<HTMLElement>('.card-holder');
     cardHolders.forEach((holder) => {
@@ -371,7 +401,6 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
     });
   }, []);
 
-  // 스크롤 스냅
   const snapToNearestCard = useCallback(() => {
     if (!lenisRef.current || isScrollingRef.current === false) return;
 
@@ -547,13 +576,11 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // URL에서 현재 활성화된 카드의 인덱스 찾기
+    // Get current card info
     const getCurrentCardInfo = () => {
-      // 1. 먼저 active 클래스를 가진 카드를 찾습니다
       const activeCardHolder = document.querySelector('.card-holder.active') as HTMLElement;
 
       if (activeCardHolder) {
-        // active 클래스를 가진 카드가 있다면, 해당 카드의 인덱스를 찾습니다
         const cardHolders = Array.from(document.querySelectorAll('.card-holder'));
         const activeIndex = cardHolders.indexOf(activeCardHolder);
 
@@ -565,7 +592,6 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
         }
       }
 
-      // 2. active 클래스를 가진 카드가 없다면, 현재 스크롤 위치를 기준으로 가장 가까운 카드를 찾습니다
       const currentScroll = window.scrollY;
       const windowHeight = window.innerHeight;
       const currentIndex = Math.round(currentScroll / windowHeight);
@@ -585,7 +611,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       });
     }
 
-    // 현재 인덱스에 해당하는 카드와 타이틀 찾기
+    // Find current card and title
     const cardHolders = document.querySelectorAll('.card-holder');
     const titles = document.querySelectorAll('.title');
 
@@ -594,36 +620,59 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
 
     if (currentCard && currentTitle) {
       currentCard.setAttribute('data-project-id', currentProject.id);
-      // 현재 위치로 스크롤
+
       setTimeout(() => {
         window.scrollTo({
           top: currentIndex * window.innerHeight,
           behavior: 'auto',
         });
 
-        // 현재 카드와 타이틀 활성화
+        // Activate current card and title
         currentCard.classList.add('active');
         currentTitle.classList.add('active');
 
-        // 현재 카드 애니메이션
+        // Check if we're in vertical mode (mobile)
+        const isVerticalMode = window.innerWidth < window.innerHeight;
+
+        // Animate cards differently based on orientation
         const direction = Math.random() > 0.5 ? 1 : -1;
         const cards = currentCard.querySelectorAll('.card');
-        gsap.to(cards[0], {
-          xPercent: gsap.utils.random(25, 35) * direction * -1,
-          yPercent: gsap.utils.random(5, 12) * -1,
-          rotation: gsap.utils.random(6, 18) * direction * -1,
-          duration: 0.6,
-          ease: 'power3.out',
-        });
-        gsap.to(cards[1], {
-          xPercent: gsap.utils.random(25, 35) * direction,
-          yPercent: gsap.utils.random(5, 12),
-          rotation: gsap.utils.random(6, 18) * direction,
-          duration: 0.6,
-          ease: 'power3.out',
-        });
 
-        // 현재 타이틀 애니메이션
+        if (isVerticalMode) {
+          // For vertical (mobile) - slide cards vertically instead of rotating
+          gsap.to(cards[0], {
+            yPercent: gsap.utils.random(10, 20) * -1,
+            xPercent: gsap.utils.random(5, 10) * direction,
+            rotation: gsap.utils.random(2, 8) * direction * -1, // Less rotation
+            duration: 0.6,
+            ease: 'power3.out',
+          });
+          gsap.to(cards[1], {
+            yPercent: gsap.utils.random(10, 20),
+            xPercent: gsap.utils.random(5, 10) * direction * -1,
+            rotation: gsap.utils.random(2, 8) * direction, // Less rotation
+            duration: 0.6,
+            ease: 'power3.out',
+          });
+        } else {
+          // For horizontal - original animation
+          gsap.to(cards[0], {
+            xPercent: gsap.utils.random(25, 35) * direction * -1,
+            yPercent: gsap.utils.random(5, 12) * -1,
+            rotation: gsap.utils.random(6, 18) * direction * -1,
+            duration: 0.6,
+            ease: 'power3.out',
+          });
+          gsap.to(cards[1], {
+            xPercent: gsap.utils.random(25, 35) * direction,
+            yPercent: gsap.utils.random(5, 12),
+            rotation: gsap.utils.random(6, 18) * direction,
+            duration: 0.6,
+            ease: 'power3.out',
+          });
+        }
+
+        // Animate title elements
         const titleIn = currentTitle.querySelector('.title_in');
         const clients = currentTitle.querySelectorAll('.client');
         const meta = currentTitle.querySelector('.meta');
@@ -652,26 +701,26 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
           );
         }
 
-        // 활성 프로젝트 상태 업데이트
+        // Update active project
         setActiveProject(currentProject.id);
         previousIndexRef.current = currentIndex;
       }, 1000);
     }
-    // Lenis 초기화
+
+    // Initialize Lenis
     lenisRef.current = new Lenis({
       duration: 0.25,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       wheelMultiplier: 1,
-      // infinite: true,
     });
 
-    // 스크롤 이벤트 핸들러
+    // Scroll event handler
     const handleScroll = () => {
       isScrollingRef.current = true;
       resetAllCards();
 
-      // 모든 타이틀 숨기기
+      // Hide all titles
       const titles = gsap.utils.toArray<HTMLElement>('.title');
       titles.forEach((title) => {
         if (title.classList.contains('active')) {
@@ -696,21 +745,33 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       }, 150);
     };
 
-    // GSAP 애니메이션 설정
+    // Configure GSAP animations
     if (cardsRef.current) {
       const cardHolders = gsap.utils.toArray<HTMLElement>('.card-holder');
       const totalCards = cardHolders.length;
+      const isVerticalMode = window.innerWidth < window.innerHeight;
 
-      // 초기 카드 위치 설정
+      // Set initial card positions based on orientation
       cardHolders.forEach((holder, index) => {
-        gsap.set(holder, {
-          rotation: index > 0 ? 20 * index : 0,
-          transformOrigin: '50% 100%',
-          zIndex: totalCards - index,
-        });
+        if (isVerticalMode) {
+          // Vertical arrangement for mobile
+          gsap.set(holder, {
+            y: index > 0 ? index * 20 : 0, // Vertical offset instead of rotation
+            rotation: 0, // No rotation in vertical mode
+            transformOrigin: '50% 50%',
+            zIndex: totalCards - index,
+          });
+        } else {
+          // Original horizontal rotation for desktop
+          gsap.set(holder, {
+            rotation: index > 0 ? 20 * index : 0,
+            transformOrigin: '50% 100%',
+            zIndex: totalCards - index,
+          });
+        }
       });
 
-      // ScrollTrigger 설정
+      // Create ScrollTrigger
       ScrollTrigger.create({
         trigger: wrapperRef.current,
         start: 'top top',
@@ -721,7 +782,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
           if (currentIndex !== previousIndexRef.current) {
             setActiveProject(projects[Math.min(currentIndex, totalCards - 1)].id);
             previousIndexRef.current = currentIndex;
-            // 스크롤 중일 때만 리셋
+            // Reset cards only while scrolling
             if (isScrollingRef.current) {
               resetAllCards();
             }
@@ -729,22 +790,38 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
         },
       });
 
-      // 전체 회전 애니메이션
+      // Animation for entire container
       if (totalCards > 1) {
-        gsap.to(cardsRef.current, {
-          rotation: -((totalCards - 1) * 20),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: wrapperRef.current,
-            start: 'top top',
-            end: `+=${window.innerHeight * (totalCards - 1)}`,
-            scrub: 1,
-          },
-        });
+        if (isVerticalMode) {
+          // Vertical animation for mobile
+          gsap.to(cardsRef.current, {
+            y: -((totalCards - 1) * 20), // Vertical movement
+            rotation: 0, // No rotation
+            ease: 'none',
+            scrollTrigger: {
+              trigger: wrapperRef.current,
+              start: 'top top',
+              end: `+=${window.innerHeight * (totalCards - 1)}`,
+              scrub: 1,
+            },
+          });
+        } else {
+          // Original rotation animation for desktop
+          gsap.to(cardsRef.current, {
+            rotation: -((totalCards - 1) * 20),
+            ease: 'none',
+            scrollTrigger: {
+              trigger: wrapperRef.current,
+              start: 'top top',
+              end: `+=${window.innerHeight * (totalCards - 1)}`,
+              scrub: 1,
+            },
+          });
+        }
       }
     }
 
-    // Lenis 이벤트 및 RAF 설정
+    // Set up Lenis events and RAF
     lenisRef.current.on('scroll', handleScroll);
 
     const raf = (time: number) => {
@@ -773,26 +850,33 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
 
   useEffect(() => {
     const handleResize = () => {
-      // 방향 체크
-      setIsVertical(window.innerWidth < window.innerHeight);
+      const isVerticalMode = window.innerWidth < window.innerHeight;
+      setIsVertical(isVerticalMode);
 
       if (cardsRef.current) {
         const cardHolders = gsap.utils.toArray<HTMLElement>('.card-holder');
         const totalCards = cardHolders.length;
 
-        // ScrollTrigger 업데이트
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
-        // 카드 위치 재설정
         cardHolders.forEach((holder, index) => {
-          gsap.set(holder, {
-            rotation: index > 0 ? 20 * index : 0,
-            transformOrigin: '50% 100%',
-            zIndex: totalCards - index,
-          });
+          if (isVerticalMode) {
+            gsap.set(holder, {
+              y: index > 0 ? index * window.innerHeight : 0,
+              rotation: 0,
+              transformOrigin: '50% 50%',
+              zIndex: totalCards - index,
+            });
+          } else {
+            gsap.set(holder, {
+              y: 0,
+              rotation: index > 0 ? 20 * index : 0,
+              transformOrigin: '50% 100%',
+              zIndex: totalCards - index,
+            });
+          }
         });
 
-        // ScrollTrigger 재생성
         ScrollTrigger.create({
           trigger: wrapperRef.current,
           start: 'top top',
@@ -810,31 +894,42 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
           },
         });
 
-        // 전체 회전 애니메이션 재설정
         if (totalCards > 1) {
-          gsap.to(cardsRef.current, {
-            rotation: -((totalCards - 1) * 20),
-            ease: 'none',
-            scrollTrigger: {
-              trigger: wrapperRef.current,
-              start: 'top top',
-              end: `+=${window.innerHeight * (totalCards - 1)}`,
-              scrub: 1,
-            },
-          });
+          if (isVerticalMode) {
+            gsap.to(cardsRef.current, {
+              y: -((totalCards - 1) * window.innerHeight),
+              rotation: 0,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: wrapperRef.current,
+                start: 'top top',
+                end: `+=${window.innerHeight * (totalCards - 1)}`,
+                scrub: 1,
+              },
+            });
+          } else {
+            gsap.to(cardsRef.current, {
+              rotation: -((totalCards - 1) * 20),
+              y: 0,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: wrapperRef.current,
+                start: 'top top',
+                end: `+=${window.innerHeight * (totalCards - 1)}`,
+                scrub: 1,
+              },
+            });
+          }
         }
       }
 
-      // Lenis 업데이트
       if (lenisRef.current) {
         lenisRef.current.resize();
       }
     };
 
-    // 리사이즈 이벤트 추가
     window.addEventListener('resize', handleResize);
 
-    // 초기 실행
     handleResize();
 
     return () => {
@@ -842,7 +937,6 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
     };
   }, [projects, setActiveProject, resetAllCards]);
 
-  // 디바운스된 리사이즈 핸들러도 추가
   const debouncedResize = useCallback(
     debounce(() => {
       if (lenisRef.current) {

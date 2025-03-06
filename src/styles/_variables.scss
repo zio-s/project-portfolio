@@ -1,6 +1,7 @@
 :root {
   --duration: 0.15s;
 }
+
 ::-webkit-scrollbar {
   width: 0.2rem;
   background: transparent;
@@ -12,40 +13,16 @@
 
 ::-webkit-scrollbar-thumb {
   background: var(--color7);
-  /* border-radius: 10rem; */
 }
+
 body {
   transition: background-color 0.6s ease-out, color 0.6s ease-out;
 
   &.details {
-    // background-color: var(--color3);
     color: var(--color2);
   }
 }
+
 .page-transition {
   will-change: transform;
-}
-
-// 데스크탑 (가로모드)
-@media (orientation: landscape) {
-  :root {
-    --card-height: 60vh;
-    --card-height: 60svh;
-  }
-
-  body.details #cards {
-    transform: translate(calc(-50% - 25vw), -50%);
-  }
-}
-
-// 모바일 (세로모드)
-@media (orientation: portrait) {
-  :root {
-    --card-height: 48vh;
-    --card-height: 48svh;
-  }
-
-  body.details #cards {
-    transform: translate(-50%, calc(-50% - 0vh));
-  }
 }

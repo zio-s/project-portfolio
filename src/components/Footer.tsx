@@ -6,21 +6,17 @@ import React, { useEffect, useState } from 'react';
 const Footer = () => {
   const [textColor, setTextColor] = useState('var(--color3)');
 
-  // 색상 업데이트 함수
   const updateTextColor = (hash: string) => {
     setTextColor(hash !== '' ? '#263c4f' : 'var(--color3)');
   };
 
   useEffect(() => {
-    // 초기 해시 체크
     updateTextColor(window.location.hash);
 
-    // 해시 변경 감지
     const handleHashChange = () => {
       updateTextColor(window.location.hash);
     };
 
-    // URL 변경 감지
     const handleUrlChange = () => {
       updateTextColor(window.location.hash);
     };

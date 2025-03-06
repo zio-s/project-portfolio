@@ -1,3 +1,4 @@
+'use client';
 import { memo } from 'react';
 import Link from 'next/link';
 import { Project } from '@/types/project';
@@ -10,21 +11,19 @@ interface ProjectTitleProps {
   openProjectDetail: (holder: HTMLElement) => void;
 }
 const lora = Lora({
-  subsets: ['latin'], // 라틴 문자 서브셋
-  weight: ['400', '500', '600', '700'], // 필요한 폰트 굵기 선택
-  style: ['normal', 'italic'], // normal과 italic 스타일 모두 사용
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
 });
 export const ProjectTitle = memo(({ project, openProjectDetail }: ProjectTitleProps) => {
   const handleDetailClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    e.stopPropagation(); // 이벤트 전파 중지
+    e.stopPropagation();
 
     const cardHolder = document.querySelector(`.card-holder[data-id="${project.id}"]`);
     if (cardHolder instanceof HTMLElement) {
-      // 이미 details 상태면 무시
       if (document.body.classList.contains('details')) return;
 
-      // 현재 진행 중인 애니메이션이 있다면 중지
       gsap.killTweensOf(cardHolder.querySelectorAll('.card'));
 
       openProjectDetail(cardHolder);
