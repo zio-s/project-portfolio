@@ -2,6 +2,111 @@ import { Project } from '@/types/project';
 
 export const projectsData: Project[] = [
   {
+    id: 'OHESHIO',
+    title: 'OHESHIO Renewal',
+    subtitle: 'E-commerce Platform',
+    description:
+      'OHESHIO 브랜드의 리뉴얼 홈페이지로, 해외 감성을 담아 새롭게 제작되었습니다. 고급스럽고 세련된 디자인을 위해 벤치마킹을 활용했으며, 모델 컷을 중심으로 브랜드의 아이덴티티를 강조했습니다. 깔끔하면서도 직관적인 레이아웃이 특징입니다.',
+    year: '2025',
+    client: 'Team Project (5인)',
+    image: ['/images/pattern/oheshio-2.png', '/images/pattern/oheshio-1.png'],
+    period: '2025.02.26 - 2024.3.12',
+    colors: {
+      color1: '#2A6D82',
+      color2: '#212121',
+      color3: '#F9C846',
+      color4: '#F2F7F5',
+      color5: '#E8846B',
+      color6: '#ffffff',
+      color7: '#6BBBE8',
+      color8: '#4ED9A5',
+      color9: '#ffffff',
+    },
+    links: {
+      live: 'oheshiorenewal.vercel.app',
+      details: '/projects/oheshio',
+      github: 'https://github.com/zio-s/OHESHIO',
+    },
+    responsibilities: [
+      'React와 Vite를 활용하여 싱글 페이지 애플리케이션(SPA)의 빠른 렌더링과 부드러운 페이지 전환 구현',
+      'CSS 애니메이션과 Transform 속성을 활용하여 UI 요소가 공중에 부유하는 듯한 입체적인 사용자 경험 디자인',
+      'K-Brand 글로벌 경쟁력 강화를 위한 온라인 플랫폼 리뉴얼 프로젝트 기획 및 개발, 한국 문화와 제품의 글로벌 위상을 향상시키는 직관적인 UX/UI 설계 및 다국어 지원 시스템 구현으로 해외 사용자 접근성 극대화',
+      'Tailwind CSS 프레임워크를 사용한 반응형 디자인 및 일관된 스타일링 시스템 구축',
+      'Redux Toolkit을 활용한 확장 가능한 상태 관리 아키텍처 구현으로 복잡한 애플리케이션 상태를 효율적으로 관리하고, createAsyncThunk를 통한 비동기 작업 처리와 persistReducer를 사용하여 LocalStorage에 사용자 인증 정보 및 설정 데이터를 안전하게 저장하고 복원하는 영속성 시스템 구축',
+      '로그인, 회원가입, 소셜 로그인(OAuth) 기능과 마이페이지, 결제 시스템을 LocalStorage 연동 및 상태 관리로 구현',
+      '자연어 처리 기반의 대화형 챗봇 시스템을 구현하여 실시간 사용자 문의 응대 및 정보 제공 기능 개발, 조건부 로직과 대화 시나리오를 설계하여 실제 상담원과 대화하는 듯한 사용자 경험 제공 및 자주 묻는 질문(FAQ)에 대한 즉각적인 응답으로 고객 서비스 효율성 향상',
+      'Vercel 플랫폼을 통한 CI/CD 파이프라인 구축으로 자동화된 빌드 프로세스와 안정적인 배포 환경 확보',
+      'Git Flow 전략을 기반으로 한 체계적인 버전 관리와 GitHub를 활용한 코드 리뷰 및 이슈 트래킹으로 팀 협업 효율성 향상',
+    ],
+    techStack: [
+      'React',
+      'Vite',
+      'Redux Toolkit',
+      'Tailwind CSS',
+      'Styled-Components',
+      'JavaScript',
+      'KakaoAPI',
+      'NaverAPI',
+      'GoogleAPI',
+      'AOS',
+      'Toast',
+      'GitHub',
+    ],
+    keyFeatures: [
+      {
+        title: '사용자 인증 시스템',
+        description:
+          'LocalStorage 기반 토큰 관리와 소셜 OAuth 연동을 통한 간편한 로그인/회원가입 기능 구현, 세션 유지 및 자동 로그인 지원',
+        image: '/images/pattern/oheshio-login.mp4',
+        type: 'video',
+      },
+      {
+        title: '인터랙티브 상세 페이지',
+        description:
+          '타이머 기반 이미지 슬라이드 기능으로 상품 모델컷을 자동 순환하여 다양한 착용 모습 제공, 상품 정보의 계층적 구조화로 사용자 경험 최적화',
+        image: '/images/pattern/oheshio-detail.mp4',
+        type: 'video',
+      },
+      {
+        title: '전자상거래 결제 시스템',
+        description:
+          '상품 선택부터 결제까지 원활한 사용자 경험 제공, 프로모션 코드 적용 기능 및 다양한 결제 방식 통합으로 사용자 편의성 극대화',
+        image: '/images/pattern/oheshio-cart.mp4',
+        type: 'video',
+      },
+      {
+        title: '동적 필터링 시스템',
+        description:
+          '상품 데이터 카테고리별 필터링을 통한 직관적인 색상 기반 검색 기능 구현, 실시간 결과 반영으로 사용자 검색 효율성 향상',
+        image: '/images/pattern/oheshio-filter.mp4',
+        type: 'video',
+      },
+      {
+        title: '개인화된 사용자 경험',
+        description:
+          '최근 조회 상품 추적 및 사용자별 맞춤 데이터 관리 시스템, 실시간 토스트 알림을 통한 사용자 액션 피드백 및 상태 변화 시각화',
+        image: '/images/pattern/oheshio-mypage.mp4',
+        type: 'video',
+      },
+    ],
+    challenges: [
+      {
+        title: 'RAWG API 데이터 처리와 성능 최적화',
+        description:
+          'RAWG API에서 대량의 게임 데이터를 가져올 때 성능 이슈가 발생했습니다. 특히 이미지가 많은 데이터를 처리하고 캐싱하는 과정에서 렌더링 지연과 메모리 사용량 증가 문제가 있었습니다.',
+        solution:
+          'API를 활용한 무한 스크롤을 구현했습니다. Next.js의 Image 컴포넌트를 도입하여 이미지 최적화와 지연 로딩을 구현했으며, 또한 페이지당 로드되는 데이터 양을 제한하고, 사용자의 컨텐츠위치 따라 점진적으로 데이터를 로드하는 방식을 적용하여 초기 로딩 시간과 메모리 사용량을 크게 개선했습니다.',
+      },
+      {
+        title: 'Grid 레이아웃과 Swiper 통합 시 반응형 이슈',
+        description:
+          'Grid로 구성된 레이아웃에 Swiper를 통합하는 과정에서 반응형 디자인 이슈가 발생했습니다. 특히 화면 크기 변경 시 Grid와 Swiper의 레이아웃이 충돌하면서 컨텐츠 깨짐과 스와이프 동작 오류가 발생했습니다.',
+        solution:
+          'Swiper 컴포넌트의 부모 요소에 position: absolute를 적용하여 레이아웃 흐름에서 분리했습니다. 이를 통해 불필요한 가로 스크롤 발생을 방지하고, Grid 레이아웃과의 충돌을 해결했습니다. 추가로 CSS Grid의 auto-fit과 minmax 속성을 활용하여 반응형 그리드를 구현하고, Swiper의 breakpoints 옵션을 설정하여 다양한 화면 크기에서도 안정적으로 동작하도록 개선했습니다. 미디어 쿼리를 통해 모바일 환경에서는 Grid를 단일 컬럼으로 변경하여 사용성을 향상시켰습니다.',
+      },
+    ],
+  },
+  {
     id: 'gamers-nest',
     title: 'Gamers-Nest',
     subtitle: 'Gaming Community Platform',
@@ -123,19 +228,19 @@ export const projectsData: Project[] = [
         title: 'TMDB API 활용 콘텐츠 필터링 및 검색 기능',
         description:
           'TMDB API를 활용하여 카테고리별 필터링과 검색 기능을 구현했습니다. 사용자가 원하는 영화나 시리즈를 쉽게 찾을 수 있도록 직관적인 인터페이스를 설계했으며, 검색 결과는 실시간으로 업데이트되어 사용자 경험을 향상시켰습니다.',
-        image: '/images/pattern/b-intro.mp4',
+        image: '/images/pattern/filter.mp4',
       },
       {
         title: 'Local Storage 기반 인증 시스템 및 마이페이지 구현',
         description:
           'Local Storage를 활용하여 로그인 및 회원가입 기능을 구현했습니다. 사용자 데이터를 안전하게 저장하고 관리할 수 있으며, 개인화된 마이페이지를 통해 관심 콘텐츠와 시청 기록 등을 확인할 수 있도록 했습니다. 사용자 인증 상태에 따라 UI가 동적으로 변경되어 맞춤형 경험을 제공합니다.',
-        image: '/images/pattern/b-about.mp4',
+        image: '/images/pattern/mypage.mp4',
       },
       {
         title: '사용자 맞춤형 알림 시스템 구현',
         description:
           '토스트 알림과 팝업 알림을 통해 사용자에게 실시간 피드백을 제공했습니다. 사용자 활동(찜하기, 평가 등록, 로그인 등)에 따라 적절한 알림을 표시하여 상호작용을 강화했으며, 사용자 데이터와 연동하여 개인화된 알림 경험을 구현했습니다. 직관적인 디자인으로 사용자가 쉽게 알림을 인지하고 반응할 수 있도록 했습니다.',
-        image: '/images/pattern/b-mobile.mp4',
+        image: '/images/pattern/wish.mp4',
       },
     ],
     challenges: [
