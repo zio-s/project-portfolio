@@ -23,7 +23,7 @@ export const projectsData: Project[] = [
       color9: '#ffffff',
     },
     links: {
-      live: 'oheshiorenewal.vercel.app',
+      live: 'https://oheshiorenewal.vercel.app/',
       details: '/projects/oheshio',
       github: 'https://github.com/zio-s/OHESHIO',
     },
