@@ -333,7 +333,6 @@ export const projectsData: Project[] = [
       },
     ],
   },
-
   {
     id: 'portfolio-2024',
     title: 'Portfolio 2024',
