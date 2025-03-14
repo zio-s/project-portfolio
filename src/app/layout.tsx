@@ -6,8 +6,7 @@ import 'line-awesome/dist/line-awesome/css/line-awesome.min.css';
 export const metadata: Metadata = {
   title: 'B - 프론트엔드 개발자 포트폴리오',
   description:
-    '프론트엔드 개발자 변세민 포트폴리오입니다. 제 작업물이 궁금 하신가요? 바로 확인 해보세요! React, Next.js를 활용한 웹 개발 프로젝트를 확인하실 수 있습니다.',
-  generator: 'Next.js',
+    '프론트엔드 개발자 변세민의 포트폴리오입니다. React, Next.js, TypeScript를 기반으로 한 웹 개발 프로젝트를 통해 반응형 디자인, 사용자 경험 최적화, 모던 웹 기술 적용 능력을 확인하실 수 있습니다. GSAP 애니메이션, REST API 연동, 상태관리 등 다양한 기술 스택을 활용한 실무 프로젝트 경험을 소개합니다. 창의적인 문제 해결 능력과 클린 코드를 지향하는 개발자로서 성장하고 있습니다.',
   applicationName: 'B Portfolio',
   keywords: [
     '포트폴리오',
@@ -27,6 +26,21 @@ export const metadata: Metadata = {
     '신입 개발자 react 포트폴리오',
     'GSAP 포트폴리오',
     'GSAP 프론트엔드',
+    '웹 프로젝트',
+    '반응형 웹',
+    '프론트엔드 프로젝트',
+    '개발자 이력서',
+    '웹 디자인 포트폴리오',
+    '자바스크립트 개발자',
+    '타입스크립트 개발자',
+    '프론트엔드 취업',
+    '웹 퍼블리셔',
+    '웹 퍼블리싱',
+    '프론트엔드 경력',
+    '웹 개발 포트폴리오',
+    'UI/UX 개발자',
+    '모던 웹 개발',
+    'SPA 개발자',
   ],
   authors: [{ name: 'B', url: 'https://project-portfolio-gules.vercel.app/' }],
   creator: 'B',
@@ -79,17 +93,18 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'B - 프론트엔드 개발자 포트폴리오',
     description:
-      '프론트엔드 개발자 B의 포트폴리오입니다. React, Next.js를 활용한 웹 개발 프로젝트를 확인하실 수 있습니다.',
+      '프론트엔드 개발자 변세민의 포트폴리오입니다. React, Next.js, TypeScript를 기반으로 한 웹 개발 프로젝트를 통해 반응형 디자인, 사용자 경험 최적화, 모던 웹 기술 적용 능력을 확인하실 수 있습니다. GSAP 애니메이션, REST API 연동, 상태관리 등 다양한 기술 스택을 활용한 실무 프로젝트 경험을 소개합니다.',
     url: 'https://project-portfolio-gules.vercel.app/',
     siteName: 'B Portfolio',
     locale: 'ko_KR',
     type: 'website',
     images: [
       {
-        url: '/2024-1.png',
+        url: 'https://project-portfolio-gules.vercel.app/2024-1.png',
         width: 1200,
         height: 630,
-        alt: 'B의 포트폴리오 대표 이미지',
+        alt: '변세민의 포트폴리오 대표 이미지',
+        type: 'image/png',
       },
     ],
   },
@@ -97,7 +112,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'B - 프론트엔드 개발자 포트폴리오',
     description:
-      '프론트엔드 개발자 B의 포트폴리오입니다. React, Next.js를 활용한 웹 개발 프로젝트를 확인하실 수 있습니다.',
+      '프론트엔드 개발자 변세민의 포트폴리오입니다. React, Next.js, TypeScript를 기반으로 한 웹 개발 프로젝트를 통해 반응형 디자인, 사용자 경험 최적화, 모던 웹 기술 적용 능력을 확인하실 수 있습니다. GSAP 애니메이션, REST API 연동, 상태관리 등 다양한 기술 스택을 활용한 실무 프로젝트 경험을 소개합니다.',
     creator: '@your_twitter',
     images: ['https://your-website.com/twitter-image.jpg'],
   },
@@ -115,7 +130,7 @@ export const metadata: Metadata = {
   viewport: {
     width: 'device-width',
     initialScale: 1,
-    maximumScale: 1,
+    maximumScale: 5,
   },
 };
 
