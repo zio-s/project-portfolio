@@ -1,8 +1,8 @@
 {
   "redirects": [
     {
-      "source": "https://project-portfolio-gules.vercel.apphttps://project-portfolio-gules.vercel.app/*",
-      "destination": "https://www.semincode.com/*",
+      "source": "/(.*)",
+      "destination": "https://www.semincode.com/$1",
       "permanent": true
     }
   ]
