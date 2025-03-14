@@ -17,15 +17,37 @@ export const aboutData: SectionData[] = [
       skills: [
         {
           title: 'Frontend Development',
-          items: ['HTML5 / CSS3', 'JavaScript / TypeScript', 'React / Next.js', 'Tailwind CSS'],
+          items: [
+            'HTML5 / CSS3',
+            'JavaScript / TypeScript',
+            'React / Next.js',
+            'Redux-Toolkit',
+            'Tailwind CSS',
+            'Styled Components',
+            'RESTful API',
+          ],
         },
         {
           title: 'UI Development',
-          items: ['Responsive Design', 'GSAP Animations', 'CSS Frameworks', 'Web Accessibility'],
+          items: ['Responsive Design', 'Tailwind CSS', 'Styled Components', 'UI 라이브러리 활용', 'CSS 애니메이션'],
         },
         {
           title: 'Development Tools',
-          items: ['Git / GitHub', 'VS Code', 'Figma', 'Chrome DevTools'],
+          items: [
+            'Git / GitHub',
+            'VS Code',
+            'npm / yarn',
+            'Webpack / Vite',
+            'Chrome DevTools',
+            'Figma',
+            'Confluence',
+            'Notion',
+            'Slack',
+          ],
+        },
+        {
+          title: 'Soft Skills',
+          items: ['협업 능력', '문제 해결 능력', '코드 리뷰', '기술 문서화', '새로운 기술 습득 능력'],
         },
       ],
     },
@@ -47,6 +69,11 @@ export const aboutData: SectionData[] = [
             '최신 웹 기술 스택 학습',
             '팀 프로젝트 경험',
           ],
+        },
+        {
+          title: 'Frontend Development Course',
+          subtitle: '그린아카데미 UI/UX 피그마 웹 퍼블리셔 & 반응형 실무 양성과정',
+          items: ['6개월 집중 교육과정 수료', '실무 중심의 프로젝트 수행', '최신 웹 기술 스택 학습'],
         },
         {
           title: 'Self Development',
