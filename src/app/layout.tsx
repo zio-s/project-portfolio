@@ -141,7 +141,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko'>
-      <head></head>
+      <head>
+        <meta name='naver-site-verification' content='a72861f9636d79ccf1797e764d33733a023cd3b7' />
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: '변세민',
+              url: 'https://project-portfolio-gules.vercel.app/',
+              jobTitle: '프론트엔드 개발자',
+              knowsAbout: ['React', 'Next.js', 'TypeScript', 'GSAP', 'Frontend Development'],
+            }),
+          }}
+        />
+      </head>
       <body>
         <MainLayout>{children}</MainLayout>
       </body>
