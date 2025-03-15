@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     '모던 웹 개발',
     'SPA 개발자',
   ],
-  authors: [{ name: 'B', url: 'https://project-portfolio-gules.vercel.app/' }],
+  authors: [{ name: 'B', url: 'https://semincode.com/' }],
   creator: 'B',
   publisher: 'B',
   formatDetection: {
@@ -79,7 +79,8 @@ export const metadata: Metadata = {
       },
     ],
   },
-  metadataBase: new URL('https://project-portfolio-gules.vercel.app/'),
+  metadataBase: new URL('https://semincode.com/'),
+
   alternates: {
     canonical: '/',
     languages: {
@@ -94,7 +95,7 @@ export const metadata: Metadata = {
     title: 'B - 프론트엔드 개발자 포트폴리오',
     description:
       '프론트엔드 개발자 변세민의 포트폴리오입니다. React, Next.js, TypeScript를 기반으로 한 웹 개발 프로젝트를 통해 반응형 디자인, 사용자 경험 최적화, 모던 웹 기술 적용 능력을 확인하실 수 있습니다. GSAP 애니메이션, REST API 연동, 상태관리 등 다양한 기술 스택을 활용한 실무 프로젝트 경험을 소개합니다.',
-    url: 'https://project-portfolio-gules.vercel.app/',
+    url: 'https://semincode.com/',
     siteName: 'B Portfolio',
     locale: 'ko_KR',
     type: 'website',
@@ -150,7 +151,7 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'Person',
               name: '변세민',
-              url: 'https://project-portfolio-gules.vercel.app/',
+              url: 'https://semincode.com/',
               jobTitle: '프론트엔드 개발자',
               knowsAbout: ['React', 'Next.js', 'TypeScript', 'GSAP', 'Frontend Development'],
             }),
