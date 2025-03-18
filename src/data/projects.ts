@@ -24,7 +24,6 @@ export const projectsData: Project[] = [
     },
     links: {
       live: 'https://oheshiorenewal.vercel.app/',
-      // details: '/project/oheshio',
       github: 'https://github.com/zio-s/OHESHIO',
     },
     responsibilities: [
@@ -129,7 +128,6 @@ export const projectsData: Project[] = [
     },
     links: {
       live: 'https://zio-s.github.io/project-genie/pages/',
-      // details: '/project/genie-music',
       github: 'https://github.com/zio-s/project-genie',
     },
     responsibilities: [
@@ -195,7 +193,6 @@ export const projectsData: Project[] = [
     },
     links: {
       live: 'https://gamers-nest.vercel.app',
-      // details: '/project/gamers-nest',
       github: 'https://github.com/zio-s/project-Gamer-s_Nest',
     },
     responsibilities: [
@@ -273,7 +270,6 @@ export const projectsData: Project[] = [
     },
     links: {
       live: 'https://viewee.vercel.app',
-      // details: '/project/portfolio-2024',
       github: 'https://github.com/zio-s/project-viewee',
     },
     responsibilities: [
@@ -356,7 +352,6 @@ export const projectsData: Project[] = [
     },
     links: {
       live: 'https://project-portfolio-gules.vercel.app/',
-      // details: '/project/portfolio-2024',
       github: 'https://github.com/zio-s/project-portfolio',
     },
     responsibilities: [
