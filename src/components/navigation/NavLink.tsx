@@ -15,12 +15,24 @@ export const NavLink = ({ href, children, className, isActive }: NavLinkProps) =
       e.preventDefault();
       const currentHash = window.location.hash;
       const targetHash = href === '/' ? '' : href.slice(1);
-      //토글 헤쉬
-      if (currentHash === `#${targetHash}`) {
+
+      if (currentHash !== `#${targetHash}`) {
+        window.location.hash = targetHash;
+
+        if (currentHash.toLowerCase() === '#about') {
+          setTimeout(() => {
+            window.location.href = window.location.pathname;
+          }, 500);
+        }
+      } else {
         history.pushState(null, '', window.location.pathname);
         window.dispatchEvent(new HashChangeEvent('hashchange'));
-      } else {
-        window.location.hash = targetHash;
+
+        if (currentHash.toLowerCase() === '#about') {
+          setTimeout(() => {
+            window.location.href = window.location.pathname;
+          }, 500);
+        }
       }
     },
     [href]
