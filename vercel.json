@@ -1,15 +1,1 @@
-{
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "project-portfolio-gules.vercel.app"
-        }
-      ],
-      "destination": "https://www.semincode.com/$1",
-      "permanent": true
-    }
-  ]
-}
+{}
