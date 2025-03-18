@@ -195,7 +195,7 @@ export const projectsData: Project[] = [
     },
     links: {
       live: 'https://gamers-nest.vercel.app',
-      details: '/project/gamers-nest',
+      // details: '/project/gamers-nest',
       github: 'https://github.com/zio-s/project-Gamer-s_Nest',
     },
     responsibilities: [

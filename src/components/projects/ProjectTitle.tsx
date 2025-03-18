@@ -39,7 +39,7 @@ export const ProjectTitle = memo(({ project, openProjectDetail }: ProjectTitlePr
         </div>
 
         <Link
-          href={`/project/${project.id}`}
+          href={'#'}
           className='more title_in words'
           data-id={project.id}
           data-title={`${project.title} — Portfolio`}
@@ -62,12 +62,7 @@ export const ProjectTitle = memo(({ project, openProjectDetail }: ProjectTitlePr
 
         <div className='meta'>
           <div className='links'>
-            <Link
-              href={`/project/${project.id}`}
-              data-id={project.id}
-              onClick={handleDetailClick}
-              className='project-link'
-            >
+            <Link href={'#'} data-id={project.id} onClick={handleDetailClick} className='project-link'>
               <span className='link-content'>
                 Details
                 <Plus className='icon' size={18} />
