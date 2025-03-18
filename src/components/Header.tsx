@@ -36,7 +36,8 @@ const Header = () => {
         <div className='text-2xl font-bold transition-colors duration-300' style={{ color: textColor }}>
           <NavLink href='/'>Byunfolio</NavLink>
         </div>
-        <nav className='flex gap-8'>
+        {/* 이슈 있어서 잠시 주석처리.. */}
+        {/* <nav className='flex gap-8'>
           {['About'].map((item, index) => (
             <NavLink
               key={index}
@@ -51,7 +52,7 @@ const Header = () => {
               <span className='absolute top-1/2 left-1/2 w-[120%] h-[120%] -translate-x-1/2 -translate-y-1/2 bg-current opacity-0 rounded-full -z-10 scale-0 group-hover:scale-100 group-hover:opacity-10 transition-all duration-400 ease-in-out' />
             </NavLink>
           ))}
-        </nav>
+        </nav> */}
       </div>
     </header>
   );
