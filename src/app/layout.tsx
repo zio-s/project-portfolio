@@ -42,9 +42,9 @@ export const metadata: Metadata = {
     '모던 웹 개발',
     'SPA 개발자',
   ],
-  authors: [{ name: 'B', url: 'https://semincode.com/' }],
-  creator: 'B',
-  publisher: 'B',
+  authors: [{ name: 'B의 포트폴리오', url: 'https://semincode.com/' }],
+  creator: 'B의 포트폴리오',
+  publisher: 'B의 포트폴리오',
   formatDetection: {
     email: false,
     address: false,
