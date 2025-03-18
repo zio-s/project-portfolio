@@ -7,7 +7,9 @@ import { CalendarIcon, ExternalLink, GithubIcon, MoveLeft, User2, Users } from '
 import Link from 'next/link';
 import Image from 'next/image';
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export const ProjectDescription = memo(({ project, isActive, closeProjectDetail }: ProjectDescriptionProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -23,7 +25,12 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
     scrollTriggersRef.current.forEach((trigger) => trigger.kill());
     scrollTriggersRef.current = [];
   };
-  cleanupScrollTriggers();
+  useEffect(() => {
+    return () => {
+      cleanupScrollTriggers();
+    };
+  }, []);
+
   useEffect(() => {
     if (!contentRef.current || !isFirstRender.current) return;
 
@@ -63,18 +70,20 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
       });
 
       // 타이틀 애니메이션
-      const titleWords = container.querySelectorAll('.ttl .word span');
-      tl.from(
-        titleWords,
-        {
-          y: 100,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.05,
-          ease: 'expo.out',
-        },
-        '-=0.3'
-      );
+      const titleWordsElements = container.querySelectorAll('.ttl .word span');
+      if (titleWordsElements.length > 0) {
+        tl.from(
+          Array.from(titleWordsElements),
+          {
+            y: 100,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.05,
+            ease: 'expo.out',
+          },
+          '-=0.3'
+        );
+      }
 
       // 설명 텍스트 애니메이션
       const descWords = container.querySelectorAll('.tech-badges div');

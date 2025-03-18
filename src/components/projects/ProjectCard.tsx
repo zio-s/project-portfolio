@@ -24,13 +24,10 @@ export const ProjectCard = memo(({ project, index, isActive }: ProjectCardProps)
                 alt={project.title}
                 fill
                 sizes='(max-width: 768px) 100vw, 50vw'
-                priority={index === 0}
+                priority={true}
                 className='d-sheet obj
                 ect-cover'
               />
-              {/* <video muted playsInline autoPlay>
-                <source src={project.image[1]} />
-              </video> */}
             </div>
           </div>
           <div className='card'>

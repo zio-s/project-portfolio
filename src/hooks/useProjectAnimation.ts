@@ -24,14 +24,18 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
   const animateActiveCard = useCallback(
     (holder: HTMLElement) => {
       if (!holder || isScrollingRef.current) return;
+      const cards = holder.querySelectorAll('.card');
+      const overlays = holder.querySelectorAll('.card-overlay');
+
+      if (cards.length === 0 || overlays.length === 0) return;
 
       if (activeAnimationRef.current) {
         activeAnimationRef.current.kill();
       }
 
-      const cards = holder.querySelectorAll('.card');
-      const overlays = holder.querySelectorAll('.card-overlay');
       const cardHolders = gsap.utils.toArray<HTMLElement>('.card-holder');
+      if (cardHolders.length === 0) return;
+
       const currentIndex = cardHolders.indexOf(holder);
       const targetProject = projects[currentIndex];
       const isVerticalMode = window.innerWidth < window.innerHeight;
@@ -166,8 +170,11 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
       }
 
       const cards = holder.querySelectorAll('.card');
+      if (cards.length === 0) return;
+
       const cardsContainer = document.querySelector('#cards') as HTMLElement;
       const cardsTitle = document.querySelector('#titles') as HTMLElement;
+      if (!cardsContainer || !cardsTitle) return;
 
       if (cardsContainer && window.innerWidth >= window.innerHeight) {
         const currentContainerX = gsap.getProperty(cardsContainer, 'xPercent') || 25;
@@ -273,6 +280,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
 
       // 나머지 카드들 페이드 아웃
       const otherCards = gsap.utils.toArray<HTMLElement>('.card-holder:not(.active)');
+      if (otherCards.length === 0) return;
       gsap.fromTo(
         otherCards,
         { opacity: 1 },
@@ -576,7 +584,6 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // Get current card info
     const getCurrentCardInfo = () => {
       const activeCardHolder = document.querySelector('.card-holder.active') as HTMLElement;
 
@@ -748,6 +755,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
     // Configure GSAP animations
     if (cardsRef.current) {
       const cardHolders = gsap.utils.toArray<HTMLElement>('.card-holder');
+      if (cardHolders.length === 0) return;
       const totalCards = cardHolders.length;
       const isVerticalMode = window.innerWidth < window.innerHeight;
 
