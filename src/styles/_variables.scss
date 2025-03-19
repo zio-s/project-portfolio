@@ -14,7 +14,9 @@
 ::-webkit-scrollbar-thumb {
   background: var(--color7);
 }
-
+html {
+  background-color: #fff0db !important;
+}
 body {
   transition: background-color 0.6s ease-out, color 0.6s ease-out;
 

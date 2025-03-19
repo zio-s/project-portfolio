@@ -80,25 +80,56 @@ export const useTransitionAnimation = ({ lenis, onTransitionComplete }: UseTrans
   );
 
   const handleCloseOverlay = useCallback(() => {
+    // URL 해시 제거
     history.pushState('', document.title, window.location.pathname);
+
+    // 애니메이션 진행 중에는 사용자 상호작용 방지
+    document.body.style.pointerEvents = 'none';
 
     if (lenis) {
       lenis.start();
     }
+
     window.dispatchEvent(new Event('popstate'));
     const overlay = document.querySelector('.overlay') as HTMLElement;
     const aboutContent = document.querySelector('.about-content') as HTMLElement;
-    const cardsContainer = document.querySelector('#cards') as HTMLElement;
-    const cardsTitle = document.querySelector('#titles') as HTMLElement;
     const header = document.querySelector('header') as HTMLElement;
 
     if (header) {
       gsap.to(header, {
-        backgroundColor: 'transparent', // 또는 원하는 기본 배경색
+        backgroundColor: 'transparent',
         duration: 0.25,
         ease: 'power2.inOut',
       });
     }
+
+    // 만약 어바웃에서 돌아오는 경우라면
+    if (currentSection === 'about') {
+      // 간단한 페이드아웃 애니메이션 후 페이지 새로고침
+      if (overlay) {
+        gsap.to(overlay, {
+          opacity: 0,
+          duration: 0.4,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            // 약간의 지연 후 새로고침 (애니메이션이 보이도록)
+            setTimeout(() => {
+              window.location.reload();
+            }, 100);
+          },
+        });
+      } else {
+        // 오버레이가 없어도 새로고침
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+      return;
+    }
+
+    // 아래는 기존 애니메이션 로직 (about이 아닌 경우)
+    const cardsContainer = document.querySelector('#cards') as HTMLElement;
+    const cardsTitle = document.querySelector('#titles') as HTMLElement;
 
     // 1. 현재 진행 중인 모든 애니메이션 정리
     gsap.killTweensOf([cardsContainer, cardsTitle, overlay, aboutContent]);
@@ -143,6 +174,7 @@ export const useTransitionAnimation = ({ lenis, onTransitionComplete }: UseTrans
                 onComplete: () => {
                   document.documentElement.style.overflow = '';
                   document.body.classList.add('home');
+                  document.body.style.pointerEvents = ''; // 상호작용 다시 활성화
 
                   if (lenis) {
                     lenis.scrollTo(previousScroll.current, {
@@ -160,7 +192,7 @@ export const useTransitionAnimation = ({ lenis, onTransitionComplete }: UseTrans
         });
       },
     });
-  }, [lenis, onTransitionComplete]);
+  }, [lenis, onTransitionComplete, currentSection]);
 
   // 컴포넌트 언마운트시 스크롤 상태 복구
   useEffect(() => {
