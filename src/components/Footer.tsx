@@ -43,7 +43,7 @@ const Footer = () => {
             </Link>
           </li>
           <li className='sns_blog'>
-            <Link href='https://github.com/zio-s' target='_blank'>
+            <Link href='https://semin-develop.tistory.com/' target='_blank'>
               <i className='lab la-blogger-b' style={{ fontSize: '32px', color: textColor }}></i>
             </Link>
           </li>
