@@ -579,6 +579,7 @@ export const useProjectAnimation = ({ projects, setActiveProject }: UseProjectAn
   }, [initializeAnimation, projects]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     if (isInitializedRef.current) return;
     isInitializedRef.current = true;
 
