@@ -26,11 +26,9 @@ export const MainLayout = memo(({ children }: MainLayoutProps) => {
     <div className={`main-wrapper min-h-screen ${isLoading ? 'state-loading' : ''}`}>
       {isLoading && (
         <div id='splash' className='words_holder fonty'>
-          {/* 로딩 화면 내용 */}
+          {/* 로딩 화면 추가 예정 */}
         </div>
       )}
-      {/* 커스텀 커서 효과 비활성화, 나중에 다시 구현 예정 */}
-      {/* <CustomCursor /> */}
 
       <Header />
 
