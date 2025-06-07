@@ -1,36 +1,174 @@
 'use client';
-
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Noto_Sans_KR } from 'next/font/google';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { projectsData } from '@/data/projects';
 import Link from 'next/link';
-import { Project } from '@/types/project';
+import Image from 'next/image';
+import { ExternalLink, Github } from 'lucide-react';
 
-type WorksPageProps = {
-  projectsData: Project[];
-};
+const notoSans = Noto_Sans_KR({
+  weight: ['400', '700'],
+  variable: '--font-sans',
+});
 
-export const WorksPage = ({ projectsData }: WorksPageProps) => {
+interface WorksPageProps {
+  isActive: boolean;
+  closeOverlay: () => void;
+}
+
+const WorksPage: React.FC<WorksPageProps> = ({ isActive }) => {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [expandedStacks, setExpandedStacks] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    gsap.registerPlugin(ScrollTrigger);
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+  }, []);
+
+  useEffect(() => {
+    if (!isActive || !contentRef.current) return;
+
+    const items = contentRef.current.querySelectorAll('.work-item');
+    const heading = contentRef.current.querySelector('h1');
+    const sub = contentRef.current.querySelector('.subheading');
+    const back = contentRef.current.querySelector('.back-button');
+
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.7 } });
+
+    tl.fromTo(heading, { y: 50, opacity: 0 }, { y: 0, opacity: 1 })
+      .fromTo(sub, { y: 30, opacity: 0 }, { y: 0, opacity: 1 }, '-=0.5')
+      .fromTo(back, { y: 20, opacity: 0 }, { y: 0, opacity: 1 }, '-=0.4')
+      .fromTo(
+        items,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.15,
+          onComplete: () => {
+            items.forEach((item) => {
+              ScrollTrigger.create({
+                trigger: item,
+                start: 'top 80%',
+                onEnter: () => gsap.to(item, { scale: 1, opacity: 1, duration: 0.4, ease: 'power1.out' }),
+                once: true,
+              });
+            });
+          },
+        }
+      );
+
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, [isActive]);
+
+  const toggleStack = (id: string) => setExpandedStacks((prev) => ({ ...prev, [id]: true }));
+
+  const sortedProjects = [...projectsData].sort((a, b) => +b.year - +a.year);
+
   return (
-    <div className='px-6 py-20 min-h-screen bg-[#fdf0d5] text-[#1a2b3c] font-sans'>
-      <h1 className='text-5xl font-bold my-16 text-center'>A selection of projects</h1>
-
-      <div className='space-y-8 cursor-pointer'>
-        {projectsData.map((work) => (
-          <div key={work.id} className='group flex items-center justify-between border-b border-[#1a2b3c] pb-4'>
-            <h2 className='text-4xl font-bold group-hover:ml-16 transition-all'>{work.title}</h2>
-
-            <div className='flex items-center gap-6'>
-              <span className='text-lg'>{work.year}</span>
-              {work.links?.live && (
-                <Link href={work.links.live} target='_blank'>
-                  <button className='relative overflow-hidden px-5 py-2 rounded-full border-2 border-[#1a2b3c] text-[#1a2b3c] transition group-hover:text-white'>
-                    <span className='relative z-10'>More +</span>
-                    <span className='absolute inset-0 bg-[#1a2b3c] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out'></span>
-                  </button>
-                </Link>
-              )}
-            </div>
+    <div
+      className={`${notoSans.className} overlay fixed inset-0 w-full h-full bg-[#fff0db] text-[#263c4f] ${
+        isActive ? 'visible' : 'invisible'
+      }`}
+      style={{ willChange: 'transform, opacity' }}
+      data-active={isActive}
+      data-lenis-prevent-wheel={!isActive}
+    >
+      <div
+        className='works-content h-full overflow-y-auto'
+        style={{ WebkitOverflowScrolling: 'touch' }}
+        ref={contentRef}
+      >
+        <div className='py-32 px-4 md:px-8 max-w-6xl mx-auto'>
+          <div className='flex flex-col  md:justify-between md:items-center mb-16'>
+            <h1 className='text-5xl md:text-6xl font-bold mb-8 font-editorial text-center md:text-left'>
+              Projects Collection
+            </h1>
+            <p className='subheading text-xl mb-12 text-center md:text-left'>
+              프론트엔드 개발자로서의 여정을 담은 프로젝트 모음입니다. 다양한 기술 스택과 도전 과제를 통해 성장한 경험을
+              공유합니다.
+            </p>
           </div>
-        ))}
+
+          <div className='works-grid space-y-12'>
+            {sortedProjects.map((work) => {
+              const expanded = expandedStacks[work.id];
+              const list = work.techStack || [];
+              const visible = expanded ? list : list.slice(0, 5);
+              const more = list.length - 5;
+
+              return (
+                <div
+                  key={work.id}
+                  className='work-item flex flex-col md:flex-row gap-8 border-b pb-12 border-[#263c4f] border-opacity-20 transform opacity-0 scale-[0.98]'
+                >
+                  <div className='relative w-full md:w-1/3 h-64 md:h-80 rounded-lg overflow-hidden flex-shrink-0'>
+                    <Image
+                      src={work.image[0]}
+                      alt={work.title}
+                      fill
+                      className='object-cover transition-transform duration-500'
+                      sizes='(max-width: 768px) 100vw, 33vw'
+                    />
+                  </div>
+
+                  <div className='flex-1'>
+                    <div className='text-lg text-[#263c4f] opacity-70 mb-1'>{work.year}</div>
+                    <h2 className='text-3xl md:text-4xl font-bold font-editorial'>{work.title}</h2>
+                    <p className='text-xl mt-2 mb-6'>{work.subtitle}</p>
+
+                    <div className='flex flex-wrap gap-3 mb-6'>
+                      {visible.map((tech) => (
+                        <span key={tech} className='px-3 py-1 bg-[#263c4f] bg-opacity-10 rounded-full text-sm'>
+                          {tech}
+                        </span>
+                      ))}
+                      {list.length > 5 && !expanded && (
+                        <span
+                          className='px-3 py-1 bg-[#263c4f] bg-opacity-5 rounded-full text-sm cursor-pointer'
+                          onClick={() => toggleStack(work.id)}
+                        >
+                          +{more} more
+                        </span>
+                      )}
+                    </div>
+
+                    <div className='flex flex-wrap gap-4'>
+                      {work.links.live && (
+                        <Link
+                          href={work.links.live}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='inline-flex items-center gap-2 border-2 border-[#263c4f] text-[#263c4f] px-6 py-2 rounded-full text-lg transition-transform hover:scale-105 duration-300'
+                        >
+                          Live Site
+                          <ExternalLink size={16} />
+                        </Link>
+                      )}
+                      {work.links.github && (
+                        <Link
+                          href={work.links.github}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='inline-flex items-center gap-2 border-2 border-[#263c4f] text-[#263c4f] px-6 py-2 rounded-full text-lg transition-transform hover:scale-105 duration-300'
+                        >
+                          GitHub
+                          <Github size={16} />
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
