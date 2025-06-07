@@ -7,64 +7,80 @@ import { ProjectCard } from './ProjectCard';
 import { ProjectDescription } from './ProjectDescription';
 import { useTransitionAnimation } from '@/hooks/useTransitionAnimation';
 import About from '../layout/about/About';
+import WorksPage from '@/app/works/WorksPage';
 
-export const ProjectsContainer = () => {
+export const ProjectsContainer: React.FC = () => {
+  // showOnMain이 false인 항목만 제외 (기본은 true)
+  const mainProjects = projectsData.filter((p) => p.showOnMain !== false);
   const [activeProject, setActiveProject] = useState<string>('');
 
-  const { cardsRef, closeProjectDetail, openProjectDetail } = useProjectAnimation({
+  // 애니메이션 훅에는 mainProjects 전달
+  const { wrapperRef, cardsRef, closeProjectDetail, openProjectDetail } = useProjectAnimation({
     projects: projectsData,
     setActiveProject,
   });
 
   const { currentSection, isOverlayActive, handleCloseOverlay } = useTransitionAnimation({
     onTransitionComplete: (section) => {
-      if (section === 'home') {
-        setActiveProject('');
-      }
+      if (section === 'home') setActiveProject('');
     },
   });
 
   useEffect(() => {
-    const cardsElement = cardsRef.current;
-    if (!cardsElement) return;
+    const cardsEl = cardsRef.current;
+    if (!cardsEl) return;
 
     const handleClick = (e: MouseEvent) => {
       if (!document.body.classList.contains('details')) return;
-
       const target = e.target as HTMLElement;
-      if (target.closest('button') || target.closest('a') || target.closest('.interactive-element')) {
-        return;
-      }
-
+      if (target.closest('button') || target.closest('a') || target.closest('.interactive-element')) return;
       closeProjectDetail();
     };
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && document.body.classList.contains('details')) closeProjectDetail();
+    };
 
-    cardsElement.addEventListener('click', handleClick);
+    cardsEl.addEventListener('click', handleClick);
+    window.addEventListener('keydown', handleKey);
     return () => {
-      cardsElement.removeEventListener('click', handleClick);
+      cardsEl.removeEventListener('click', handleClick);
+      window.removeEventListener('keydown', handleKey);
     };
   }, [cardsRef, closeProjectDetail]);
 
   useEffect(() => {
-    if (isOverlayActive) {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-    };
+    document.body.style.overflow = isOverlayActive ? '' : '';
   }, [isOverlayActive]);
+
+  // URL 해시로 디테일 열기
+  useEffect(() => {
+    const onHash = () => {
+      const hash = window.location.hash.slice(1);
+      if (!hash || ['about', 'works', 'home'].includes(hash)) return;
+      const project = mainProjects.find((p) => p.id === hash);
+      if (project) {
+        setActiveProject(hash);
+        if (!document.body.classList.contains('details')) {
+          const el = document.querySelector(`.card-holder[data-id="${hash}"]`);
+          if (el instanceof HTMLElement) setTimeout(() => openProjectDetail(el), 100);
+        }
+      }
+    };
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, [mainProjects, openProjectDetail]);
 
   return (
     <>
       <div
+        ref={wrapperRef}
         className={`relative w-full h-full transition-opacity duration-500 ${
           isOverlayActive ? 'opacity-0 pointer-events-none' : 'opacity-100'
         }`}
       >
-        <div className='projects-stage min-h-screen h-auto overflow-visible relative'>
+        <div className='projects-stage min-h-screen overflow-visible relative'>
           <div id='titles'>
-            {projectsData.map((project) => (
+            {mainProjects.map((project) => (
               <ProjectTitle
                 key={project.id}
                 project={project}
@@ -80,14 +96,14 @@ export const ProjectsContainer = () => {
               id='cards_in'
               className='fixed z-20 w-screen left-1/2 top-[var(--card-height)] -translate-x-1/2 transform-origin-top'
             >
-              {projectsData.map((project, index) => (
+              {mainProjects.map((project, index) => (
                 <ProjectCard key={project.id} project={project} index={index} isActive={activeProject === project.id} />
               ))}
             </div>
           </div>
 
           <div id='descriptions'>
-            {projectsData.map((project) => (
+            {mainProjects.map((project) => (
               <ProjectDescription
                 key={project.id}
                 project={project}
@@ -97,7 +113,7 @@ export const ProjectsContainer = () => {
             ))}
           </div>
 
-          {projectsData.map((project, index) => (
+          {mainProjects.map((project, index) => (
             <div
               key={`faux-${project.id}`}
               id={project.id}
@@ -109,7 +125,6 @@ export const ProjectsContainer = () => {
         </div>
       </div>
 
-      {/* Overlay sections */}
       <div
         className='absolute inset-0 w-full h-full'
         style={{
@@ -118,8 +133,7 @@ export const ProjectsContainer = () => {
         }}
       >
         {currentSection === 'about' && <About isActive={isOverlayActive} closeOverlay={handleCloseOverlay} />}
-        {/* 다른 컴포넌트 오버레이 */}
-        {/* {currentSection === 'contact' && <Contact isActive={isOverlayActive} closeOverlay={handleCloseOverlay} />} */}
+        {currentSection === 'works' && <WorksPage isActive={isOverlayActive} closeOverlay={handleCloseOverlay} />}
       </div>
     </>
   );
