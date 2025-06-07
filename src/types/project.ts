@@ -1,14 +1,15 @@
 export interface Project {
   id: string;
+  showOnMain?: boolean;
   title: string;
   subtitle: string;
-  description: string;
+  description?: string;
   year: string;
   client: string;
   desc?: string;
   image: string[];
 
-  colors: ProjectColors;
+  colors?: ProjectColors;
 
   // 프로젝트 링크 정보
   links: ProjectLinks;

@@ -3,11 +3,12 @@ import { Project } from '@/types/project';
 export const projectsData: Project[] = [
   {
     id: 'OHESHIO',
+    showOnMain: true,
     title: 'OHESHIO Renewal',
     subtitle: 'E-commerce Platform',
     description:
       'OHESHIO 브랜드의 리뉴얼 홈페이지로, 해외 감성을 담아 새롭게 제작되었습니다. 고급스럽고 세련된 디자인을 위해 벤치마킹을 활용했으며, 모델 컷을 중심으로 브랜드의 아이덴티티를 강조했습니다. 깔끔하면서도 직관적인 레이아웃이 특징입니다.',
-    year: '2025',
+    year: '2025.03',
     client: 'Team Project (5인)',
     image: ['/images/pattern/oheshio-2.png', '/images/pattern/oheshio-1.png'],
     period: '2025.02.26 - 2024.3.12',
@@ -111,7 +112,7 @@ export const projectsData: Project[] = [
     subtitle: 'Music Streaming Platform Redesign',
     description:
       '이 프로젝트는 기존 지니뮤직의 웹 서비스를 현대적인 디자인과 향상된 사용자 경험으로 재해석한 작업입니다.\n\nHTML, CSS, JavaScript를 활용하여 개발되었으며, 실시간 음원 차트와 아티스트 상세 정보 등 핵심 기능들을 새롭게 구현했습니다.\n\n특히 사용자 인터페이스 디자인에 중점을 두어 직관적인 네비게이션과 깔끔한 레이아웃으로 시각적 만족도를 높였습니다. GSAP 라이브러리를 활용하여 부드러운 페이지 전환과 요소 애니메이션을 구현함으로써 역동적이고 모던한 사용자 경험을 제공했습니다.\n\n또한, 반응형 웹 디자인을 적용하여 다양한 디바이스에서도 일관된 서비스 경험을 제공할 수 있도록 하였습니다. 웹 표준과 웹 접근성 지침을 준수하여 개발되었으며, 크로스 브라우징 호환성을 고려한 코드 작성으로 안정적인 서비스 구현에 주력하였습니다.',
-    year: '2024',
+    year: '2024.12',
     client: 'Personal Project',
     image: ['/images/pattern/genie-intro.png', '/images/pattern/genie-2.gif'],
     period: '2024.09.10 - 2024.09.21',
@@ -176,7 +177,7 @@ export const projectsData: Project[] = [
     subtitle: 'Gaming Community Platform',
     description:
       'Gamers-Nest는 게이머들이 모여 커뮤니티를 형성하고 다양한 정보를 교류할 수 있는 플랫폼입니다. 플레이어는 팀 구성, 게임 리뷰, 멋진 게임 장면을 공유하며 활발히 소통할 수 있습니다.\n\nNext.js와 Tailwind CSS, Chakra-UI를 활용하여 개발되었으며, 팀원 모집 게시판, 게임 스크린샷 갤러리, 게임 리뷰 섹션 등 다양한 커뮤니티 기능을 구현했습니다. RAWG API를 활용하여 풍부한 게임 데이터베이스를 구축하고 상세한 게임 정보 페이지를 제공합니다.\n\n특히 사용자 경험을 고려한 세련된 페이지네이션 시스템을 구축하였고, Swiper.js를 활용하여 직관적인 이미지 슬라이더를 구현했습니다. 다크모드를 지원하여 사용자의 선호도에 맞는 인터페이스를 제공하며, 반응형 디자인을 적용하여 데스크톱과 모바일 환경에서 모두 최적화된 서비스를 제공합니다.\n\nVercel을 통해 배포되어 안정적인 서비스를 제공하고 있으며, 지속적인 업데이트를 통해 사용자들의 피드백을 반영하고 있습니다.',
-    year: '2024',
+    year: '2024.09',
     client: 'Personal Project',
     image: ['/images/pattern/gamer-next.png', '/images/pattern/gamer-next-2.png'],
     period: '2024.11.27 - 2024.12.12',
@@ -252,7 +253,7 @@ export const projectsData: Project[] = [
     subtitle: '사용자 중심의 직관적 인터페이스로 재탄생한 OTT 플랫폼',
     description:
       '사용자 취향 분석 알고리즘과 소셜 기능이 결합된 새로운 OTT 경험을 제공합니다. 콘텐츠 추천부터 시청 커뮤니티까지, 단순한 영상 시청을 넘어 콘텐츠와 소통하는 플랫폼입니다.',
-    year: '2025',
+    year: '2025.01',
     client: 'Team Project (4인)',
     desc: 'Viewee는 React-Vite 기반으로 개발된 OTT 플랫폼으로, 프로젝트 팀장으로서 전체 개발 과정을 주도했습니다. TMDB API 설계 및 사용자 데이터 연동을 담당하여 개인화된 콘텐츠 추천 시스템을 구현했습니다. 또한 실시간 알림 기능을 개발하여 사용자 경험을 향상시키고, Redux를 활용한 상태 관리와 반응형 디자인 적용으로 다양한 디바이스에서의 접근성을 확보했습니다.',
     image: ['/images/pattern/viewee.jpg', '/images/pattern/viewee.jpg'],
@@ -330,11 +331,27 @@ export const projectsData: Project[] = [
     ],
   },
   {
+    id: 'ReactvsNext',
+    title: 'React.js vs Next.js',
+    subtitle: 'React.js와 Next.js의 차이점과 장단점 비교 및 학습 퀴즈',
+    description: '프레임워크의 차이점을 이해하고, 장단점을 비교하는 데 중점을 둔 학습용 웹 애플리케이션입니다.',
+    year: '2025.05',
+    client: 'Personal Project',
+    desc: ' React.js와 Next.js의 차이점을 이해하고, 두 프레임크의 장단점을 비교하는 데 중점을 둔 학습용 웹 애플리케이션입니다. 사용자는 React.js와 Next.js의 기본 개념과 특징을 학습하고, 퀴즈를 통해 자신의 이해도를 확인할 수 있습니다. 또한, 각 프레임워크의 주요 기능과 사용 사례를 비교하여 개발에 적합한 선택을 할 수 있도록 돕습니다.',
+    image: ['/images/pattern/RN.png'],
+    period: '2025.03 - 2025.06 ~',
+    links: {
+      live: 'https://reactvsnext.vercel.app/',
+      github: 'https://github.com/zio-s/reactvsnext',
+    },
+    techStack: ['Next.js', 'Tailwind CSS', 'JavaScript', 'Vercel'],
+  },
+  {
     id: 'portfolio-2024',
     title: 'Portfolio 2024',
     subtitle: 'Creative Developer Portfolio',
     description: '인터랙티브한 애니메이션과 세련된 디자인이 특징인 개발자 포트폴리오 웹사이트',
-    year: '2024',
+    year: '2024.12',
     client: 'Personal Project',
     desc: '이 포트폴리오는 GSAP와 Lines 활용하여 부드러운 페이지 전환과 스크롤 기반 애니메이션을 구현했습니다. Next.js 13의 App Router를 도입하여 라우팅과 페이지 전환을 최적화했으며, Tailwind CSS를 사용하여 반응형 디자인을 구현했습니다.\n\n특히 WebGL을 활용한 3D 요소와 커스텀 셰이더로 독특한 시각적 효과를 만들어냈으며, 성능 최적화를 통해 모바일 환경에서도 60fps의 부드러운 애니메이션을 구현했습니다.',
     image: ['/images/pattern/2024-1.png', '/images/pattern/2024-2.png'],
