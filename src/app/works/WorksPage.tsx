@@ -10,6 +10,8 @@ import { ExternalLink, Github } from 'lucide-react';
 
 const notoSans = Noto_Sans_KR({
   weight: ['400', '700'],
+  subsets: ['latin', 'latin-ext'],
+  preload: false,
   variable: '--font-sans',
 });
 
