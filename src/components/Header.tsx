@@ -7,6 +7,8 @@ import { MoveLeft } from 'lucide-react';
 const Header = () => {
   const [textColor, setTextColor] = useState('var(--color3)');
   const [isAboutActive, setIsAboutActive] = useState(false);
+  const [isWorksActive, setIsWorksActive] = useState(false);
+
   const updateTextColor = (hash: string) => {
     setTextColor(hash !== '' ? '#263c4f' : 'var(--color3)');
   };
@@ -15,6 +17,7 @@ const Header = () => {
     const updateState = () => {
       updateTextColor(window.location.hash);
       setIsAboutActive(window.location.pathname.includes('/about') || window.location.hash.includes('about'));
+      setIsWorksActive(window.location.pathname.includes('/works') || window.location.hash.includes('works'));
     };
 
     updateState();
@@ -42,7 +45,8 @@ const Header = () => {
           <NavLink href='/'>Byunfolio</NavLink>
         </div>
         <nav className='flex gap-8'>
-          {isAboutActive ? (
+          {/* 현재 활성화된 상태에 따라 다른 링크 표시 */}
+          {isAboutActive || isWorksActive ? (
             <NavLink
               href='/'
               className={`relative text-lg font-semibold hover:-translate-y-0.5 transition-all duration-300 group flex items-center ${
@@ -55,16 +59,29 @@ const Header = () => {
               <span className='absolute top-1/2 left-1/2 w-[120%] h-[120%] -translate-x-1/2 -translate-y-1/2 bg-current opacity-0 rounded-full -z-10 scale-0 group-hover:scale-100 group-hover:opacity-10 transition-all duration-400 ease-in-out' />
             </NavLink>
           ) : (
-            <NavLink
-              href='/about'
-              className={`relative text-lg font-semibold hover:-translate-y-0.5 transition-all duration-300 group ${
-                textColor === '#263c4f' ? 'text-[#263c4f]' : 'text-[var(--color3)]'
-              }`}
-            >
-              About
-              <span className='absolute bottom-[-4px] left-1/2 w-0 h-0.5 bg-current transform -translate-x-1/2 group-hover:w-full transition-all duration-300 ease-in-out' />
-              <span className='absolute top-1/2 left-1/2 w-[120%] h-[120%] -translate-x-1/2 -translate-y-1/2 bg-current opacity-0 rounded-full -z-10 scale-0 group-hover:scale-100 group-hover:opacity-10 transition-all duration-400 ease-in-out' />
-            </NavLink>
+            <>
+              <NavLink
+                href='/#about'
+                className={`relative text-lg font-semibold hover:-translate-y-0.5 transition-all duration-300 group ${
+                  textColor === '#263c4f' ? 'text-[#263c4f]' : 'text-[var(--color3)]'
+                }`}
+              >
+                About
+                <span className='absolute bottom-[-4px] left-1/2 w-0 h-0.5 bg-current transform -translate-x-1/2 group-hover:w-full transition-all duration-300 ease-in-out' />
+                <span className='absolute top-1/2 left-1/2 w-[120%] h-[120%] -translate-x-1/2 -translate-y-1/2 bg-current opacity-0 rounded-full -z-10 scale-0 group-hover:scale-100 group-hover:opacity-10 transition-all duration-400 ease-in-out' />
+              </NavLink>
+
+              <NavLink
+                href='/#works'
+                className={`relative text-lg font-semibold hover:-translate-y-0.5 transition-all duration-300 group ${
+                  textColor === '#263c4f' ? 'text-[#263c4f]' : 'text-[var(--color3)]'
+                }`}
+              >
+                Works
+                <span className='absolute bottom-[-4px] left-1/2 w-0 h-0.5 bg-current transform -translate-x-1/2 group-hover:w-full transition-all duration-300 ease-in-out' />
+                <span className='absolute top-1/2 left-1/2 w-[120%] h-[120%] -translate-x-1/2 -translate-y-1/2 bg-current opacity-0 rounded-full -z-10 scale-0 group-hover:scale-100 group-hover:opacity-10 transition-all duration-400 ease-in-out' />
+              </NavLink>
+            </>
           )}
         </nav>
       </div>
