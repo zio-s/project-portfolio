@@ -296,7 +296,8 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
           <section className='project-'>
             <div className='project-description'>
               <div className='key-features'>
-                <h3>Key Features</h3>
+                {project.keyFeatures && project.keyFeatures.length > 0 && <h3>Key Features</h3>}
+
                 {project.keyFeatures?.map((feature) => (
                   <div key={feature.title} className='feature-card'>
                     {feature.image && (
@@ -325,7 +326,7 @@ export const ProjectDescription = memo(({ project, isActive, closeProjectDetail 
               </div>
 
               <div className='challenges'>
-                <h3>Technical Challenges</h3>
+                {project.challenges && project.challenges.length > 0 && <h3>Technical Challenges</h3>}
                 {project.challenges?.map((challenge) => (
                   <div key={challenge.title} className='challenge-card'>
                     <h4>{challenge.title}</h4>

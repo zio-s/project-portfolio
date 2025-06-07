@@ -340,10 +340,27 @@ export const projectsData: Project[] = [
     desc: ' React.js와 Next.js의 차이점을 이해하고, 두 프레임크의 장단점을 비교하는 데 중점을 둔 학습용 웹 애플리케이션입니다. 사용자는 React.js와 Next.js의 기본 개념과 특징을 학습하고, 퀴즈를 통해 자신의 이해도를 확인할 수 있습니다. 또한, 각 프레임워크의 주요 기능과 사용 사례를 비교하여 개발에 적합한 선택을 할 수 있도록 돕습니다.',
     image: ['/images/pattern/RN.png'],
     period: '2025.03 - 2025.06 ~',
+    colors: {
+      color1: '#0D3B66',
+      color2: '#000',
+      color3: '#F4D10E',
+      color4: '#fff',
+      color5: '#F95738',
+      color6: '#2E1F27',
+      color7: '#7FBCD2',
+      color8: '#BFD7EA',
+      color9: '#FFFFFF',
+    },
     links: {
       live: 'https://reactvsnext.vercel.app/',
       github: 'https://github.com/zio-s/reactvsnext',
     },
+    responsibilities: [
+      'React와 Next.js의 차이점을 명확히 이해하고, 각 프레임워크의 장단점을 비교하는 콘텐츠 개발',
+      '사용자 친화적인 인터페이스 설계 및 반응형 디자인 구현',
+      '퀴즈 기능을 통해 사용자가 학습 내용을 테스트하고 복습할 수 있는 시스템 구축',
+      '학습진도 상태를 로컬 스토리지에 저장하여 사용자가 언제든지 이어서 학습할 수 있도록 구현',
+    ],
     techStack: ['Next.js', 'Tailwind CSS', 'JavaScript', 'Vercel'],
   },
   {
