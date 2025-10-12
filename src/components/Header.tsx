@@ -39,7 +39,7 @@ const Header = () => {
     };
   }, []);
   return (
-    <header id='header' className='fixed top-0 left-0 w-screen p-8'>
+    <header id='header' className='fixed top-0 left-0 w-screen p-8 z-[100]'>
       <div className='flex justify-between items-center'>
         <div className='text-2xl font-bold transition-colors duration-300' style={{ color: textColor }}>
           <NavLink href='/'>Byunfolio</NavLink>

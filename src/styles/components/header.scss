@@ -1,4 +1,9 @@
 #header {
-  z-index: 25;
+  position: fixed; // 항상 화면에 고정
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100; // 카드(z-index: 22)보다 높게 설정하여 항상 위에 표시
   transition: background-color 0.6s ease-out, color 0.6s ease-out;
+  pointer-events: auto; // 클릭 가능하도록
 }

@@ -2,7 +2,7 @@
   min-height: 100vh;
   width: 100%;
   position: relative;
-  overflow: hidden;
+  // overflow: hidden; // REMOVED: 레퍼런스 사이트는 overflow: visible 사용, Lenis 스크롤을 위해 제거
 
   &.state-loading {
     #stage {

@@ -1,7 +1,7 @@
 'use client';
 import { projectsData } from '@/data/projects';
-import { useProjectAnimation } from '@/hooks/useProjectAnimation';
-import { useEffect, useState } from 'react';
+import { useProjectAnimation } from '@/hooks/animation';
+import { useEffect, useState, useMemo } from 'react';
 import { ProjectTitle } from './ProjectTitle';
 import { ProjectCard } from './ProjectCard';
 import { ProjectDescription } from './ProjectDescription';
@@ -11,12 +11,13 @@ import WorksPage from '@/app/works/WorksPage';
 
 export const ProjectsContainer: React.FC = () => {
   // showOnMain이 false인 항목만 제외 (기본은 true)
-  const mainProjects = projectsData.filter((p) => p.showOnMain !== false);
+  // useMemo로 메모이제이션하여 불필요한 재계산 방지
+  const mainProjects = useMemo(() => projectsData.filter((p) => p.showOnMain !== false), []);
   const [activeProject, setActiveProject] = useState<string>('');
 
-  // 애니메이션 훅에는 mainProjects 전달
+  // 리팩토링된 애니메이션 훅 사용
   const { wrapperRef, cardsRef, closeProjectDetail, openProjectDetail } = useProjectAnimation({
-    projects: projectsData,
+    projects: mainProjects, // FIXED: mainProjects로 변경 (렌더링되는 카드와 일치)
     setActiveProject,
   });
 
@@ -91,11 +92,7 @@ export const ProjectsContainer: React.FC = () => {
           </div>
 
           <div id='cards' className='cards-container'>
-            <div
-              ref={cardsRef}
-              id='cards_in'
-              className='fixed z-20 w-screen left-1/2 top-[var(--card-height)] -translate-x-1/2 transform-origin-top'
-            >
+            <div ref={cardsRef} id='cards_in'>
               {mainProjects.map((project, index) => (
                 <ProjectCard key={project.id} project={project} index={index} isActive={activeProject === project.id} />
               ))}
