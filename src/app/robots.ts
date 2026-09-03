@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://project-portfolio-gules.vercel.app/sitemap.xml',
+    sitemap: 'https://semincode.com/sitemap.xml',
   };
 }
